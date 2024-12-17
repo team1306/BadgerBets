@@ -1,2 +1,0 @@
-# BadgerBets
-gambling for kids
