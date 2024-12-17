@@ -1,3 +1,42 @@
+// Initialize the Appwrite SDK
+const sdk = new Appwrite();
+const client = new sdk.Client();
+
+// Set the Appwrite project endpoint and project ID (Replace these with your actual Appwrite details)
+client
+  .setEndpoint('https://cloud.appwrite.io/v1')  // Replace with your Appwrite endpoint
+  .setProject('67609b010021900fc6e6');                    // Replace with your Appwrite Project ID
+
+// Create an instance of the Account service
+const account = new sdk.Account(client);
+
+// Add an event listener for the login form submission
+document.getElementById('login-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  // Get the values from the input fields (email and password)
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+
+  try {
+    // Try to create a session with the provided email and password
+    const session = await account.createEmailSession(email, password);
+
+    // If the login is successful, log the session and redirect to a protected page (dashboard or home page)
+    console.log('Login successful:', session);
+    alert('Login successful!');
+    window.location.href = 'dashboard.html'; // Redirect to dashboard or another page
+  } catch (error) {
+    // If there was an error (invalid credentials, no user found, etc.), display an error message
+    console.error('Login failed:', error);
+    alert('Invalid credentials. Please check your email and password or sign up for a new account.');
+  }
+});
+
+
+
+
+/*
 // Initialize Appwrite SDK
 const sdk = new Appwrite();
 const client = new sdk.Client();
@@ -44,3 +83,4 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
         alert('Failed to log in.');
     }
 });
+*/
