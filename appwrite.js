@@ -1,6 +1,7 @@
 // Initialize Appwrite SDK
 const sdk = new Appwrite();
 const client = new sdk.Client();
+const database = new sdk.Databases();
 
 client
     .setEndpoint('https://cloud.appwrite.io/v1')  // Replace with your Appwrite endpoint
