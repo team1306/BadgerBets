@@ -21,7 +21,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
   try {
     // Try to create a session with the provided email and password
     const session = await account.createEmailSession(email, password);
-
+    prompt("Success!")
     // If the login is successful, log the session and redirect to a protected page (dashboard or home page)
     console.log('Login successful:', session);
     alert('Login successful!');
