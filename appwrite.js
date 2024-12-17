@@ -29,6 +29,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
   } catch (error) {
     // If there was an error (invalid credentials, no user found, etc.), display an error message
     console.error('Login failed:', error);
+    prompt("There was an issue, please try again")
     alert('Invalid credentials. Please check your email and password or sign up for a new account.');
   }
 });
