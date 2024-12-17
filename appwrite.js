@@ -25,6 +25,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     // If the login is successful, log the session and redirect to a protected page (dashboard or home page)
     console.log('Login successful:', session);
     alert('Login successful!');
+    prompt("Login sucess!")
     window.location.href = 'dashboard.html'; // Redirect to dashboard or another page
   } catch (error) {
     // If there was an error (invalid credentials, no user found, etc.), display an error message
