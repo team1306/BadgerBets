@@ -8,7 +8,7 @@
 /* Body and Global Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: white;
+    background-color: #333;
     color: #333;
     line-height: 1.6;
 }
@@ -165,8 +165,10 @@ footer p {
     }
 }
 input {
-    padding: 10px;
+
+    padding: 50px;
     width: 100%;
     margin-bottom: 15px;
+    margin-top:15px;
     border: 1px solid #ccc;
 }
