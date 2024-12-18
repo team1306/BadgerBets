@@ -1,5 +1,5 @@
 // Initialize the Appwrite SDK
-const sdk = new Appwrite();
+const sdk = new appwrite();
 const client = new sdk.Client();
 
 // Set the Appwrite project endpoint and project ID (Replace these with your actual Appwrite details)
