@@ -1,3 +1,4 @@
+
 // Initialize the Appwrite SDK
 const sdk = new Appwrite(); // Correct initialization
 
@@ -28,7 +29,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     const session = await account.createEmailSession(email, password);
     alert("Login successful!");
     console.log('Login successful:', session);
-    prompt("Success! Login Complete! ")
+   
     // Redirect to dashboard or another page
     window.location.href = 'dashboard.html';
   } catch (error) {
