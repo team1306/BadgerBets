@@ -1,11 +1,10 @@
 // Initialize the Appwrite SDK
 const sdk = new Appwrite(); // Correct initialization
-const client = new sdk.Client();
+
 
 // Set the Appwrite project endpoint and project ID (Replace these with your actual Appwrite details)
-client
-  .setEndpoint('https://cloud.appwrite.io/v1')  // Replace with your Appwrite endpoint
-  .setProject('67609b010021900fc6e6');          // Replace with your Appwrite Project ID
+const client = new Client();
+client.setProject('badgerbets2');      // Replace with your Appwrite Project ID
 
 // Create an instance of the Account service
 const account = new sdk.Account(client);
@@ -29,11 +28,12 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     const session = await account.createEmailSession(email, password);
     alert("Login successful!");
     console.log('Login successful:', session);
-    
+    prompt("Success! Login Complete! ")
     // Redirect to dashboard or another page
     window.location.href = 'dashboard.html';
   } catch (error) {
     // If there was an error (invalid credentials, no user found, etc.), display an error message
+    
     console.error('Login failed:', error);
     alert(`Login failed: ${error.message || 'Unknown error'}`);
   }
