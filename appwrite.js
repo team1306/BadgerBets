@@ -39,7 +39,7 @@ script.onload=()=>{
       console.log('Login successful:', session);
       
       // Redirect to dashboard or another page
-      window.location.href = '/dashboard/';
+      window.location.href = '/BadgerBets/dashboard/';
     } catch (error) {
       // If there was an error (invalid credentials, no user found, etc.), display an error message
       console.log('Login failed:', error);
