@@ -16,7 +16,7 @@ script.onload = () => {
     event.preventDefault();
 
     // Get the values from the input fields (email and password)
-    const email = document.getElementById('login-email').value;
+    let email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
     // Basic validation for non-empty fields
@@ -25,9 +25,19 @@ script.onload = () => {
       return;
     }
 
+    // Trim any leading/trailing whitespace from the email and password
+    email = email.trim();
+
     // Log the email and password to debug
     console.log('Email:', email);
     console.log('Password:', password);
+
+    // Validate the email format (simple regex check for valid email format)
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(email)) {
+      alert('Invalid email format.');
+      return;
+    }
 
     try {
       // Try to create a session with the provided email and password
