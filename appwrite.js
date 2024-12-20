@@ -5,7 +5,7 @@ const sdk = new Appwrite(); // Correct initialization
 
 // Set the Appwrite project endpoint and project ID (Replace these with your actual Appwrite details)
 const client = new Client();
-client.setProject('badgerbets2');      // Replace with your Appwrite Project ID
+client.setProject('bbets');      // Replace with your Appwrite Project ID
 
 // Create an instance of the Account service
 const account = new sdk.Account(client);
