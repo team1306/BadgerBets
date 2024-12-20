@@ -1,11 +1,11 @@
-import {Client, Account} from "appwrite";
-
-const client = new Client()
-    .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL
-    .setProject('67609b010021900fc6e6'); 
-
-const account = new Account(client);
-document.getElementById('login-form').addEventListener('submit', async (event) => {
+const script = document.createElement('script');
+script.src = 'https://cdn.jsdelivr.net/npm/appwrite@16.0.2';
+script.onload=()=>{
+  const client = new Client()
+  .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL
+  .setProject('67609b010021900fc6e6'); 
+  const account = new Account(client);
+  document.getElementById('login-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     // Get the values from the input fields (email and password)
@@ -46,3 +46,10 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
       alert(`Login failed: ${error.message || 'Unknown error'}`);
     }
   });
+};
+
+
+
+document.head.appendChild(script);
+
+
