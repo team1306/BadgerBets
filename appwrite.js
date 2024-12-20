@@ -4,7 +4,7 @@ script.onload=()=>{
   const client = new script.Client()
   .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL
   .setProject('67609b010021900fc6e6'); 
-  const account = new Account(client);
+  const account = new script.Account(client);
   document.getElementById('login-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
