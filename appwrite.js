@@ -1,10 +1,10 @@
 const script = document.createElement('script');
 script.src = 'https://cdn.jsdelivr.net/npm/appwrite@16.0.2';
 script.onload=()=>{
-  const client = new script.Client()
+  const client = new Appwrite.Client()
   .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL
   .setProject('67609b010021900fc6e6'); 
-  const account = new script.Account(client);
+  const account = new Appwrite.Account(client);
   document.getElementById('login-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
