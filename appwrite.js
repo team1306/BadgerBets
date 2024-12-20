@@ -25,6 +25,10 @@ script.onload = () => {
       return;
     }
 
+    // Log the email and password to debug
+    console.log('Email:', email);
+    console.log('Password:', password);
+
     try {
       // Try to create a session with the provided email and password
       const session = await account.createSession(email, password); // Correct method for creating session
