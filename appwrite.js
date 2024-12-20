@@ -1,7 +1,7 @@
 const script = document.createElement('script');
 script.src = 'https://cdn.jsdelivr.net/npm/appwrite@16.0.2';
 script.onload=()=>{
-  const client = new Client()
+  const client = new script.Client()
   .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL
   .setProject('67609b010021900fc6e6'); 
   const account = new Account(client);
