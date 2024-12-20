@@ -9,7 +9,7 @@ script.onload=()=>{
     event.preventDefault();
 
     // Get the values from the input fields (email and password)
-    const email = document.getElementById('login-email').value;
+    let email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
     // Basic validation for non-empty fields
