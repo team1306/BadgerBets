@@ -34,7 +34,7 @@ script.onload=()=>{
 
     try {
       // Try to create a session with the provided email and password
-      const session = await account.createSession(email, password); // Correct method for creating session
+      const session = await account.createEmailPasswordSession(email, password); // Correct method for creating session
       alert("Login successful!");
       console.log('Login successful:', session);
       
