@@ -22,8 +22,6 @@ script.onload=()=>{
     email = email.trim();
 
     // Log the email and password to debug
-    console.log('Email:', email);
-    console.log('Password:', password);
 
     // Validate the email format (simple regex check for valid email format)
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -46,6 +44,7 @@ script.onload=()=>{
       alert(`Login failed: ${error.message || 'Unknown error'}`);
     }
   });
+  //code for sign up page
 };
 
 
