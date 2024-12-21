@@ -1,5 +1,5 @@
 const script = document.createElement('script');
-var fs =require(FileSystem)
+var fs =require('fs')
 script.src = 'https://cdn.jsdelivr.net/npm/appwrite@16.0.2';
 script.onload=()=>{
   const client = new Appwrite.Client()
