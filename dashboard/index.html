@@ -1,4 +1,102 @@
 <script>
 
+
     window.location.replace("https://sharmnten.github.io/BadgerBets/login")
 </script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - BadgerBets</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="ico.png" type="image/x-icon"/>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Badger Bets</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#profile">Profile</a></li>
+                    <li><a href="#rewards">Rewards</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container">
+            <h2>Welcome, User!</h2>
+            <p>Here is your personal dashboard where you can manage your information and rewards.</p>
+            
+            <!-- Overview Section -->
+            <div class="dashboard-overview">
+                <h3>Your Overview</h3>
+                <div class="overview-details">
+                    <div class="card">
+                        <h4>Current Balance</h4>
+                        <p>$150.00</p>
+                    </div>
+                    <div class="card">
+                        <h4>Upcoming Rewards</h4>
+                        <p>5 Rewards Pending</p>
+                    </div>
+                    <div class="card">
+                        <h4>Next Event</h4>
+                        <p>FRC Season Kickoff - Jan 10th</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rewards Section -->
+            <div class="rewards-section">
+                <h3>Your Rewards</h3>
+                <p>Below are your pending and completed rewards for the current season.</p>
+                <div class="rewards-list">
+                    <div class="reward-card">
+                        <h4>Reward 1</h4>
+                        <p>Status: Pending</p>
+                        <button class="btn">Claim Reward</button>
+                    </div>
+                    <div class="reward-card">
+                        <h4>Reward 2</h4>
+                        <p>Status: Completed</p>
+                        <button class="btn disabled" disabled>Reward Claimed</button>
+                    </div>
+                    <div class="reward-card">
+                        <h4>Reward 3</h4>
+                        <p>Status: Pending</p>
+                        <button class="btn">Claim Reward</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <h3>Your Profile</h3>
+                <div class="profile-details">
+                    <p><strong>Name:</strong> John Doe</p>
+                    <p><strong>Email:</strong> johndoe@example.com</p>
+                    <p><strong>Team:</strong> Team BadgerBots</p>
+                </div>
+                <a href="/profile" class="btn btn-profile">Edit Profile</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 BadgerBets. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="./dashboard-appwrite.js"></script>
+</body>
+</html>
