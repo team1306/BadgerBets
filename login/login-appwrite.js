@@ -1,5 +1,4 @@
 const script = document.createElement('script');
-var fs =require('fs')
 script.src = 'https://cdn.jsdelivr.net/npm/appwrite@16.0.2';
 script.onload=()=>{
   const client = new Appwrite.Client()
@@ -34,11 +33,8 @@ script.onload=()=>{
     try {
       // Try to create a session with the provided email and password
       const session = await account.createEmailPasswordSession(email, password); // Correct method for creating session
-      const sessionId = await account.getSession('current')
-      fs.readFile("/dashboardTemplate.txt")
-      fs.writeFile("../dashboard/"+sessionId+".html",htmlContent);
       // Redirect to dashboard or another page
-      window.location.href = '/BadgerBets/dashboard/'+sessionId;
+      window.location.href = '/BadgerBets/dashboard/';
     } catch (error) {
       // If there was an error (invalid credentials, no user found, etc.), display an error message
       console.log('Login failed:', error);
