@@ -8,7 +8,7 @@ const client = new Appwrite.Client()
 
 
 const functions = new Appwrite.Functions(client)
-const account = new Appwrite.Acount(client)
+const account = new Appwrite.Account(client)
 const session = localStorage.getItem("session")
 
 const result =  functions.createExecution("loginPoints")
