@@ -35,7 +35,7 @@ script.onload=()=>{
       // Try to create a session with the provided email and password
       const session = await account.createEmailPasswordSession(email, password); // Correct method for creating session
       // Redirect to dashboard or another page
-      localStorage.setItem("session",session)
+      localStorage.setItem("session",account.getSession('current'))
       window.location.href = '/BadgerBets/dashboard/';
     } catch (error) {
       // If there was an error (invalid credentials, no user found, etc.), display an error message
