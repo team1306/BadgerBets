@@ -75,7 +75,8 @@ def setBucks(number, userId):
     )
     database = Databases(client)
     account = Account(client)
-    database.update_document("6760b9c20030df251f1c","badgerBucks",userId,{userId, number})
+    database.update_document("6760b9c20030df251f1c","badgerBucks",userId,{"username":userId, "badgerBucks": number})
     print("Success!")
 
-setBucks(99)
+setBucks(99, "6761d9b300380c3f468d")
+getBucks("6761d9b300380c3f468d")
