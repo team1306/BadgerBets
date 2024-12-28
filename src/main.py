@@ -25,7 +25,7 @@ def main(context, userId, amount):
         databases.create_document('6760b9c20030df251f1c','badgerBucks', userId, {'username': userId, 'badgerBucks': amount})
 
 
-
+main(context, userId, amount)
    
 
     
