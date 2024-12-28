@@ -9,7 +9,6 @@ script.onload = async () => {
     const functions = new Appwrite.Functions(client);
     const account = new Appwrite.Account(client);
 
-    // Retrieve session ID from localStorage
     const sessionId = localStorage.getItem("session");
     console.log("Session ID:", sessionId);
 
@@ -19,24 +18,36 @@ script.onload = async () => {
     }
 
     try {
-        // Validate the session
         const session = await account.getSession(sessionId);
         console.log("Session details:", session);
 
-        // Retrieve user details
         const user = await account.get();
         const userId = user.$id;
         const amount = 0;
 
-        // Create the payload
         const payload = JSON.stringify({ context: "get", userId: userId, amount: amount });
-
-        // Execute the function
         const result = await functions.createExecution("6770291b00171ec2611b", payload);
 
-        // Parse the result
-        const response = JSON.parse(result.response);
-        console.log("Function execution result (badgerBucks):", response.badgerBucks);
+        console.log("Function execution result object:", result);
+        
+        // Check if the response is valid
+        if (result && result.response) {
+            try {
+                const response = JSON.parse(result.response);
+                console.log("Parsed response:", response);
+                console.log("Function execution result (badgerBucks):", response.badgerBucks);
+            } catch (parseError) {
+                console.error("Failed to parse response:", parseError);
+            }
+        } else {
+            console.error("Function execution response is empty or undefined.");
+        }
+
+        if (result.status === 'failed') {
+            console.error("Function execution failed:", result.stderr);
+        } else {
+            console.log("Function execution succeeded:", result.stdout);
+        }
     } catch (error) {
         console.error("Error occurred:", error);
     }
