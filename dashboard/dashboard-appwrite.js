@@ -27,11 +27,7 @@ script.onload = async () => {
         user = account.get()
         userId = user.$id
         amount = 0
-const payload = JSON.stringify({
-    context: "get",
-    userId: userId,
-    amount: amount,
-    });
+const payload = JSON.stringify({context: "get",userId: userId,amount: amount});
 
 const result = await functions.createExecution("6770291b00171ec2611b", payload);
         console.log("Function execution result:", result);
