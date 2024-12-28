@@ -29,6 +29,7 @@ script.onload = async () => {
     } catch (error) {
         console.error("Error occurred:", error);
     }
+    
 };
 
 document.head.appendChild(script);
