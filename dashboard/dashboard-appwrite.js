@@ -23,18 +23,23 @@ script.onload = async () => {
         const session = await account.getSession(sessionId);
         console.log("Session details:", session);
 
-        // Execute the function
-        user = account.get()
-        userId = user.$id
-        amount = 0
-const payload = JSON.stringify({context: "get",userId: userId,amount: amount});
+        // Retrieve user details
+        const user = await account.get();
+        const userId = user.$id;
+        const amount = 0;
 
-const result = await functions.createExecution("6770291b00171ec2611b", payload);
-        console.log("Function execution result:", result['badgerBucks']);
+        // Create the payload
+        const payload = JSON.stringify({ context: "get", userId: userId, amount: amount });
+
+        // Execute the function
+        const result = await functions.createExecution("6770291b00171ec2611b", payload);
+
+        // Parse the result
+        const response = JSON.parse(result.response);
+        console.log("Function execution result (badgerBucks):", response.badgerBucks);
     } catch (error) {
         console.error("Error occurred:", error);
     }
-    
 };
 
 document.head.appendChild(script);
