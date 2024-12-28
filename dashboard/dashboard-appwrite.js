@@ -24,7 +24,7 @@ script.onload = async () => {
         console.log("Session details:", session);
 
         // Execute the function
-        const result = await functions.createExecution("loginPoints");
+        const result = await functions.createExecution("6770291b00171ec2611b");
         console.log("Function execution result:", result);
     } catch (error) {
         console.error("Error occurred:", error);
