@@ -1,13 +1,10 @@
+import json
 from appwrite.client import Client
 from appwrite.services.users import Users
 from appwrite.services.databases import Databases
 from appwrite.exception import AppwriteException
-import os
 
-# This Appwrite function will be executed every time your function is triggered
 def main(context, userId, amount):
-    # You can use the Appwrite SDK to interact with other services
-    # For this example, we're using the Users service
     client = (
         Client()
         .set_endpoint('https://cloud.appwrite.io/v1')
@@ -16,10 +13,25 @@ def main(context, userId, amount):
     )
     users = Users(client)
     databases = Databases(client)
-    if(context == "get"):
-        result = databases.get_document('6760b9c20030df251f1c','badgerBucks', userId)
-        return result['badgerBucks']
-    elif(context == "set"):
-         databases.update_document('6760b9c20030df251f1c','badgerBucks', userId, {'username': userId, 'badgerBucks': amount})
-    elif(context == "create"):
-        databases.create_document('6760b9c20030df251f1c','badgerBucks', userId, {'username': userId, 'badgerBucks': amount})
+
+    try:
+        if context == "get":
+            result = databases.get_document('6760b9c20030df251f1c', 'badgerBucks', userId)
+            return json.dumps({"badgerBucks": result['badgerBucks']})
+
+        elif context == "set":
+            databases.update_document(
+                '6760b9c20030df251f1c', 'badgerBucks', userId,{"username": userId, "badgerBucks": amount})
+            return json.dumps({"message": "BadgerBucks updated successfully."})
+
+        elif context == "create":
+            databases.create_document(
+                '6760b9c20030df251f1c', 'badgerBucks', userId,
+                {"username": userId, "badgerBucks": amount}
+            )
+            return json.dumps({"message": "BadgerBucks created successfully."})
+        else:
+            return json.dumps({"error": "Invalid context."})
+
+    except AppwriteException as e:
+        return json.dumps({"error": str(e)})
