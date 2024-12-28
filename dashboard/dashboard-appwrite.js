@@ -24,7 +24,16 @@ script.onload = async () => {
         console.log("Session details:", session);
 
         // Execute the function
-        const result = await functions.createExecution("6770291b00171ec2611b");
+        user = account.get()
+        userId = user.$id
+        amount = 
+        const payload = JSON.stringify({
+    context: "get",
+    userId: userId,
+    amount: 0,
+    });
+
+const result = await functions.createExecution("6770291b00171ec2611b", payload);
         console.log("Function execution result:", result);
     } catch (error) {
         console.error("Error occurred:", error);
