@@ -30,7 +30,7 @@ script.onload = async () => {
 const payload = JSON.stringify({context: "get",userId: userId,amount: amount});
 
 const result = await functions.createExecution("6770291b00171ec2611b", payload);
-        console.log("Function execution result:", result);
+        console.log("Function execution result:", result['badgerBucks']);
     } catch (error) {
         console.error("Error occurred:", error);
     }

@@ -23,18 +23,3 @@ def main(context, userId, amount):
          databases.update_document('6760b9c20030df251f1c','badgerBucks', userId, {'username': userId, 'badgerBucks': amount})
     elif(context == "create"):
         databases.create_document('6760b9c20030df251f1c','badgerBucks', userId, {'username': userId, 'badgerBucks': amount})
-
-
-main(context, userId, amount)
-   
-
-    
-
-    
-
-    
-
-
-
-
-        
