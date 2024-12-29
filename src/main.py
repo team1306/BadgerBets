@@ -6,6 +6,7 @@ import os
 key = os.API_KEY
 # This Appwrite function will be executed every time your function is triggered
 def main(context,function, userId, amount):
+    return 1
     type = context.req.query['type']
     # You can use the Appwrite SDK to interact with other services
     # For this example, we're using the Users service
