@@ -1,3 +1,4 @@
+import json
 from appwrite.client import Client
 from appwrite.services.databases import Databases
 
@@ -13,22 +14,42 @@ def main(req, res):
 
     # Get parameters from the request
     action = req.params.get("action")
-    collection_id = 'badgerBucks'
+    collection_id = 'badgerBucks'  # Replace with your collection ID
     user_id = req.params.get("userId")  # userId is used as the document_id
-    data = req.params.get("data")  # Data is for 'create' or 'update'
+
+    # Parse the 'data' parameter if it is a JSON string
+    try:
+        data = json.loads(req.params.get("data"))  # This converts the JSON string into a Python dict
+    except Exception as e:
+        res.json({"success": False, "message": "Invalid data format", "error": str(e)})
+        return
 
     if action == "create":
-        created_document = databases.create_document(collection_id=collection_id,document_id=user_id,data=data, read=['*'],write=['*'])
+        # Create a new document with userId as document_id
+        created_document = databases.create_document(
+            collection_id=collection_id,
+            document_id=user_id,  # Use userId as the document_id
+            data=data,  # The data should be a Python dict
+            read=['*'],  # You can specify who can read the document
+            write=['*']  # You can specify who can write the document
+        )
         res.json({"success": True, "document": created_document})
 
     elif action == "update":
         # Update an existing document using userId as document_id
-        updated_document = databases.update_document(collection_id=collection_id,document_id=user_id, data = data)
+        updated_document = databases.update_document(
+            collection_id=collection_id,
+            document_id=user_id,  # Use userId as the document_id
+            data=data  # The updated data
+        )
         res.json({"success": True, "document": updated_document})
 
     elif action == "get":
         # Get a document using userId as document_id
-        document = databases.get_document(collection_id=collection_id,document_id=user_id)
+        document = databases.get_document(
+            collection_id=collection_id,
+            document_id=user_id  # Use userId as the document_id
+        )
         res.json({"success": True, "document": document})
 
     else:
