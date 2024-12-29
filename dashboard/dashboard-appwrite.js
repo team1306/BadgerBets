@@ -13,44 +13,31 @@ script.onload = async () => {
     console.log("Session ID:", sessionId);
 
     if (!sessionId) {
-        console.error("No session ID found. User might not be logged in.");
+        //add redirect
         return;
     }
 
     try {
         const session = await account.getSession(sessionId);
         console.log("Session details:", session);
-
+    }
+    catch{
+        
+    }
         const user = await account.get();
         const userId = user.$id;
         const amount = 0;
-
-        const payload = JSON.stringify({context:'text', function:'get', userId: userId, amount: amount });
-        const result = await functions.createExecution("6770291b00171ec2611b", payload);
-
-        console.log("Function execution result object:", result);
-        
-        // Check if the response is valid
-        if (result && result.response) {
-            try {
-                const response = JSON.parse(result.response);
-                console.log("Parsed response:", response);
-                console.log("Function execution result (badgerBucks):", response.badgerBucks);
-            } catch (parseError) {
-                console.error("Failed to parse response:", parseError);
-            }
-        } else {
-            console.error("Function execution response is empty or undefined.");
-        }
-
-        if (result.status === 'failed') {
-            console.error("Function execution failed:", result.stderr);
-        } else {
-            console.log("Function execution succeeded:", result.stdout);
-        }
-    } catch (error) {
-        console.error("Error occurred:", error);
-    }
+        const functionId = 'your-function-id'; // Replace with your function ID
+        const parameters = {action: 'get', userId: userId};
+  
+        functions.createExecution(functionId, parameters)
+          .then(response => {
+            alert(`Document Retrieved: ${JSON.stringify(response.document)}`);
+          })
+          .catch(error => {
+            console.error('Error executing function:', error);
+            alert('Error getting document.');
+          });
 };
 
 document.head.appendChild(script);
