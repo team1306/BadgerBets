@@ -27,7 +27,7 @@ script.onload = async () => {
         const user = await account.get();
         const userId = user.$id;
         const amount = 0;
-        const functionId = 'your-function-id'; // Replace with your function ID
+        const functionId = '6771943d19ed70091258'; // Replace with your function ID
         const parameters = {action: 'get', userId: userId};
   
         functions.createExecution(functionId, parameters)
