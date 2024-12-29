@@ -30,13 +30,9 @@ script.onload = async () => {
         const functionId = '6771943d19ed70091258'; // Replace with your function ID
         const parameters = JSON.stringify({action: 'get', userId: userId, badgerBucks:0})
         console.log(parameters)
-          try{
-          let result = await functions.createExecution(functionId,parameters,false, "../src/main.py")
-          console.log(result)
-          }
-          catch(error){
-            console.error("Error getting document:", error)
-          }  
+        let result = await functions.createExecution(functionId,parameters,false, "../src/main.py")
+        console.log(result)
+          
       
       };
 document.head.appendChild(script);
