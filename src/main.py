@@ -16,7 +16,7 @@ def main(req, res):
     my_database_id = '6760b9c20030df251f1c'
     my_collection_id = 'badgerBucks'
     user_id = req.params.get("userId")  # userId is used as the document_id
-    data = req.params.get("data")  # Data is for 'create' or 'update'
+    data = req.params.get("badgerBucks")  # Data is for 'create' or 'update'
 
     if action == "create":
         created_document = databases.create_document(database_id =my_database_id,collection_id=my_collection_id,document_id=user_id,data=data, read=['*'],write=['*'])

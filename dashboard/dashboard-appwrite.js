@@ -28,20 +28,16 @@ script.onload = async () => {
         const userId = user.$id;
         const amount = 0;
         const functionId = '6771943d19ed70091258'; // Replace with your function ID
-        const parameters = {action: 'get', userId: userId, data: JSON.stringify({
-            userId: userId,
-            badgerBucks:0,
-        })
+        const parameters = JSON.stringify({action: 'get', userId: userId, badgerBucks:0})
+        console.log(parameters)
         };
-  
-        functions.createExecution(functionId, parameters)
-          .then(response => {
-            alert(`Document Retrieved: ${JSON.stringify(response.document)}`);
-          })
-          .catch(error => {
-            console.error('Error executing function:', error);
-            alert('Error getting document.');
-          });
-};
+        try{
+        let result = await functions.createExecution(functionId,parameters,false, "../src/main.py")
+        console.log(result)
+        }
+        catch(error){
+          console.error("Error getting document:", error)
+        }
+         
 
 document.head.appendChild(script);
