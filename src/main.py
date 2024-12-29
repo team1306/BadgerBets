@@ -1,7 +1,7 @@
 from appwrite.client import Client
 from appwrite.services.databases import Databases
 
-def main(req, res):
+def main(context):
     # Initialize Appwrite client
     client = Client()
     client.set_endpoint('https://cloud.appwrite.io/v1')  # Replace with your Appwrite endpoint
@@ -12,26 +12,25 @@ def main(req, res):
     databases = Databases(client)
 
     # Get parameters from the request
-    action = req.params.get("action")
+    action = context.req.params.get("action")
     my_database_id = '6760b9c20030df251f1c'
     my_collection_id = 'badgerBucks'
-    user_id = req.params.get("userId")  # userId is used as the document_id
-    data = req.params.get("badgerBucks")  # Data is for 'create' or 'update'
+    user_id = context.req.params.get("userId")  # userId is used as the document_id
+    data = context.req.params.get("badgerBucks")  # Data is for 'create' or 'update'
 
     if action == "create":
         created_document = databases.create_document(database_id =my_database_id,collection_id=my_collection_id,document_id=user_id,data=data, read=['*'],write=['*'])
-        return res.json({"success": True, "document": created_document})
+        return context.res.json({"success": True, "document": created_document})
 
     elif action == "update":
         # Update an existing document using userId as document_id
         updated_document = databases.update_document(database_id =my_database_id, collection_id=my_collection_id,document_id=user_id, data = data)
-        return res.json({"success": True, "document": updated_document})
+        return context.res.json({"success": True, "document": updated_document})
 
     elif action == "get":
         # Get a document using userId as document_id
         document = databases.get_document(database_id =my_database_id,collection_id=my_collection_id,document_id=user_id)
-        return res.json({"success": True, "document": document})
+        return context.res.json({"success": True, "document": document})
 
     else:
-        return res.json({"success": False, "message": "Invalid action"})
-
+        return context.res.json({"success": False, "message": "Invalid action"})
