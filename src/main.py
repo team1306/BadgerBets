@@ -1,6 +1,6 @@
 from appwrite.client import Client
 from appwrite.services.databases import Databases
-
+import json
 def main(context):
     # Initialize Appwrite client
     client = Client()
@@ -10,13 +10,13 @@ def main(context):
 
     # Initialize Appwrite Databases service
     databases = Databases(client)
-
+    parameters = context.req.body_json
     # Get parameters from the request
-    action = context.req.params.get("action")
+    action = parameters['action']
     my_database_id = '6760b9c20030df251f1c'
     my_collection_id = 'badgerBucks'
-    user_id = context.req.params.get("userId")  # userId is used as the document_id
-    data = context.req.params.get("badgerBucks")  # Data is for 'create' or 'update'
+    user_id =parameters['userId']   # userId is used as the document_id
+    data = parameters['amount'] # Data is for 'create' or 'update'
 
     if action == "create":
         created_document = databases.create_document(database_id =my_database_id,collection_id=my_collection_id,document_id=user_id,data=data, read=['*'],write=['*'])
