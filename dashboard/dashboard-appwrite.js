@@ -13,8 +13,7 @@ script.onload = async () => {
     console.log("Session ID:", sessionId);
 
     if (!sessionId) {
-        //add redirect
-        return;
+        window.location.href='/BadgerBets/login'
     }
 
     try {
@@ -22,7 +21,6 @@ script.onload = async () => {
         console.log("Session details:", session);
         const user = await account.get();
         const userId = user.$id;
-        const amount = 0;
         const functionId = '6770291b00171ec2611b'; // Replace with your function ID
         const parameters = JSON.stringify({action: 'get', userId: userId, badgerBucks:0})
         console.log(parameters)
@@ -33,8 +31,5 @@ script.onload = async () => {
         alert("there was an error")
         console.error(error)
     }
-       
-          
-      
       };
 document.head.appendChild(script);
