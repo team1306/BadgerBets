@@ -20,10 +20,6 @@ script.onload = async () => {
     try {
         const session = await account.getSession(sessionId);
         console.log("Session details:", session);
-    }
-    catch{
-        
-    }
         const user = await account.get();
         const userId = user.$id;
         const amount = 0;
@@ -32,6 +28,12 @@ script.onload = async () => {
         console.log(parameters)
         let result = functions.createExecution(functionId,parameters,false, "../src/main.py")
         console.log(result)
+    }
+    catch(error){
+        alert("there was an error")
+        console.error(error)
+    }
+       
           
       
       };
