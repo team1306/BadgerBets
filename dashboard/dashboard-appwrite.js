@@ -28,7 +28,11 @@ script.onload = async () => {
         const userId = user.$id;
         const amount = 0;
         const functionId = '6771943d19ed70091258'; // Replace with your function ID
-        const parameters = {action: 'get', userId: userId};
+        const parameters = {action: 'get', userId: userId, data: JSON.stringify({
+            userId: userId,
+            badgerBucks:0,
+        })
+        };
   
         functions.createExecution(functionId, parameters)
           .then(response => {
