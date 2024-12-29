@@ -16,7 +16,7 @@ def main(context):
     my_database_id = '6760b9c20030df251f1c'
     my_collection_id = 'badgerBucks'
     user_id =parameters['userId']   # userId is used as the document_id
-    data = parameters['amount'] # Data is for 'create' or 'update'
+    data = parameters['badgerBucks'] # Data is for 'create' or 'update'
 
     if action == "create":
         created_document = databases.create_document(database_id =my_database_id,collection_id=my_collection_id,document_id=user_id,data=data, read=['*'],write=['*'])
