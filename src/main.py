@@ -19,19 +19,19 @@ def main(context):
     data = parameters['badgerBucks'] # Data is for 'create' or 'update'
 
     if action == "create":
-        created_document = databases.create_document(database_id =my_database_id,collection_id=my_collection_id,document_id=user_id,data=data, read=['*'],write=['*'])
-        return context.res.json({"success": True, "document": created_document})
+     created_document = databases.create_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data,read=['*'],write=['*'])
+     return context.res.json({"success": True, "document": created_document}, status=200)
 
     elif action == "update":
-        # Update an existing document using userId as document_id
-        updated_document = databases.update_document(database_id =my_database_id, collection_id=my_collection_id,document_id=user_id, data = data)
-        return context.res.json({"success": True, "document": updated_document})
-
+     updated_document = databases.update_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data)
+     return context.res.json({"success": True, "document": updated_document}, status=200)
     elif action == "get":
-        # Get a document using userId as document_id
-        document = databases.get_document(database_id =my_database_id,collection_id=my_collection_id,document_id=user_id)
-        result = document['badgerBucks']
-        return context.res.text(result)
+     try:
+        document = databases.get_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id)
+        context.log(document)
+        return context.res.json({"success": True, "data": document}, status=200)
+     except Exception as e:
+        return context.res.json({"success": False, "message": str(e)}, status=404)
 
     else:
-        return context.res.json({"success": False, "message": "Invalid action"})
+     return context.res.json({"success": False, "message": "Invalid action"}, status=400)
