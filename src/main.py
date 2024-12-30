@@ -29,7 +29,9 @@ async def main(context):
      try:
         document = await databases.get_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id)
         context.log(document)
-        return context.res.json({ "badgerBucks": document['badgerBucks']}, status=200)
+        badger_bucks = document['data'].get('badgerBucks', None)
+        context.log(badger_bucks)
+        return context.res.text(badger_bucks, status=200)
 
      except Exception as e:
         return context.res.json({"success": False, "message": str(e)}, status=404)
