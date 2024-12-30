@@ -149,6 +149,8 @@ footer p {
 
     .nav-links li {
         margin: 10px 0;
+        margin-top: 5px; /* Make the header menu shorter on mobile*/
+        margin-bottom: 0px;
     }
 
     .main-section h2 {
