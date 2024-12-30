@@ -30,8 +30,8 @@ def main(context):
     elif action == "get":
         # Get a document using userId as document_id
         document = databases.get_document(database_id =my_database_id,collection_id=my_collection_id,document_id=user_id)
-        context.res.json({"success": True, "document": document})
-        return context.res.json({"success": True, "document": document})
+        result = document['badgerBucks']
+        return context.res.text(result)
 
     else:
         return context.res.json({"success": False, "message": "Invalid action"})

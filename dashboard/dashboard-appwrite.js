@@ -10,7 +10,7 @@ script.onload = async () => {
     const account = new Appwrite.Account(client);
 
     const sessionId = localStorage.getItem("session");
-    console.log("Session ID:", sessionId);
+    
 
     if (!sessionId) {
         window.location.href='/BadgerBets/login'
@@ -18,12 +18,11 @@ script.onload = async () => {
 
     try {
         const session = await account.getSession(sessionId);
-        console.log("Session details:", session);
+        
         const user = await account.get();
         const userId = user.$id;
         const functionId = '6770291b00171ec2611b'; // Replace with your function ID
         const parameters = JSON.stringify({action: 'get', userId: userId, badgerBucks:0})
-        console.log(parameters)
         let result = functions.createExecution(functionId,parameters,false, "../src/main.py")
         console.log(result)
     }
