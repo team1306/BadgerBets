@@ -19,15 +19,15 @@ async def main(context):
     data = parameters['badgerBucks'] # Data is for 'create' or 'update'
 
     if action == "create":
-     created_document = databases.create_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data,read=['*'],write=['*'])
+     created_document =await databases.create_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data,read=['*'],write=['*'])
      return context.res.json({"success": True, "document": created_document}, status=200)
 
     elif action == "update":
-     updated_document = databases.update_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data)
+     updated_document = await databases.update_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data)
      return context.res.json({"success": True, "document": updated_document}, status=200)
     elif action == "get":
      try:
-        document = databases.get_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id)
+        document = await databases.get_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id)
         context.log(document)
         return context.res.json({ "badgerBucks": document['badgerBucks']}, status=200)
 
