@@ -1,7 +1,7 @@
 from appwrite.client import Client
 from appwrite.services.databases import Databases
 import json
-def main(context):
+async def main(context):
     # Initialize Appwrite client
     client = Client()
     client.set_endpoint('https://cloud.appwrite.io/v1')  # Replace with your Appwrite endpoint
