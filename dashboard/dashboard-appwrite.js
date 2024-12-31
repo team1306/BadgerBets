@@ -10,26 +10,30 @@ script.onload = async () => {
     const account = new Appwrite.Account(client);
 
     const sessionId = localStorage.getItem("session");
-    
 
     if (!sessionId) {
-        window.location.href='/BadgerBets/login'
+        window.location.href = '/BadgerBets/login';
+        return;
     }
 
     try {
         const session = await account.getSession(sessionId);
-        
         const user = await account.get();
         const userId = user.$id;
         const functionId = '6770291b00171ec2611b'; // Replace with your function ID
-        const parameters = JSON.stringify({action: 'get', userId: userId, badgerBucks:0})
-        let result = await functions.createExecution(functionId,parameters,false, "../src/main.py")
-        console.log("Here is the result" )
-        console.log('Result: '+JSON.stringify(result))
+        const parameters = JSON.stringify({
+            action: 'get',
+            userId: userId,
+            badgerBucks: 0
+        });
+
+        // Execute the function
+        const result = await functions.createExecution(functionId, parameters);
+        console.log('Result:', result);
+    } catch (error) {
+        alert("There was an error");
+        console.error(error);
     }
-    catch(error){
-        alert("there was an error")
-        console.error(error)
-    }
-      };
+};
+
 document.head.appendChild(script);
