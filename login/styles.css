@@ -37,6 +37,14 @@ body {
     text-transform: uppercase;
 }
 
+.auth-section {
+    margin-top: 75px;
+}
+.auth-section .form .input{ /* does not seem to work yet*/
+    font-size: 2rem;
+    background-color: #727272;
+}
+
 .nav-links {
     list-style: none;
     display: flex;
