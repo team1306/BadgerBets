@@ -20,21 +20,21 @@ async def main(context):
 
     if action == "create":
      created_document =await databases.create_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data,read=['*'],write=['*'])
-     return context.res.json({"success": True, "document": created_document}, status=200)
+     return context.res.json({"success": True, "document": created_document})
 
     elif action == "update":
      updated_document = await databases.update_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data)
-     return context.res.json({"success": True, "document": updated_document}, status=200)
+     return context.res.json({"success": True, "document": updated_document})
     elif action == "get":
      try:
         document = await databases.get_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id)
         context.log(document)
         badger_bucks = document['data'].get('badgerBucks', None)
         context.log(badger_bucks)
-        return context.res.text(badger_bucks, status=200)
+        return context.res.text(badger_bucks)
 
      except Exception as e:
-        return context.res.json({"success": False, "message": str(e)}, status=404)
+        return context.res.json({"success": False, "message": str(e)})
 
     else:
-     return context.res.json({"success": False, "message": "Invalid action"}, status=400)
+     return context.res.json({"success": False, "message": "Invalid action"})
