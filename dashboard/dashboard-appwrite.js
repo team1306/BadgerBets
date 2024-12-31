@@ -28,7 +28,7 @@ script.onload = async () => {
         });
 
         // Execute the function
-        const result = await functions.createExecution(functionId, parameters);
+        let result = await functions.createExecution(functionId, parameters);
         result = JSON.parse(result.responseBody)
         currentBadgerBucks = result.badgerBucks
         console.log('Your badgerBucks:', currentBadgerBucks);
