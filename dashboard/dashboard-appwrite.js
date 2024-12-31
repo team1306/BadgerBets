@@ -32,6 +32,11 @@ script.onload = async () => {
         result = JSON.parse(result.responseBody)
         currentBadgerBucks = result.badgerBucks
         console.log('Your badgerBucks:', currentBadgerBucks);
+        const balance = document.getElementById(balance)
+        balance.innerHTML = currentBadgerBucks
+
+
+        
     } catch (error) {
         alert("There was an error");
         console.error(error);

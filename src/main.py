@@ -35,4 +35,3 @@ def main(context):
             return context.res.json({"success": True, "badgerBucks": badger_bucks})
         else:
             return context.res.json({"success": False, "message": "'badgerBucks' not found in document"})
-
