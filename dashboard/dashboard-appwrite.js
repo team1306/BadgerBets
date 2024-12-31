@@ -24,7 +24,8 @@ script.onload = async () => {
         const functionId = '6770291b00171ec2611b'; // Replace with your function ID
         const parameters = JSON.stringify({action: 'get', userId: userId, badgerBucks:0})
         let result = await functions.createExecution(functionId,parameters,false, "../src/main.py")
-        console.log(result)
+        console.log("Here is the result" )
+        console.log('Result: '+result)
     }
     catch(error){
         alert("there was an error")
