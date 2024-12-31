@@ -1,7 +1,8 @@
 from appwrite.client import Client
 from appwrite.services.databases import Databases
 import json
-async def main(context):
+
+def main(context):
     # Initialize Appwrite client
     client = Client()
     client.set_endpoint('https://cloud.appwrite.io/v1')  # Replace with your Appwrite endpoint
@@ -11,30 +12,48 @@ async def main(context):
     # Initialize Appwrite Databases service
     databases = Databases(client)
     parameters = context.req.body_json
+
     # Get parameters from the request
     action = parameters['action']
     my_database_id = '6760b9c20030df251f1c'
     my_collection_id = 'badgerBucks'
-    user_id =parameters['userId']   # userId is used as the document_id
-    data = parameters['badgerBucks'] # Data is for 'create' or 'update'
+    user_id = parameters['userId']  # userId is used as the document_id
+    data = parameters['badgerBucks']  # Data is for 'create' or 'update'
 
-    if action == "create":
-     created_document =await databases.create_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data,read=['*'],write=['*'])
-     return context.res.json({"success": True, "document": created_document})
+    try:
+        if action == "create":
+            created_document = databases.create_document(
+                database_id=my_database_id,
+                collection_id=my_collection_id,
+                document_id=user_id,
+                data=data,
+                read=['*'],
+                write=['*']
+            )
+            return context.res.json({"success": True, "document": created_document})
 
-    elif action == "update":
-     updated_document = await databases.update_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id,data=data)
-     return context.res.json({"success": True, "document": updated_document})
-    elif action == "get":
-     try:
-        document = await databases.get_document(database_id=my_database_id,collection_id=my_collection_id,document_id=user_id)
-        context.log(document)
-        badger_bucks = document['data'].get('badgerBucks', None)
-        context.log(badger_bucks)
-        return context.res.text(badger_bucks)
+        elif action == "update":
+            updated_document = databases.update_document(
+                database_id=my_database_id,
+                collection_id=my_collection_id,
+                document_id=user_id,
+                data=data
+            )
+            return context.res.json({"success": True, "document": updated_document})
 
-     except Exception as e:
+        elif action == "get":
+            try:
+                document = databases.get_document(
+                    database_id=my_database_id,
+                    collection_id=my_collection_id,
+                    document_id=user_id
+                )
+                badger_bucks = document['data'].get('badgerBucks', None)
+                return context.res.text(badger_bucks)
+            except Exception as e:
+                return context.res.json({"success": False, "message": str(e)})
+
+        else:
+            return context.res.json({"success": False, "message": "Invalid action"})
+    except Exception as e:
         return context.res.json({"success": False, "message": str(e)})
-
-    else:
-     return context.res.json({"success": False, "message": "Invalid action"})
