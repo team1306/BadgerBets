@@ -29,7 +29,9 @@ script.onload = async () => {
 
         // Execute the function
         const result = await functions.createExecution(functionId, parameters);
-        console.log('Result:', result);
+        result = JSON.parse(result.responseBody)
+        currentBadgerBucks = result.badgerBucks
+        console.log('Your badgerBucks:', currentBadgerBucks);
     } catch (error) {
         alert("There was an error");
         console.error(error);
