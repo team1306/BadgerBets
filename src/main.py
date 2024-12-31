@@ -42,16 +42,20 @@ def main(context):
             return context.res.json({"success": True, "document": updated_document})
 
         elif action == "get":
-            try:
+             try:
                 document = databases.get_document(
-                    database_id=my_database_id,
-                    collection_id=my_collection_id,
-                    document_id=user_id
+                database_id=my_database_id,
+                collection_id=my_collection_id,
+                document_id=user_id
                 )
-                badger_bucks = document['data'].get('badgerBucks', None)
-                return context.res.text(badger_bucks)
-            except Exception as e:
-                return context.res.json({"success": False, "message": str(e)})
+        # Directly access `badgerBucks` in the document
+                badger_bucks = document.get('badgerBucks', None)
+        if badger_bucks is not None:
+            return context.res.json({"success": True, "badgerBucks": badger_bucks})
+        else:
+            return context.res.json({"success": False, "message": "'badgerBucks' not found in document"})
+    except Exception as e:
+        return context.res.json({"success": False, "message": str(e)})
 
         else:
             return context.res.json({"success": False, "message": "Invalid action"})
