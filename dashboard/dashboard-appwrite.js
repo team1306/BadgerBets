@@ -43,4 +43,7 @@ script.onload = async () => {
     }
 };
 
+const balance = document.getElementById(balance)
+balance.innerHTML = currentBadgerBucks
+
 document.head.appendChild(script);
