@@ -19,7 +19,7 @@ body {
 .header {
     background-color: #B22222; /* Red */
     color: white;
-    padding: 20px 0;
+    padding: 20px 0px, 20px, 10px;
     margin: 10px 0;
     position: fixed;
     width: 100%;
