@@ -37,9 +37,6 @@ body {
     text-transform: uppercase;
 }
 
-/* .auth-section { will remove if another change works
-    margin-top: 70px;
-} */
 input{
     font-size: 1rem;
     padding: 50px;
