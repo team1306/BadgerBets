@@ -45,12 +45,12 @@ input{
     padding: 50px;
     width: 100%;
     margin-bottom: 15px;
-    margin-top:35px;
+    margin-top:55px;
     background-color: #e6e6e6;
     border: 3px solid #B22222;
 }
 input:focus {
-    background-color: #bfbfbf;
+    background-color: #dbdfff;
 }
 
 .nav-links {
