@@ -22,7 +22,6 @@ body {
     width: 100%;
     top: 0;
     z-index: 100;
-    margin-bottom: 45px;
 }
 
 .header .container {
@@ -43,12 +42,15 @@ input{
     padding: 50px;
     width: 100%;
     margin-bottom: 15px;
-    /* margin-top:15px; */
     background-color: #e6e6e6;
     border: 3px solid #B22222;
 }
 input:focus {
     background-color: #cbd5e5;
+}
+
+#login-email {
+    padding-top: 40px;
 }
 
 .signup-text {
