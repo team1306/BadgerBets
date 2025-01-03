@@ -22,7 +22,7 @@ body {
     width: 100%;
     top: 0;
     z-index: 100;
-    margin-bottom: 85px;
+    margin-bottom: 45px;
 }
 
 .header .container {
@@ -48,7 +48,7 @@ input{
     border: 3px solid #B22222;
 }
 input:focus {
-    background-color: #d3e1f6;
+    background-color: #cbd5e5;
 }
 
 .signup-text {
