@@ -50,14 +50,13 @@ input{
 }
 
 input:focus {
-    /* background-color: #e2eaf3; */
-    background-color: #0071f1;
+    background-color: #e2eaf3;
 }
 
 #name {
     margin-top: 80px;
 }
-/*  */
+
 .login-text {
     color: #cccccc;
 }
