@@ -11,6 +11,8 @@ body {
     background-color: #333;
     color: #333;
     line-height: 1.6;
+    width: 100vw;
+    height: 100vh;
 }
 
 /* Header Section */
