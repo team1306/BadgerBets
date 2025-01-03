@@ -24,7 +24,7 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 100;
+    /* z-index: 100; */
 }
 
 .header .container {
@@ -49,7 +49,7 @@ input{
     border: 3px solid #B22222;
 }
 input:focus {
-    background-color: #e6ebf1;
+    background-color: #e2eaf3;
 }
 
 #login-email {
