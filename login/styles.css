@@ -18,6 +18,7 @@ body {
     background-color: #B22222; /* Red */
     color: white;
     padding: 20px 0;
+    margin: 10px;
     position: fixed;
     width: 100%;
     top: 0;
@@ -46,11 +47,11 @@ input{
     border: 3px solid #B22222;
 }
 input:focus {
-    background-color: #cbd5e5;
+    background-color: #e6ebf1;
 }
 
 #login-email {
-    padding-top: 40px;
+    margin-top: 80px;
 }
 
 .signup-text {
