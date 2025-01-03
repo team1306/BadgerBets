@@ -37,12 +37,20 @@ body {
     text-transform: uppercase;
 }
 
-.auth-section {
-    margin-top: 75px;
+/* .auth-section { will remove if another change works
+    margin-top: 70px;
+} */
+input{
+    font-size: 1rem;
+    padding: 50px;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-top:35px;
+    background-color: #e6e6e6;
+    border: 3px solid #B22222;
 }
-.auth-section .form .input{ /* does not seem to work yet*/
-    font-size: 2rem;
-    background-color: #727272;
+input:focus {
+    background-color: #bfbfbf;
 }
 
 .nav-links {
@@ -171,12 +179,4 @@ footer p {
         padding: 10px 20px;
         font-size: 1rem;
     }
-}
-input {
-
-    padding: 50px;
-    width: 100%;
-    margin-bottom: 15px;
-    margin-top:15px;
-    border: 1px solid #ccc;
 }
