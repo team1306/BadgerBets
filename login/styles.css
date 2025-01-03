@@ -19,7 +19,7 @@ body {
 .header {
     background-color: #B22222; /* Red */
     color: white;
-    padding: 20px 0px, 20px, 10px;
+    padding: 20px 0;
     margin: 10px 0;
     position: fixed;
     width: 100%;
@@ -38,6 +38,7 @@ body {
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
+    padding-left: 10px;
 }
 
 input{
