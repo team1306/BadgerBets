@@ -45,12 +45,16 @@ input{
     padding: 50px;
     width: 100%;
     margin-bottom: 15px;
-    margin-top:55px;
+    margin-top:85px;
     background-color: #e6e6e6;
     border: 3px solid #B22222;
 }
 input:focus {
-    background-color: #dbdfff;
+    background-color: #d3e1f6;
+}
+
+.signup-text {
+    color: #cccccc;
 }
 
 .nav-links {
