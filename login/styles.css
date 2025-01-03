@@ -24,7 +24,6 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    /* z-index: 100; */
 }
 
 .header .container {
@@ -49,6 +48,7 @@ input{
     background-color: #e6e6e6;
     border: 3px solid #B22222;
 }
+
 input:focus {
     background-color: #e2eaf3;
 }

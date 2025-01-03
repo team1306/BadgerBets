@@ -11,6 +11,8 @@ body {
     background-color: #333;
     color: #333;
     line-height: 1.6;
+    width: 100vw;
+    height: 100vh;
 }
 
 /* Header Section */
@@ -18,10 +20,10 @@ body {
     background-color: #B22222; /* Red */
     color: white;
     padding: 20px 0;
+    margin: 10px 0;
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 100;
 }
 
 .header .container {
@@ -35,6 +37,28 @@ body {
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
+    padding: 0 20px;
+}
+
+input{
+    font-size: 1rem;
+    padding: 50px;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #e6e6e6;
+    border: 3px solid #B22222;
+}
+
+input:focus {
+    background-color: #e2eaf3;
+}
+
+#name {
+    margin-top: 80px;
+}
+/*  */
+.login-text {
+    color: #cccccc;
 }
 
 .nav-links {
