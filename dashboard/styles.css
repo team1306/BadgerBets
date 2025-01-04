@@ -20,6 +20,7 @@ body {
     color: white;
     padding: 20px 0;
     position: fixed;
+    margin-top:20px;
     width: 100%;
     top: 0;
     z-index: 100;
@@ -75,8 +76,9 @@ body {
 }
 
 .main-section h2 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    margin: auto;
+    text-align: center;
+    
 }
 
 .main-section p {
@@ -129,6 +131,7 @@ footer {
     color: white;
     text-align: center;
     padding: 20px 0;
+    margin-bottom: auto;
 }
 
 footer p {

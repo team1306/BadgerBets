@@ -43,6 +43,39 @@ script.onload = async () => {
     }
 };
 
+const zeroButton = document.getElementById("zeroButton");
+document.addEventListener("DOMContentLoaded", () => {
+    const zeroButton = document.getElementById("zeroButton");
+
+    if (zeroButton) {
+        zeroButton.addEventListener("click", async () => {
+            console.log("Zero button clicked"); // Log to confirm button click
+            try {
+                const functions = new Appwrite.Functions(client);
+                const session = await account.getSession(sessionId);
+                const user = await account.get();
+                const userId = user.$id;
+                const functionId = '6770291b00171ec2611b'; // Replace with your function ID
+                const parameters = JSON.stringify({
+                    action: 'update',
+                    userId: userId,
+                    badgerBucks: 0    
+                });
+                let result = await functions.createExecution(functionId, parameters);
+                const balance = document.getElementById("balance");
+                balance.innerHTML = result.badgerBucks;
+            } catch (error) {
+                alert("There was an error");
+                console.error(error);
+            }
+        });
+    } else {
+        console.error("Element with ID 'zeroButton' not found.");
+    }
+});
+
+
+
 document.head.appendChild(script);
 
 
