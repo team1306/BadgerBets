@@ -31,17 +31,19 @@ script.onload = async () => {
         let result = await functions.createExecution(functionId, parameters);
         result = JSON.parse(result.responseBody)
         let currentBadgerBucks = result.badgerBucks
-        console.log('Your badgerBucks:'+currentBadgerBucks);
+        console.log('Your badgerBucks:' + currentBadgerBucks);
 
+        // Update the balance element inside the async block
+        const balance = document.getElementById("balance");
+        balance.innerHTML = currentBadgerBucks;
 
-        
     } catch (error) {
         alert("There was an error");
         console.error(error);
     }
 };
 
-const balance = document.getElementById("balance")
-balance.innerHTML = currentBadgerBucks
+document.head.appendChild(script);
+
 
 //document.head.appendChild(script);
