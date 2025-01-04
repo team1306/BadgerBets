@@ -126,7 +126,7 @@ input:focus {
 
 .btn-login {
     background-color: #FFD700; /* Red */
-    color: white;
+    color: #333;
     border: 2px solid #FFD700;
     border-radius: 5px;
 }
