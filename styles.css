@@ -8,9 +8,11 @@
 /* Body and Global Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: white;
+    background-color: #333;
     color: #333;
     line-height: 1.6;
+    width: 100vw;
+    height: 100vh;
 }
 
 /* Header Section */
@@ -21,7 +23,6 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 100;
 }
 
 .header .container {
@@ -35,6 +36,28 @@ body {
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
+    padding: 0 20px;
+}
+
+input{
+    font-size: 1rem;
+    padding: 50px;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #e6e6e6;
+    border: 3px solid #B22222;
+}
+
+input:focus {
+    background-color: #e2eaf3;
+}
+
+#login-email {
+    margin-top: 80px;
+}
+
+.signup-text {
+    color: #cccccc;
 }
 
 .nav-links {
@@ -101,20 +124,22 @@ body {
 }
 
 .btn-login {
-    background-color: #B22222; /* Red */
-    color: white;
-    border: 2px solid #B22222;
+    background-color: #FFD700; /* Red */
+    color: #333;
+    border: 2px solid #FFD700;
+    border-radius: 5px;
 }
 
 .btn-login:hover {
     background-color: white;
-    color: #B22222;
+    color: #FFD700;
 }
 
 .btn-signup {
     background-color: #FFD700; /* Gold */
     color: #333;
     border: 2px solid #FFD700;
+    border-radius: 5px;
 }
 
 .btn-signup:hover {
@@ -149,8 +174,6 @@ footer p {
 
     .nav-links li {
         margin: 10px 0;
-        margin-top: 5px; /* Make the header menu shorter on mobile*/
-        margin-bottom: 0px;
     }
 
     .main-section h2 {
