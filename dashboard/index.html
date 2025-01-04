@@ -6,7 +6,6 @@
     <title>Dashboard - BadgerBets</title>
     <!--css commented out for testing-->
     <!--<link rel="stylesheet" href="styles.css">-->
-    <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="../ico.png" type="image/x-icon"/>
     <script src="./dashboard-appwrite.js"></script>
 </head>
@@ -30,8 +29,7 @@
     <section class="dashboard-section">
         <div class="container">
             <h2>Welcome, User!</h2>
-            <button id ='setBucks'></button>
-
+            <button id ='setBucksButton' onclick=" ; functions.createExecution(functionId, JSON.stringify({action: 'set',userId: userId,badgerBucks: 0});); ">Set Your Bucks to 0!</button>
 
 
 
