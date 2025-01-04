@@ -45,7 +45,7 @@ script.onload = async () => {
 
 const zeroButton = document.getElementById("zeroButton");
 
-zeroButton.addEventListener("click", async () => {
+zeroButton.addEventListener("DOMContentLoaded", async () => {
    try{
     const functions = new Appwrite.Functions(client);
     const session = await account.getSession(sessionId);
