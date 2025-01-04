@@ -30,8 +30,8 @@ script.onload = async () => {
         // Execute the function
         let result = await functions.createExecution(functionId, parameters);
         result = JSON.parse(result.responseBody)
-        currentBadgerBucks = result.badgerBucks
-        console.log('Your badgerBucks:', currentBadgerBucks);
+        let currentBadgerBucks = result.badgerBucks
+        console.log('Your badgerBucks:'+currentBadgerBucks);
 
 
         
