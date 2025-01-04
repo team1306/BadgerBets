@@ -125,15 +125,15 @@ input:focus {
 }
 
 .btn-login {
-    background-color: #B22222; /* Red */
+    background-color: #FFD700; /* Red */
     color: white;
-    border: 2px solid #B22222;
+    border: 2px solid #FFD700;
     border-radius: 5px;
 }
 
 .btn-login:hover {
     background-color: white;
-    color: #B22222;
+    color: #ff0000;
 }
 
 .btn-signup {
@@ -144,7 +144,7 @@ input:focus {
 }
 
 .btn-signup:hover {
-    background-color: white;
+    background-color: rgb(255, 0, 0);
     color: #FFD700;
 }
 
