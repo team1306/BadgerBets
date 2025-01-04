@@ -128,6 +128,7 @@ input:focus {
     background-color: #B22222; /* Red */
     color: white;
     border: 2px solid #B22222;
+    border-radius: 5px;
 }
 
 .btn-login:hover {
@@ -139,6 +140,7 @@ input:focus {
     background-color: #FFD700; /* Gold */
     color: #333;
     border: 2px solid #FFD700;
+    border-radius: 5px;
 }
 
 .btn-signup:hover {
@@ -187,12 +189,4 @@ footer p {
         padding: 10px 20px;
         font-size: 1rem;
     }
-}
-input {
-
-    padding: 50px;
-    width: 100%;
-    margin-bottom: 15px;
-    margin-top:15px;
-    border: 1px solid #ccc;
 }
