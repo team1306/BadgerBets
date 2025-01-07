@@ -47,7 +47,7 @@ const zeroButton = document.getElementById("zeroButton");
 document.addEventListener("DOMContentLoaded", () => {
     const zeroButton = document.getElementById("zeroButton");
 
-    if (zeroButton) {
+    if (zeroButton != null) {
         zeroButton.addEventListener("click", async () => {
             console.log("Zero button clicked"); // Log to confirm button click
             try {
