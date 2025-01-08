@@ -136,26 +136,15 @@ input:focus {
 }
 
 .btn-signup {
-    background-color: #FFD700;
-    color: #333;
-    border: 2px solid #FFD700;
-    border-radius: 5px;
-}
-
-.btn-signup:hover {
-    background-color: white;
-    color: #FFD700;
-}
-
-.home-button {
     background-color: #B22222;
     color: #333;
     border: 2px solid #B22222;
     border-radius: 5px;
 }
 
-.home-button:hover {
+.btn-signup:hover {
     background-color: white;
+    color: #B22222;
 }
 
 footer {
