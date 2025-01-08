@@ -147,14 +147,14 @@ input:focus {
     color: #FFD700;
 }
 
-#home-button {
+.home-button {
     background-color: #B22222;
     color: #333;
     border: 2px solid #B22222;
     border-radius: 5px;
 }
 
-#home-button:hover {
+.home-button:hover {
     background-color: white;
 }
 
