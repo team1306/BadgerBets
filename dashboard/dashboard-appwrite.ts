@@ -1,23 +1,21 @@
-const script = document.createElement('script');
-script.src = 'https://cdn.jsdelivr.net/npm/appwrite@16.0.2';
+import { Functions, Client, Account } from "appwrite";
+const client = new Client()
+    .setEndpoint('https://cloud.appwrite.io/v1') // Your Appwrite endpoint
+    .setProject('67609b010021900fc6e6'); // Your Project ID
 
-script.onload = async () => {
-    const client = new Appwrite.Client()
-        .setEndpoint('https://cloud.appwrite.io/v1') // Your Appwrite endpoint
-        .setProject('67609b010021900fc6e6'); // Your Project ID
-
-    const functions = new Appwrite.Functions(client);
-    const account = new Appwrite.Account(client);
+    const functions = new Functions(client);
+    const account = new Account(client);
 
     const sessionId = localStorage.getItem("session");
 
     if (!sessionId) {
         window.location.href = '/BadgerBets/login';
-        return;
     }
 
     try {
+        if(sessionId != null) {
         const session = await account.getSession(sessionId);
+        }
         const user = await account.get();
         const userId = user.$id;
         const functionId = '6770291b00171ec2611b'; // Replace with your function ID
@@ -29,19 +27,20 @@ script.onload = async () => {
 
         // Execute the function
         let result = await functions.createExecution(functionId, parameters);
-        result = JSON.parse(result.responseBody)
-        let currentBadgerBucks = result.badgerBucks
+        let functionResult = JSON.parse(result.responseBody)
+        let currentBadgerBucks = functionResult.badgerBucks
         console.log('Your badgerBucks:' + currentBadgerBucks);
 
         // Update the balance element inside the async block
         const balance = document.getElementById("balance");
+        if(balance != null) {
         balance.innerHTML = currentBadgerBucks;
-
+        }
     } catch (error) {
         alert("There was an error");
         console.error(error);
     }
-};
+
 
 const zeroButton = document.getElementById("zeroButton");
 document.addEventListener("DOMContentLoaded", () => {
@@ -51,8 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
         zeroButton.addEventListener("click", async () => {
             console.log("Zero button clicked"); // Log to confirm button click
             try {
-                const functions = new Appwrite.Functions(client);
-                const session = await account.getSession(sessionId);
+                const functions = new Functions(client);
+                if(sessionId != null) {
+                    const session = await account.getSession(sessionId);
+                }
                 const user = await account.get();
                 const userId = user.$id;
                 const functionId = '6770291b00171ec2611b'; // Replace with your function ID
@@ -63,7 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 let result = await functions.createExecution(functionId, parameters);
                 const balance = document.getElementById("balance");
-                balance.innerHTML = result.badgerBucks;
+                if(balance != null) {
+                    balance.innerHTML = result.badgerBucks;
+                }
             } catch (error) {
                 alert("There was an error");
                 console.error(error);
