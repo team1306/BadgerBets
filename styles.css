@@ -124,7 +124,7 @@ input:focus {
 }
 
 .btn-login {
-    background-color: #FFD700; /* Red */
+    background-color: #FFD700;
     color: #333;
     border: 2px solid #FFD700;
     border-radius: 5px;
@@ -136,7 +136,7 @@ input:focus {
 }
 
 .btn-signup {
-    background-color: #FFD700; /* Gold */
+    background-color: #FFD700;
     color: #333;
     border: 2px solid #FFD700;
     border-radius: 5px;
@@ -147,7 +147,17 @@ input:focus {
     color: #FFD700;
 }
 
-/* Footer Section */
+.home-button {
+    background-color: #B22222;
+    color: #333;
+    border: 2px solid #B22222;
+    border-radius: 5px;
+}
+
+.home-button:hover {
+    background-color: white;
+}
+
 footer {
     background-color: #B22222;
     color: white;
@@ -159,7 +169,6 @@ footer p {
     font-size: 1rem;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
     .header .container {
         flex-direction: column;
