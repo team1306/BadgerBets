@@ -1,4 +1,4 @@
-import { Functions, Client, Account } from "appwrite";
+import { Functions, Client, Account } from "../node_modules/appwrite";
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1') // Your Appwrite endpoint
     .setProject('67609b010021900fc6e6'); // Your Project ID
@@ -33,9 +33,8 @@ const client = new Client()
 
         // Update the balance element inside the async block
         const balance = document.getElementById("balance");
-        if(balance != null) {
         balance.innerHTML = currentBadgerBucks;
-        }
+
     } catch (error) {
         alert("There was an error");
         console.error(error);
