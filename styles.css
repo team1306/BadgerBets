@@ -150,18 +150,18 @@ input:focus {
 /* incremental button css */
 .incremental-button{
     &.up {
-        border-bottom: 100px solid crimson;
-        border-left: 100px solid transparent;
-        border-right: 100px solid transparent;
+        border-bottom: 20px solid crimson;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
         &:hover {
             border-bottom-color: black;
         }
     }
     
     &.down {
-        border-top: 100px solid purple;
-        border-left: 100px solid transparent;
-        border-right: 100px solid transparent;
+        border-top: 20px solid purple;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
         &:hover {
             border-top-color: black;
         }
@@ -174,12 +174,10 @@ up-down-container {
 }
 .up-down-number{
     border: 5px dotted red;
-    width: 250px;
+    width: 50px;
     text-align: center;
     font-size: 40px;
-    height: 220px;
-    padding: 0 30px;
-    margin-left: 50px;
+    height: 50px;
 }
 
 footer {
