@@ -154,7 +154,7 @@ input:focus {
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
         &:hover {
-            border-bottom-color: black;
+            border-bottom-color: rgb(255, 94, 94);
         }
     }
     
@@ -163,7 +163,7 @@ input:focus {
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
         &:hover {
-            border-top-color: black;
+            border-top-color: rgb(255, 94, 94);
         }
     }
 }
