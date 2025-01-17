@@ -1,4 +1,4 @@
-import { Account, Client, Functions } from 'appwrite';
+import { Functions, Client, Account } from "../node_modules/appwrite";
 
 const client = new Client()
   .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL

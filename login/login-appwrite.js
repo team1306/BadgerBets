@@ -1,17 +1,17 @@
-import { Account, Client } from 'appwrite';
+import { Functions, Client, Account } from "../node_modules/appwrite";
   const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL
     .setProject('67609b010021900fc6e6');
 
   const account = new Account(client);
 
-  const loginForm = document.getElementById('login-form') as HTMLFormElement | null;
+  const loginForm = document.getElementById('login-form');
   if (loginForm) {
-    loginForm.addEventListener('submit', async (event: SubmitEvent) => {
+    loginForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const emailInput = document.getElementById('login-email') as HTMLInputElement | null;
-      const passwordInput = document.getElementById('login-password') as HTMLInputElement | null;
+      const emailInput = document.getElementById('login-email');
+      const passwordInput = document.getElementById('login-password');
 
       if (!emailInput || !passwordInput) {
         console.error('Login form inputs not found.');
@@ -38,7 +38,7 @@ import { Account, Client } from 'appwrite';
 
         localStorage.setItem('session', sessionId);
         window.location.href = '/BadgerBets/dashboard/';
-      } catch (error: any) {
+      } catch (error) {
         console.error('Login failed:', error);
         alert(`Login failed: ${error.message || 'Unknown error'}`);
       }
