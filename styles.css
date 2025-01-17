@@ -173,11 +173,11 @@ up-down-container {
     align-items: center;
 }
 .up-down-number{
-    border: 5px dotted red;
-    width: 50px;
+    border: 1px solid red;
+    width: 40px;
     text-align: center;
-    font-size: 40px;
-    height: 50px;
+    font-size: 15px;
+    height: 30px;
 }
 
 footer {
