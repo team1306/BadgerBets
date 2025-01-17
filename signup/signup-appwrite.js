@@ -15,10 +15,10 @@ if (signupForm) {
     event.preventDefault();
 
     // Extract form values
-    const email = (document.getElementById('email') as HTMLInputElement).value.trim();
-    const username = (document.getElementById('username') as HTMLInputElement).value.trim();
-    const password = (document.getElementById('password') as HTMLInputElement).value.trim();
-    const name = (document.getElementById('name') as HTMLInputElement).value.trim();
+    const email = (document.getElementById('email')).value.trim();
+    const username = (document.getElementById('username')).value.trim();
+    const password = (document.getElementById('password')).value.trim();
+    const name = (document.getElementById('name')).value.trim();
 
     // Basic validation
     if (!email || !username || !password || !name) {
