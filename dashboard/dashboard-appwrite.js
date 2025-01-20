@@ -1,4 +1,4 @@
-import {Client, Account, Databases, ID, Query} from "appwrite";
+import {Client, Account, Databases, Query} from "appwrite";
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1') // Your Appwrite endpoint
     .setProject('67609b010021900fc6e6'); // Your Project ID
@@ -23,8 +23,8 @@ const client = new Client()
                 Query.equal('$id', userId)
             ]
         );
-        var numDocuments = 0;
-        var documentID = "";
+        let numDocuments = 0;
+        let documentID = "";
         promise.then((doc) =>
         {
             numDocuments = doc.total
@@ -33,7 +33,7 @@ const client = new Client()
 
         if(numDocuments === 0){
             documentID = userId
-            const result = await databases.createDocument(
+            let result = await databases.createDocument(
                 '678dd2fb001b17f8e112', // databaseId
                 '678dd317002659e58688', // collectionId
                 documentID, // documentId
@@ -41,7 +41,7 @@ const client = new Client()
             );
         }
 
-        const result = await databases.getDocument(
+        let result = await databases.getDocument(
             '678dd2fb001b17f8e112', // databaseId
             '678dd317002659e58688', // collectionId
             documentID // documentId
