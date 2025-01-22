@@ -13,6 +13,15 @@ const client = new Client()
         window.location.href = '../login/login.html';
     }
 
+async function getBucks(documentID){
+    let database = new Databases(client);
+    let result = await databases.getDocument(
+        '678dd2fb001b17f8e112', // databaseId
+        '678dd317002659e58688', // collectionId
+        documentID // documentId
+    );
+}
+
     try {
         const user = await account.get();
         const userId = user.$id;
@@ -48,7 +57,9 @@ const client = new Client()
         );
 
         let functionResult = JSON.parse(result)
+        console.log(functionResult)
         let currentBadgerBucks = functionResult.badgerBucks
+        console.log(currentBadgerBucks)
 
         // Update the balance element inside the async block
         const balance = document.getElementById("balance");
