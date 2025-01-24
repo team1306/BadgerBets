@@ -9,7 +9,7 @@ const account = new Account(client);
 const databases = new Databases(client);
 
 const sessionId = localStorage.getItem("session");
-
+if(!sessionId) window.location.href = '../login/login.html';
 account.getSession(sessionId).then(async (response) => {
   const balance = document.getElementById("balance");
   balance.innerHTML = await getBucks();
