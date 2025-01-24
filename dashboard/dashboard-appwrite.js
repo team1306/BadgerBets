@@ -1,71 +1,36 @@
-import {Client, Account, Databases, Query} from "appwrite";
+import {Client, Account, Databases, Query} from 'appwrite';
+
 const client = new Client()
-    .setEndpoint('https://cloud.appwrite.io/v1') // Your Appwrite endpoint
-    .setProject('67609b010021900fc6e6'); // Your Project ID
+    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setProject('67609b010021900fc6e6');
 
-    const account = new Account(client);
+//create appwrite functionalities
+const account = new Account(client);
+const databases = new Databases(client);
 
-    const sessionId = localStorage.getItem("session");
-    const databases = new Databases(client);
+const sessionId = localStorage.getItem("session");
 
+account.getSession(sessionId).then(async (response) => {
+  const balance = document.getElementById("balance");
+  balance.innerHTML = await getBucks();
+});
 
-    if (!sessionId) {
-        window.location.href = '../login/login.html';
-    }
+async function getBucks(){
+ try {
+  const userData = await account.get(); // Get user data after resolving
+  const userId = userData.$id; // Extract the user ID
 
-async function getBucks(documentID){
-    let database = new Databases(client);
-    let result = await databases.getDocument(
-        '678dd2fb001b17f8e112', // databaseId
-        '678dd317002659e58688', // collectionId
-        documentID // documentId
-    );
+  const document = await databases.getDocument(
+      "678dd2fb001b17f8e112", // Database ID
+      "678dd317002659e58688", // Collection ID
+      userId // Document ID
+  ); // Wait for the document to resolve
+
+  // Access the resolved value (you are now parsing the result)
+  const result = document.BadgerBucks;
+  console.log("Parsed Result:", result);
+  return result; // Logs your expected value, e.g., 10
+ } catch (error) {
+  console.error("Error parsing promise:", error.message);
+ }
 }
-
-    try {
-        const user = await account.get();
-        const userId = user.$id;
-        let promise = databases.listDocuments(
-            "678dd2fb001b17f8e112",
-            "678dd317002659e58688",
-            [
-                Query.equal('$id', userId)
-            ]
-        );
-        let numDocuments = 0;
-        let documentID = "";
-        promise.then((doc) =>
-        {
-            numDocuments = doc.total
-            if(numDocuments > 0) documentID = doc.documents[0].$id
-        })
-
-        if(numDocuments === 0){
-            documentID = userId
-            let result = await databases.createDocument(
-                '678dd2fb001b17f8e112', // databaseId
-                '678dd317002659e58688', // collectionId
-                documentID, // documentId
-                {"BadgerBucks" : 10} // data
-            );
-        }
-
-        let result = await databases.getDocument(
-            '678dd2fb001b17f8e112', // databaseId
-            '678dd317002659e58688', // collectionId
-            documentID // documentId
-        );
-
-        let functionResult = JSON.parse(result)
-        console.log(functionResult)
-        let currentBadgerBucks = functionResult.badgerBucks
-        console.log(currentBadgerBucks)
-
-        // Update the balance element inside the async block
-        const balance = document.getElementById("balance");
-        balance.innerHTML = currentBadgerBucks;
-
-    } catch (error) {
-        alert("There was an error");
-        console.error(error);
-    }
