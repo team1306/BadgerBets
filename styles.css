@@ -147,6 +147,38 @@ input:focus {
     color: #B22222;
 }
 
+/* incremental button css */
+.incremental-button{
+    &.up {
+        border-bottom: 20px solid crimson;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        &:hover {
+            border-bottom-color: rgb(255, 94, 94);
+        }
+    }
+    
+    &.down {
+        border-top: 20px solid purple;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        &:hover {
+            border-top-color: rgb(255, 94, 94);
+        }
+    }
+}
+up-down-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.up-down-number{
+    border: 1px solid red;
+    width: 40px;
+    text-align: center;
+    font-size: 15px;
+    height: 30px;
+}
 footer {
     background-color: #B22222;
     color: white;
