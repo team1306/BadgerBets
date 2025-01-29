@@ -1,0 +1,54 @@
+/* Reset margins and paddings for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+/* Style for buttons and input fields */
+button,
+input {
+    outline: none;
+    border: none;
+    padding: 16px;
+    font-size: 18px;
+}
+
+/* Input field styling */
+input {
+    width: 80px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #ddd;
+}
+
+/* Button styling */
+button {
+    cursor: pointer;
+    font-size: 20px;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Styling for the increment and decrement buttons */
+button:hover {
+    background-color: #e6e6e6;
+}
+
+button:active {
+    background-color: #ccc;
+    box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Border radius for each button */
+button:nth-child(1) {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+button:nth-child(3) {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}

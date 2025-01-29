@@ -8,6 +8,7 @@ const client = new Client()
 const account = new Account(client);
 const databases = new Databases(client);
 
+//getAPIScore();
 const sessionId = localStorage.getItem("session");
 if(!sessionId) window.location.href = '../login/login.html';
 account.getSession(sessionId).then(async (response) => {
@@ -30,7 +31,7 @@ async function getBucks(){
 
   const document = await databases.getDocument(
       "678dd2fb001b17f8e112", // Database ID
-      "678dd317002659e58688", // Collection ID
+      "badgerBucks", // Collection ID
       userId // Document ID
   ); // Wait for the document to resolve
 
@@ -47,8 +48,24 @@ async function setBucks(value){
   const userData = await account.get(); // Get user data after resolving
   const userId = userData.$id; // Extract the user ID
 
-  const document = await databases.updateDocument("678dd2fb001b17f8e112", "678dd317002659e58688", userId, {"BadgerBucks" : value}); // Wait for the document to resolve
+  const document = await databases.updateDocument("678dd2fb001b17f8e112", "badgerBucks", userId,  {"BadgerBucks" : value});
  } catch (error) {
   console.error("Error parsing promise:", error.message);
  }
+}
+async function getAPIScore(){
+ let myHeaders = new Headers();
+ myHeaders.append("Authorization", "Basic 9f2f3a71-be4c-4b86-b90a-7212daad0a1b");
+ myHeaders.append("If-Modified-Since", "");
+
+ let requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+ };
+
+ fetch("https://frc-api.firstinspires.org/v3.0/2015/scores/ARFA/Playoff", requestOptions)
+     .then(response => response.text())
+     .then(result => console.log(result))
+     .catch(error => console.log('error', error));
 }
