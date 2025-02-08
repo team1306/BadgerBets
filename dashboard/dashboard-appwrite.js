@@ -1,4 +1,4 @@
-import {Client, Account, Databases, Query} from 'appwrite';
+import {Client, Account, Databases} from 'appwrite';
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -28,10 +28,10 @@ async function getBucks(){
  try {
   const userData = await account.get(); // Get user data after resolving
   const userId = userData.$id; // Extract the user ID
-
+  console.log("User ID:", userId);
   const document = await databases.getDocument(
       "678dd2fb001b17f8e112", // Database ID
-      "badgerBucks", // Collection ID
+      "badgerBucks",// Collection ID
       userId // Document ID
   ); // Wait for the document to resolve
 
