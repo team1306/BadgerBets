@@ -19,13 +19,23 @@ document.getElementById('bettingform').addEventListener('submit', function(event
     const matchType = document.getElementById('matchtype').value;
     const matchNumber = document.getElementById('matchnumber').value;
     const amount = document.getElementById('amount').value;
-    console.log(bet);
-    console.log(matchType);
-    console.log(matchNumber);
-    console.log(amount);
 
-    //.location.href = '../dashboard/dashboard.html';
+    if (bet == getWinner(matchType, matchNumber)) {
+        console.log("You win");
+    } else {
+        console.log("You lost");
+    }
+
+    //window.location.href = '../dashboard/dashboard.html';
 });
+
+/**
+ * @param matchType 0 for qual, 1 for playoff
+ * @returns 0 if blue won, 1 if red won
+ */
+function getWinner(matchType, matchNumber) {
+    return 0;
+}
 
 /**
  * Sets the text for teams
