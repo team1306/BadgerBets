@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sports Betting</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .betting-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .sport-list, .betting-odds, .betting-form {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+        .sport-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sport-list ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .betting-odds table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .betting-odds th, .betting-odds td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .betting-form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .betting-form input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .betting-form button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .betting-form button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Sports Betting Platform</h1>
+    </header>
+
+    <div class="betting-container">
+        <!-- Sport List Section -->
+        <div class="sport-list">
+            <h2>Available Sports</h2>
+            <ul>
+                <li>Football</li>
+                <li>Basketball</li>
+                <li>Tennis</li>
+                <li>Baseball</li>
+                <li>Golf</li>
+            </ul>
+        </div>
+
+        <!-- Betting Odds Section -->
+        <div class="betting-odds">
+            <h2>Current Betting Odds</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Match</th>
+                        <th>Team A Odds</th>
+                        <th>Team B Odds</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Football - Match 1</td>
+                        <td>2.5</td>
+                        <td>3.0</td>
+                    </tr>
+                    <tr>
+                        <td>Basketball - Match 2</td>
+                        <td>1.8</td>
+                        <td>2.2</td>
+                    </tr>
+                    <tr>
+                        <td>Tennis - Match 3</td>
+                        <td>1.6</td>
+                        <td>2.5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Betting Form Section -->
+        <div class="betting-form">
+            <h2>Place Your Bet</h2>
+            <form action="/submit-bet" method="POST">
+                <label for="sport">Select Sport:</label>
+                <select name="sport" id="sport" required>
+                    <option value="football">Football</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="tennis">Tennis</option>
+                    <option value="baseball">Baseball</option>
+                    <option value="golf">Golf</option>
+                </select>
+
+                <label for="team">Select Team:</label>
+                <select name="team" id="team" required>
+                    <option value="teamA">Team A</option>
+                    <option value="teamB">Team B</option>
+                </select>
+
+                <label for="amount">Bet Amount:</label>
+                <input type="number" name="amount" id="amount" min="1" step="1" required>
+
+                <button type="submit">Place Bet</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
