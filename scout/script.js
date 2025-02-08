@@ -46,10 +46,21 @@ function showSectionById(sectionId) {
 
 document.addEventListener('DOMContentLoaded', () => {
     var currentMode = document.getElementById('currentMode');
-    document.getElementById('toggleButton').addEventListener('click', () => {
-        hideSectionById('autonomous');
-        showSectionById('teleop');
-       currentMode.innerHTML = "Current Mode: Teleop";
+    var button = document.getElementById('toggleButton');
+    button.addEventListener('click', () => {
+        if (button.textContent === "Switch to Teleop") {
+            button.textContent = "Switch to Auto";
+            hideSectionById('autonomous');
+            showSectionById('teleop');
+            currentMode.innerHTML = "Current Mode: Teleop";
+        }
+        else if (button.textContent === "Switch to Auto") {
+            button.textContent = "Switch to Teleop";
+            hideSectionById('teleop');
+            showSectionById('autonomous');
+            currentMode.innerHTML = "Current Mode: Auto";
+        }
+        else {throw new Error();}
     });
 
     const updateFinalScore = () => {
