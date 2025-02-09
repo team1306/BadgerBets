@@ -64,15 +64,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const updateFinalScore = () => {
+        const finalAutoScore = document.getElementById('finalAutoScore');
+        const finalAutoScoreText =auto_coral_1.inputField.value * 3 + auto_coral_2.inputField.value * 4 +auto_coral_3.inputField.value * 6 + auto_coral_4.inputField.value * 7+auto_algae_processor.inputField.value * 6+auto_algae_net.inputField.value * 5;
+        finalAutoScore.innerHTML ="Final Auto Score: "+  finalAutoScoreText.toString();
+        const finalTeleScore = document.getElementById('finalTeleScore');
+        const finalTeleScoreText =tele_coral_1.inputField.value*2+tele_coral_2.inputField.value*3;
+        finalTeleScore.innerHTML ="Final Teleop Score: "+  finalTeleScoreText.toString();
         const finalScore = document.getElementById('finalScore');
-        const finalScoreText =coral_1.inputField.value * 3 + coral_2.inputField.value * 4 +coral_3.inputField.value * 6 + coral_4.inputField.value * 7+algae_processor.inputField.value * 6;
-        finalScore.innerHTML ="Final Auto Score: "+  finalScoreText.toString();
+        finalScore.innerHTML ="Final Score: "+  (finalAutoScoreText+finalTeleScoreText).toString();
     };
-    const coral_1 = new CoralCounter('increment1', 'decrement1', 'input1', updateFinalScore);
-    const coral_2 = new CoralCounter('increment2', 'decrement2', 'input2', updateFinalScore);
-    const coral_3 = new CoralCounter('increment3', 'decrement3', 'input3', updateFinalScore);
-    const coral_4 = new CoralCounter('increment4', 'decrement4', 'input4', updateFinalScore);
-    const algae_processor = new CoralCounter('increment5', 'decrement5', 'input5', updateFinalScore);
+    //auto ui
+    //TODO: add a leave checkbox
+    const auto_coral_1 = new CoralCounter('increment1', 'decrement1', 'input1', updateFinalScore);
+    const auto_coral_2 = new CoralCounter('increment2', 'decrement2', 'input2', updateFinalScore);
+    const auto_coral_3 = new CoralCounter('increment3', 'decrement3', 'input3', updateFinalScore);
+    const auto_coral_4 = new CoralCounter('increment4', 'decrement4', 'input4', updateFinalScore);
+    const auto_algae_processor = new CoralCounter('increment5', 'decrement5', 'input5', updateFinalScore);
+    const auto_algae_net = new CoralCounter('increment6', 'decrement6', 'input6', updateFinalScore);
+    //tele ui
+    const tele_coral_1 = new CoralCounter('increment7', 'decrement7', 'input7', updateFinalScore);
+    const tele_coral_2 = new CoralCounter('increment8', 'decrement8', 'input8', updateFinalScore);
+    const tele_coral_3 = new CoralCounter('increment9', 'decrement9', 'input9', updateFinalScore);
+    const tele_coral_4 = new CoralCounter('increment10', 'decrement10', 'input10', updateFinalScore);
+    const tele_algae_processor = new CoralCounter('increment11', 'decrement11', 'input11', updateFinalScore);
+    const tele_algae_net = new CoralCounter('increment12', 'decrement12', 'input12', updateFinalScore);
+
 });
 //let isAuto = true;
 
