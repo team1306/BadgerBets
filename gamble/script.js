@@ -1,5 +1,6 @@
 // script.js
 
+
 // This function runs when the page is loaded
 document.addEventListener('DOMContentLoaded', function () {
     console.log("Document is fully loaded and DOM is ready!");
