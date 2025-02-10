@@ -10,13 +10,13 @@ const databases = new Databases(client);
 
 export async function getBucks(){
     try {
-        //const userData = await account.get(); // Get user data after resolving
-        //const userId = userData.$id; // Extract the user ID
+        const userData = await account.get(); // Get user data after resolving
+        const userId = userData.$id; // Extract the user ID
 
         const document = await databases.getDocument(
             "678dd2fb001b17f8e112", // Database ID
             "badgerBucks",// Collection ID
-            "sharmnten"//userId // Document ID
+            userId // Document ID
         ); // Wait for the document to resolve
     
         // Access the resolved value (you are now parsing the result)
@@ -40,13 +40,13 @@ export async function setBucks(value){
             throw new Error('Invalid input: value must be a valid integer.');
         }
         
-        //const userData = await account.get(); // Get user data after resolving
-        //const userId = userData.$id; // Extract the user ID
+        const userData = await account.get(); // Get user data after resolving
+        const userId = userData.$id; // Extract the user ID
 
         const document = await databases.updateDocument(
             "678dd2fb001b17f8e112", 
             "badgerBucks", 
-            "sharmnten",//userId,
+            userId,
             {"BadgerBucks" : value}
         );
     } catch (error) {
