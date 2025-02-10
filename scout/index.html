@@ -29,6 +29,11 @@
 <main>
 
     <div id="autonomous">
+        <h2>Leave</h2>
+        <div id ="auto_leave_div" class="checkbox">
+            <input type="checkbox" id="auto_leave" class = "boolInput">
+            <label for="leave">Leave?</label>
+        </div>
         <h2>L1 Coral</h2>
         <div id="auto_l1_coral" class="l1_coral">
             
@@ -103,6 +108,20 @@
             <input class="#number" type="number" id="input10" value="0" />
             <button class="#increment" id="increment10">+</button>
         </div>
+        <h2>Algae Processor</h2>
+        <div id="tele_algae_processor" class="l1_coral">
+            
+            <button class="#decrement" id="decrement11">-</button>
+            <input class="#number" type="number" id="input11" value="0" />
+            <button class="#increment" id="increment11">+</button>
+        </div>
+        <h2>Algae Net</h2>
+        <div id="tele_algae_net" class="l1_coral">
+            
+            <button class="#decrement" id="decrement12">-</button>
+            <input class="#number" type="number" id="input12" value="0" />
+            <button class="#increment" id="increment12">+</button>
+        </div>
 
     </div>
     <h2 id ="finalAutoScore">0</h2>
@@ -120,4 +139,10 @@
         <p>&copy; 2025 BadgerBets. All rights reserved.</p>
     </div>
 </footer>
+<style>
+    .boolInput{
+        width: 50px;
+        height: 50px;
+    }
+</style>
 </html>

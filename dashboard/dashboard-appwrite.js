@@ -31,11 +31,12 @@ async function getBucks(){
   console.log("User ID:", userId);
   const document = await databases.getDocument(
       "678dd2fb001b17f8e112", // Database ID
-      "badgerBucks",// Collection ID
+      "BadgerBucks",// Collection ID
       userId // Document ID
   ); // Wait for the document to resolve
 
   // Access the resolved value (you are now parsing the result)
+  console.log(document.badgerBucks)
   const result = document.BadgerBucks;
   console.log("Parsed Result:", result);
   return result; // Logs your expected value, e.g., 10
@@ -43,7 +44,7 @@ async function getBucks(){
   console.error("Error parsing promise:", error.message);
  }
 }
-async function setBucks(value){
+export async function setBucks(value){
  try {
   const userData = await account.get(); // Get user data after resolving
   const userId = userData.$id; // Extract the user ID
