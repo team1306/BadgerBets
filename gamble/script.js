@@ -1,5 +1,11 @@
-// script.js
+import {Client, Databases} from 'appwrite';
 
+import {getBucks, setBucks} from '/AppwriteStuff.js';
+
+const client = new Client()
+    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setProject('67609b010021900fc6e6');
+const databases = new Databases(client);
 
 // This function runs when the page is loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -12,19 +18,24 @@ document.addEventListener('DOMContentLoaded', function () {
     setTeams(testTeams);
 });
 
-document.getElementById('bettingform').addEventListener('submit', function(event) {
+document.getElementById('bettingform').addEventListener('submit', async function(event) {
     event.preventDefault(); //prevents page from reloading
     console.log("Form submitted");
 
     const bet = document.getElementById('allianceselector').value;
     const matchType = document.getElementById('matchtype').value;
     const matchNumber = document.getElementById('matchnumber').value;
-    const amount = document.getElementById('amount').value;
+    const amount = parseInt(document.getElementById('amount').value);
 
     if (bet == getWinner(matchType, matchNumber)) {
         console.log("You win");
+        //add bet to money
+        setBucks(await getBucks() + amount);
+
     } else {
         console.log("You lost");
+        //subtract bet from money
+        setBucks(await getBucks() - amount);
     }
 
     //window.location.href = '../dashboard/dashboard.html';
