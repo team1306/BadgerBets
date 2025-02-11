@@ -1,3 +1,9 @@
+import {Client} from 'appwrite';
+const client = new Client()
+    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setProject('67609b010021900fc6e6');
+const sessionId = localStorage.getItem("session");
+if(!sessionId) window.location.href = '../login/login.html';
 class CoralCounter {
     constructor(incrementId, decrementId, inputId, updateScoreCallback) {
         this.incrementButton = document.getElementById(incrementId);

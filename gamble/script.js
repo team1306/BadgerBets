@@ -6,6 +6,8 @@ const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject('67609b010021900fc6e6');
 const databases = new Databases(client);
+const sessionId = localStorage.getItem("session");
+if(!sessionId) window.location.href = '../login/login.html';
 
 // This function runs when the page is loaded
 document.addEventListener('DOMContentLoaded', function () {
