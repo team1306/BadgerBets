@@ -30,8 +30,11 @@ class CoralCounter {
         }
     }
 }
-class Checkbox {
+class Checkbox { 
+
     constructor(id, updateScoreCallback) {
+        this.isChecked = false;
+
         this.checkbox = document.getElementById(id);
         this.updateScoreCallback = updateScoreCallback;
 
@@ -41,7 +44,9 @@ class Checkbox {
 
     update() {
         this.updateScoreCallback();
-    }
+
+        this.isChecked = this.checkbox.checked;
+    }   
 }
 function hideSectionById(sectionId) {
     var section = document.getElementById(sectionId);
@@ -83,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const updateFinalScore = () => {
-        const didMoveInAuto = document.getElementById('leave').value;
+        const didMoveInAuto = auto_leave.isChecked;
         if (didMoveInAuto) {
             const movedMultiplier = 1;
         }
@@ -91,13 +96,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const movedMultiplier = 0;
         }
         const finalAutoScore = document.getElementById('finalAutoScore');
-        const finalAutoScoreText =auto_coral_1.inputField.value * 3 + auto_coral_2.inputField.value * 4 +auto_coral_3.inputField.value * 6 + auto_coral_4.inputField.value * 7+auto_algae_processor.inputField.value * 6+auto_algae_net.inputField.value * 5+movedMultiplier*3;
-        finalAutoScore.innerHTML ="Final Auto Score: "+  finalAutoScoreText.toString();
+        const finalAutoScoreText = 
+            auto_coral_1.inputField.value * 3 + 
+            auto_coral_2.inputField.value * 4 +
+            auto_coral_3.inputField.value * 6 + 
+            auto_coral_4.inputField.value * 7 +
+            auto_algae_processor.inputField.value * 6 + 
+            auto_algae_net.inputField.value * 5 +
+            movedMultiplier * 3;
+        finalAutoScore.innerHTML = "Final Auto Score: "+  finalAutoScoreText.toString();
         const finalTeleScore = document.getElementById('finalTeleScore');
-        const finalTeleScoreText =tele_coral_1.inputField.value*2+tele_coral_2.inputField.value*3+tele_coral_3.inputField.value*4+tele_coral_4.inputField.value*5+tele_algae_processor.inputField.value*6+tele_algae_net.inputField.value*7;
-        finalTeleScore.innerHTML ="Final Teleop Score: "+  finalTeleScoreText.toString();
+        const finalTeleScoreText = tele_coral_1.inputField.value*2+tele_coral_2.inputField.value*3+tele_coral_3.inputField.value*4+tele_coral_4.inputField.value*5+tele_algae_processor.inputField.value*6+tele_algae_net.inputField.value*7;
+        finalTeleScore.innerHTML = "Final Teleop Score: "+  finalTeleScoreText.toString();
         const finalScore = document.getElementById('finalScore');
-        finalScore.innerHTML ="Final Score: "+  (finalAutoScoreText+finalTeleScoreText).toString();
+        finalScore.innerHTML = "Final Score: "+  (finalAutoScoreText+finalTeleScoreText).toString();
     };
     //auto ui
     //TODO: add a leave checkbox
