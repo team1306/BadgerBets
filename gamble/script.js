@@ -22,13 +22,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.getElementById('bettingform').addEventListener('submit', async function(event) {
     event.preventDefault(); //prevents page from reloading
-    console.log("Form submitted");
+
+    //validation
+    let isValid = true;
 
     const bet = document.getElementById('allianceselector').value;
+    if (!bet) {isValid = false;console.log("bet is wrong");}
     const matchType = document.getElementById('matchtype').value;
-    const matchNumber = document.getElementById('matchnumber').value;
-    const amount = parseInt(document.getElementById('amount').value);
+    if (!matchType) {isValid = false;console.log("type is wrong");}
 
+    const matchNumber = document.getElementById('matchnumber').value;
+    if (!matchNumber) {isValid = false;console.log("matchnum is wrong");}
+
+    const amount = parseInt(document.getElementById('amount').value);
+    if (isNaN(amount) || await getBucks() < amount) {isValid = false; console.log("amount is wrong");}
+
+    // If the form is valid, submit it
+    if (isValid) {
+        alert("Form submitted successfully!");
+    } else {
+        alert("Please fix the errors in the form.");
+        return;
+    }
+
+    //win checking
     if (bet == getWinner(matchType, matchNumber)) {
         console.log("You win");
         //add bet to money

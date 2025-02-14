@@ -10,12 +10,21 @@ const databases = new Databases(client);
 
 export async function getBucks(){
     try {
-        const userData = await account.get(); // Get user data after resolving
+        const sessionId = localStorage.getItem('session');
+        console.log(sessionId);
+
+        if (!sessionId) {
+            window.location.href = '../login/login.html'; // Redirect to login if no session
+            return;
+        }
+        const userData = await account.get(); // Call account.get() to fetch user details
+        console.log(userData); // Log the user data for debugging
         const userId = userData.$id; // Extract the user ID
+        console.log("User ID is: " + userId);
 
         const document = await databases.getDocument(
             "678dd2fb001b17f8e112", // Database ID
-            "badgerBucks",// Collection ID
+            "badgerBucks", // Collection ID
             userId // Document ID
         ); // Wait for the document to resolve
     
@@ -25,6 +34,10 @@ export async function getBucks(){
         return result; // Logs your expected value, e.g., 10
     } catch (error) {
         console.error("Error parsing promise:", error.message);
+        if (error.code === 401) {
+            // Redirect to login if session is invalid or expired
+            window.location.href = '../login/login.html';
+        }
     }
 }
 
@@ -40,8 +53,12 @@ export async function setBucks(value){
             throw new Error('Invalid input: value must be a valid integer.');
         }
         
+        const sessionId = localStorage.getItem('session');
+
         const userData = await account.get(); // Get user data after resolving
         const userId = userData.$id; // Extract the user ID
+
+        console.log("User ID is: " + userId);
 
         const document = await databases.updateDocument(
             "678dd2fb001b17f8e112", 

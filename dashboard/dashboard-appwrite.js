@@ -12,10 +12,14 @@ const databases = new Databases(client);
 
 //getAPIScore();
 const sessionId = localStorage.getItem("session");
-if(!sessionId) window.location.href = '../login/login.html';
+if(!sessionId) {
+  window.location.href = '../login/login.html';
+}
 account.getSession(sessionId).then(async (response) => {
   const balance = document.getElementById("balance");
   balance.innerHTML = await getBucks();
+}).catch(error => {
+  console.error("Error getting session:", error);
 });
 const zeroButton = document.getElementById("zeroButton")
 
