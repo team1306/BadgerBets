@@ -181,5 +181,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //auto ui
 });
-//let isAuto = true;
+
+document.getElementById('submit').addEventListener('click', () => dumpToCookie);
+
+function dumpToCookie() {
+    let climbState = 0;
+    switch (climb_status.selectedOption) {
+        case "none": climbState = 0; break;
+        case "park": climbState = 1; break;
+        case "shallow": climbState = 2; break;
+        case "deep": climbState = 3; break;
+    }
+    let intakeAbilities = 0;
+    switch (document.getElementById('intake_ability').value) {
+        case "coral_station": intakeAbilities = 0; break;
+        case "ground": intakeAbilities = 1; break;
+        case "both": intakeAbilities = 2; break;
+    }
+
+    const dictionary = {
+        "auto_L1": auto_coral_1.inputField.value,
+        "auto_L2": auto_coral_2.inputField.value,
+        "auto_L3": auto_coral_3.inputField.value,
+        "auto_L4": auto_coral_4.inputField.value,
+        "leave": auto_leave.isChecked,
+        "auto_net": auto_algae_net.inputField.value,
+        "auto_processor": auto_algae_processor.inputField.value,
+
+        "teleop_L1": tele_coral_1.inputField.value,
+        "teleop_L2": tele_coral_2.inputField.value,
+        "teleop_L3": tele_coral_3.inputField.value,
+        "teleop_L4": tele_coral_4.inputField.value,
+        "teleop_net": tele_algae_net.inputField.value,
+        "teleop_processor": tele_algae_processor.inputField.value,
+
+        "climb_state": climbState,
+        "driver_rating": driver_ability.value,
+        "intake_abilities": intakeAbilities
+    };
+}
 

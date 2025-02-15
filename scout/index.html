@@ -26,7 +26,7 @@
     <p id="currentMode">Current Mode: Autonomous</p>
 </div>
 <main>
-
+    <br></br>
     <div id="autonomous">
         <h2>Leave</h2>
         <div id ="auto_leave_div" class="checkbox">
@@ -123,7 +123,40 @@
         </div>
 
     </div>
+
     <div hidden id="end">
+<<<<<<< HEAD
+        <h2>Robot Climb Status</h2>
+        <select id="climb_status">
+            <option value="none">None</option>
+            <option value="park">Park</option>
+            <option value="shallow">Shallow</option>
+            <option value="deep">Deep</option>
+        </select>
+
+        <br></br>
+
+        <h2>Rate Driver Ability</h2>  
+        <input id=driverRating type="range" min="1" max="5" value="3" class="slider">
+        <p id= displayDriverRating>Driver Ability: 3</p>
+
+        <br></br>
+
+        <h2>Intake ability</h2>
+        <select id="intake_ability">
+            <option value="coral_station">Coral Station</option>
+            <option value="ground">Ground</option>
+            <option value="both">Both</option>
+        </select>
+
+        <br></br>
+
+        <h2>Notes</h2>
+        <input id = notes placeholder = 
+            "Enter any important information that is not gathered by previous questions. Ex: Robot played excellent defence.">
+        </input>
+
+=======
         <div id="climb">
             <label>Robot Climb Status: </label>
             <select id="climb_status">
@@ -145,7 +178,11 @@
             <p id= displayDriverRating>5</p>
             
         </div>
+>>>>>>> fd7513bc8eab74f3499fa67497110d6c7d11c791
     </div>
+
+    <br></br>
+
     <h2 id ="finalAutoScore">0</h2>
     <h2 id ="finalTeleScore">0</h2>
     <h2 id="finalScore">0</h2>
