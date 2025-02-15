@@ -233,6 +233,9 @@ footer {
     font-size: 0.8rem;
     border-top: 2px solid #ff0000;
 }
+.sync{
+    background-color: lime;
+}
 
 /* Larger Screen Adjustments */
 @media (min-width: 768px) {
