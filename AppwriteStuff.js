@@ -15,7 +15,8 @@ export async function getUserId() {
     try {
         const sessionId = localStorage.getItem('session');
         const userData = await account.get(); // Call account.get() to fetch user details
-        return userId = userData.$id; // Extract the user ID
+        const userId = userData.$id; // Extract the user ID
+        return userId;
     } catch (error) {
         console.error("Error getting userId:", error.message);
         if (error.code === 401) {
@@ -28,7 +29,7 @@ export async function getUserId() {
 
 export async function getBucks(){
 
-        const userId = getUserId(); 
+        const userId = await getUserId();
 
         const document = await databases.getDocument(
             "678dd2fb001b17f8e112", // Database ID
@@ -43,23 +44,20 @@ export async function getBucks(){
     
 }
 
-/**
- * @param {intValue} value 
- */
 export async function setBucks(value) {
     try {
-        const intValue = parseInt(value);
-        if (intValue === NaN) console.error("Error parsing input for setBucks(): Value is NaN");
+        value = parseInt(value);
+        if (value === NaN) console.error("Error parsing input for setBucks(): Value is NaN");
     } catch (error) {
         console.error("Error parsing input for setBucks(): " + error.message);
     }
       
-    const userId = getUserId();
+    const userId = await getUserId();
 
     await databases.updateDocument(
         "678dd2fb001b17f8e112", 
         "badgerBucks", 
         userId,
-        {"BadgerBucks" : intValue}
+        {"BadgerBucks" : value}
     );
 }
