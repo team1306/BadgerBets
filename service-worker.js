@@ -17,6 +17,26 @@
         - Badges: https://microsoft.github.io/win-student-devs/#/30DaysOfPWA/advanced-capabilities/07?id=application-badges
     */
 
+        const CACHE_NAME = "offline-cache-v1";
+        const ASSETS = [
+            "/",
+            "/index.html",
+            "/styles.css",
+            "/script.js",
+            "/images/logo.png",
+        ];
+        
+        // Install service worker and cache assets
+        self.addEventListener("install", (event) => {
+        event.waitUntil(
+            caches.open(CACHE_NAME).then((cache) => {
+                return cache.addAll(ASSETS);
+            })
+        );
+        });
+        
+
+
     const HOSTNAME_WHITELIST = [
         self.location.hostname,
         'fonts.gstatic.com',
