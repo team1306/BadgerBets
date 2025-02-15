@@ -33,7 +33,7 @@ class CoralCounter {
 class Checkbox { 
 
     constructor(id, updateScoreCallback) {
-        this.isChecked = true; 
+        this.isChecked = false; 
 
         this.checkbox = document.getElementById(id);
         this.updateScoreCallback = updateScoreCallback;
@@ -43,11 +43,32 @@ class Checkbox {
     }
 
     update() {
-        this.updateScoreCallback();
+        this.isChecked = this.checkbox.checked;
 
-        this.isChecked = !this.checkbox.checked; //for some reason it works when its flipped
+        this.updateScoreCallback();
     }   
 }
+
+class OptionSelect { 
+
+    constructor(id, updateScoreCallback) {
+        
+
+        this.optionSelect = document.getElementById(id);
+        this.updateScoreCallback = updateScoreCallback;
+
+        this.selectedOption = "none";
+        // Attach event listener
+        this.optionSelect.addEventListener('click', () => this.update());
+    }
+
+    update() {
+        this.selectedOption = this.optionSelect.value;
+
+        this.updateScoreCallback();
+    }   
+}
+
 function hideSectionById(sectionId) {
     var section = document.getElementById(sectionId);
     if (section) {
@@ -80,13 +101,29 @@ document.addEventListener('DOMContentLoaded', () => {
             auto_coral_4.inputField.value * 7 +
             auto_algae_processor.inputField.value * 6 +
             auto_algae_net.inputField.value * 5 +
-            auto_leave.isChecked ? 3 : 0; //if it is checked, value is 3, otherwise 0
+            (auto_leave.isChecked ? 3 : 0); //if it is checked, value is 3, otherwise 0
         finalAutoScore.innerHTML = "Final Auto Score: "+  finalAutoScoreText.toString();
+
         const finalTeleScore = document.getElementById('finalTeleScore');
-        const finalTeleScoreText = tele_coral_1.inputField.value*2+tele_coral_2.inputField.value*3+tele_coral_3.inputField.value*4+tele_coral_4.inputField.value*5+tele_algae_processor.inputField.value*6+tele_algae_net.inputField.value*7;
+        const finalTeleScoreText = 
+            tele_coral_1.inputField.value * 2 +
+            tele_coral_2.inputField.value * 3 +
+            tele_coral_3.inputField.value * 4 +
+            tele_coral_4.inputField.value * 5 +
+            tele_algae_processor.inputField.value * 6 +
+            tele_algae_net.inputField.value * 7;
         finalTeleScore.innerHTML = "Final Teleop Score: "+  finalTeleScoreText.toString();
-        const finalScore = document.getElementById('finalScore');
-        finalScore.innerHTML = "Final Score: "+  (finalAutoScoreText+finalTeleScoreText).toString();
+
+        let climbScore = 0;
+        switch (climb_status.selectedOption) {
+            case "park": climbScore = 2; break;
+            case "shallow": climbScore = 6; break;
+            case "deep": climbScore = 12; break;
+        }
+
+        const finalScoreElement = document.getElementById('finalScore');
+        let finalScore = finalAutoScoreText + finalTeleScoreText + climbScore;
+        finalScoreElement.innerHTML = "Final Score: " + finalScore;
     };
     const auto_coral_1 = new CoralCounter('increment1', 'decrement1', 'input1', updateFinalScore);
     const auto_coral_2 = new CoralCounter('increment2', 'decrement2', 'input2', updateFinalScore);
@@ -104,19 +141,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const tele_algae_processor = new CoralCounter('increment11', 'decrement11', 'input11', updateFinalScore);
     const tele_algae_net = new CoralCounter('increment12', 'decrement12', 'input12', updateFinalScore);
 
+    //end ui
+    const climb_status = new OptionSelect("climb_status", updateFinalScore);
+
     //code for switching from auto ui to teleop ui
     var currentMode = document.getElementById('currentMode');
     var button = document.getElementById('toggleButton');
     button.addEventListener('click', () => {
+        //auto
         if (button.textContent === "Switch to Teleop") {
-            button.textContent = "Switch to Auto";
+            button.textContent = "Switch to End";
             hideSectionById('autonomous');
+            hideSectionById('end');
             showSectionById('teleop');
             currentMode.innerHTML = "Current Mode: Teleop";
         }
+        //teleop
+        else if (button.textContent === "Switch to End") {
+            button.textContent = "Switch to Auto";
+            hideSectionById('teleop');
+            hideSectionById('autonomous');
+            showSectionById('end');
+            currentMode.innerHTML = "Current Mode: End";
+        }
+        //end
         else if (button.textContent === "Switch to Auto") {
             button.textContent = "Switch to Teleop";
             hideSectionById('teleop');
+            hideSectionById('end');
             showSectionById('autonomous');
             currentMode.innerHTML = "Current Mode: Auto";
         }
