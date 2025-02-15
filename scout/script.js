@@ -15,7 +15,6 @@ class CoralCounter {
         this.incrementButton.addEventListener('click', () => this.increment());
         this.decrementButton.addEventListener('click', () => this.decrement());
     }
-
     increment() {
         const currentValue = parseInt(this.inputField.value, 10);
         this.inputField.value = currentValue + 1;
@@ -143,7 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //end ui
     const climb_status = new OptionSelect("climb_status", updateFinalScore);
-
+    const driver_ability = document.getElementById('driverRating');
+    const driver_ability_text = document.getElementById('displayDriverRating');
+    driver_ability.addEventListener('input', () => {
+        driver_ability_text.innerHTML = "Driver Ability: " + driver_ability.value;
+    });
     //code for switching from auto ui to teleop ui
     var currentMode = document.getElementById('currentMode');
     var button = document.getElementById('toggleButton');
