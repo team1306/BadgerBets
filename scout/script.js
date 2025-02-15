@@ -33,7 +33,7 @@ class CoralCounter {
 class Checkbox { 
 
     constructor(id, updateScoreCallback) {
-        this.isChecked = false;
+        this.isChecked = true; 
 
         this.checkbox = document.getElementById(id);
         this.updateScoreCallback = updateScoreCallback;
@@ -45,7 +45,7 @@ class Checkbox {
     update() {
         this.updateScoreCallback();
 
-        this.isChecked = this.checkbox.checked;
+        this.isChecked = !this.checkbox.checked; //for some reason it works when its flipped
     }   
 }
 function hideSectionById(sectionId) {
@@ -71,15 +71,8 @@ function showSectionById(sectionId) {
 document.addEventListener('DOMContentLoaded', () => {
     //UI
     const updateFinalScore = () => {
-        const didMoveInAuto = auto_leave.isChecked;
-        if (didMoveInAuto) {
-            const movedMultiplier = 1;
-        }
-        else{
-            const movedMultiplier = 0;
-        }
+        console.log(auto_leave.isChecked);
         const finalAutoScore = document.getElementById('finalAutoScore');
-        let movedMultiplier=0;
         const finalAutoScoreText =
             auto_coral_1.inputField.value * 3 +
             auto_coral_2.inputField.value * 4 +
@@ -87,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             auto_coral_4.inputField.value * 7 +
             auto_algae_processor.inputField.value * 6 +
             auto_algae_net.inputField.value * 5 +
-            movedMultiplier * 3;
+            auto_leave.isChecked ? 3 : 0; //if it is checked, value is 3, otherwise 0
         finalAutoScore.innerHTML = "Final Auto Score: "+  finalAutoScoreText.toString();
         const finalTeleScore = document.getElementById('finalTeleScore');
         const finalTeleScoreText = tele_coral_1.inputField.value*2+tele_coral_2.inputField.value*3+tele_coral_3.inputField.value*4+tele_coral_4.inputField.value*5+tele_algae_processor.inputField.value*6+tele_algae_net.inputField.value*7;
@@ -101,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const auto_coral_4 = new CoralCounter('increment4', 'decrement4', 'input4', updateFinalScore);
     const auto_algae_processor = new CoralCounter('increment5', 'decrement5', 'input5', updateFinalScore);
     const auto_algae_net = new CoralCounter('increment6', 'decrement6', 'input6', updateFinalScore);
-    const auto_leave = new Checkbox('leave', updateFinalScore);
+    const auto_leave = new Checkbox('auto_leave', updateFinalScore);
 
     //tele ui
     const tele_coral_1 = new CoralCounter('increment7', 'decrement7', 'input7', updateFinalScore);
