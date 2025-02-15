@@ -149,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
         driver_ability_text.innerHTML = "Driver Ability: " + driver_ability.value;
     });
     //code for switching from auto ui to teleop ui
-    var currentMode = document.getElementById('currentMode');
-    var button = document.getElementById('toggleButton');
+    let currentMode = document.getElementById('currentMode');
+    let button = document.getElementById('toggleButton');
     button.addEventListener('click', () => {
         //auto
         if (button.textContent === "Switch to Teleop") {
