@@ -1,54 +1,273 @@
-/* Reset margins and paddings for all elements */
+/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    font-size: 16px;
+}
 
+.container {
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+}
 
-/* Style for buttons and input fields */
+/* Header Styles */
+.header {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 1rem 0;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 15px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* Main Content Styles */
+main {
+    padding: 1rem 0;
+}
+
+h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* Mode Toggle Styles */
+#modeToggle {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#toggleButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 200px;
+}
+
+#currentMode {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Input and Button Styles */
+.l1_coral {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
 button,
 input {
     outline: none;
     border: none;
-    padding: 16px;
-    font-size: 18px;
+    padding: 15px;
+    font-size: 1.2rem;
 }
 
-/* Input field styling */
-input {
+input[type="number"] {
     width: 80px;
     text-align: center;
-    font-size: 18px;
     border: 1px solid #ddd;
+    border-radius: 0;
+    -moz-appearance: textfield;
 }
 
-/* Button styling */
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 button {
     cursor: pointer;
-    font-size: 20px;
     background-color: #f0f0f0;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 60px;
+    transition: background-color 0.3s ease;
 }
 
-/* Styling for the increment and decrement buttons */
 button:hover {
-    background-color: #e6e6e6;
+    background-color: #e0e0e0;
 }
 
 button:active {
-    background-color: #ccc;
-    box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2);
+    background-color: #d0d0d0;
 }
 
-/* Border radius for each button */
-button:nth-child(1) {
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
+button:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
-button:nth-child(3) {
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+button:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* Checkbox Styling */
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* Select Styling */
+select {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    margin-bottom: 1rem;
+}
+
+/* Slider Styling */
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    border-radius: 12.5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    margin-bottom: 1rem;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+/* Submit Button Styling */
+#submit {
+    display: block;
+    width: 100%;
+    max-width: 250px;
+    margin: 1rem auto;
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+#submit:hover {
+    background-color: #45a049;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.8rem;
+}
+
+/* Larger Screen Adjustments */
+@media (min-width: 768px) {
+    .container {
+        max-width: 750px;
+    }
+
+    body {
+        font-size: 18px;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-links a {
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    button,
+    input {
+        font-size: 1.3rem;
+    }
+
+    input[type="number"] {
+        width: 100px;
+    }
+
+    button {
+        width: 80px;
+    }
+
+    #toggleButton,
+    #submit {
+        font-size: 1.2rem;
+    }
+
+    select {
+        font-size: 1.1rem;
+    }
+
+    footer {
+        font-size: 1rem;
+    }
 }
