@@ -28,7 +28,9 @@
     <p id="currentMode">Current Mode: Autonomous</p>
 </div>
 <main>
+
     <br></br>
+
     <div id="autonomous">
         <h2>Leave</h2>
         <div id ="auto_leave_div" class="checkbox">
@@ -127,27 +129,36 @@
     </div>
 
     <div hidden id="end">
-        <div id="climb">
-            <label>Robot Climb Status: </label>
-            <select id="climb_status">
-                <option value="none">None</option>
-                <option value="park">Park</option>
-                <option value="shallow">Shallow</option>
-                <option value="deep">Deep</option>
-            </select>
-            <label>Robot Climb Status: </label>
-            <select id="intake_status">
-                <option value="none">None</option>
-                <option value="park">Park</option>
-                <option value="shallow">Shallow</option>
-                <option value="deep">Deep</option>
-            </select>
-            <h2>Driver Rating</h2>  
-            <p>Rate the drivers on a scale of 1-5.</p>
-            <input id=driverRating type="range" min="1" max="5" value="3" class="slider" id="myRange">
-            <p id= displayDriverRating>5</p>
             
-        </div>
+        <h2>Robot Climb Status:</h2>
+        <select id="climb_status">
+            <option value="none">None</option>
+            <option value="park">Park</option>
+            <option value="shallow">Shallow</option>
+            <option value="deep">Deep</option>
+        </select>
+
+        <br></br>
+
+        <h2>Driver Rating</h2>  
+        <p>Rate the drivers on a scale of 1-5.</p>
+        <input id=driverRating type="range" min="1" max="5" value="3" class="slider" id="myRange">
+        <p id= displayDriverRating>Driver Ability: 3</p>
+        
+        <br></br>
+        
+        <h2>Intake ability</h2>
+        <select id="intake_ability">
+            <option value="coral_station">Coral Station</option>
+            <option value="ground">Ground</option>
+            <option value="both">Both</option>
+        </select>
+
+        <h2>Notes</h2>
+        <input id = notes placeholder = 
+            "Enter any important information that is not gathered by previous questions. Ex: Robot played excellent defence.">
+        </input>
+        
     </div>
 
     <br></br>

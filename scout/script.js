@@ -1,10 +1,16 @@
 import {Client, Databases} from 'appwrite';
+
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject('67609b010021900fc6e6');
 const sessionId = localStorage.getItem("session");
 const database = new Databases(client);
 if(!sessionId) window.location.href = '../login/login.html';
+
+let auto_coral_1, auto_coral_2, auto_coral_3, auto_coral_4, auto_algae_processor, auto_algae_net, auto_leave;
+let tele_coral_1, tele_coral_2, tele_coral_3, tele_coral_4, tele_algae_processor, tele_algae_net;
+let climb_status, driver_ability;
+
 class CoralCounter {
     constructor(incrementId, decrementId, inputId, updateScoreCallback) {
         this.incrementButton = document.getElementById(incrementId);
@@ -156,28 +162,28 @@ document.addEventListener('DOMContentLoaded', () => {
         let finalScore = finalAutoScoreText + finalTeleScoreText + climbScore;
         finalScoreElement.innerHTML = "Final Score: " + finalScore;
     };
-    const auto_coral_1 = new CoralCounter('increment1', 'decrement1', 'input1', updateFinalScore);
-    const auto_coral_2 = new CoralCounter('increment2', 'decrement2', 'input2', updateFinalScore);
-    const auto_coral_3 = new CoralCounter('increment3', 'decrement3', 'input3', updateFinalScore);
-    const auto_coral_4 = new CoralCounter('increment4', 'decrement4', 'input4', updateFinalScore);
-    const auto_algae_processor = new CoralCounter('increment5', 'decrement5', 'input5', updateFinalScore);
-    const auto_algae_net = new CoralCounter('increment6', 'decrement6', 'input6', updateFinalScore);
-    const auto_leave = new Checkbox('auto_leave', updateFinalScore);
+    auto_coral_1 = new CoralCounter('increment1', 'decrement1', 'input1', updateFinalScore);
+    auto_coral_2 = new CoralCounter('increment2', 'decrement2', 'input2', updateFinalScore);
+    auto_coral_3 = new CoralCounter('increment3', 'decrement3', 'input3', updateFinalScore);
+    auto_coral_4 = new CoralCounter('increment4', 'decrement4', 'input4', updateFinalScore);
+    auto_algae_processor = new CoralCounter('increment5', 'decrement5', 'input5', updateFinalScore);
+    auto_algae_net = new CoralCounter('increment6', 'decrement6', 'input6', updateFinalScore);
+    auto_leave = new Checkbox('auto_leave', updateFinalScore);
 
     //tele ui
-    const tele_coral_1 = new CoralCounter('increment7', 'decrement7', 'input7', updateFinalScore);
-    const tele_coral_2 = new CoralCounter('increment8', 'decrement8', 'input8', updateFinalScore);
-    const tele_coral_3 = new CoralCounter('increment9', 'decrement9', 'input9', updateFinalScore);
-    const tele_coral_4 = new CoralCounter('increment10', 'decrement10', 'input10', updateFinalScore);
-    const tele_algae_processor = new CoralCounter('increment11', 'decrement11', 'input11', updateFinalScore);
-    const tele_algae_net = new CoralCounter('increment12', 'decrement12', 'input12', updateFinalScore);
+    tele_coral_1 = new CoralCounter('increment7', 'decrement7', 'input7', updateFinalScore);
+    tele_coral_2 = new CoralCounter('increment8', 'decrement8', 'input8', updateFinalScore);
+    tele_coral_3 = new CoralCounter('increment9', 'decrement9', 'input9', updateFinalScore);
+    tele_coral_4 = new CoralCounter('increment10', 'decrement10', 'input10', updateFinalScore);
+    tele_algae_processor = new CoralCounter('increment11', 'decrement11', 'input11', updateFinalScore);
+    tele_algae_net = new CoralCounter('increment12', 'decrement12', 'input12', updateFinalScore);
 
     //end ui
-    const climb_status = new OptionSelect("climb_status", updateFinalScore);
-    const driver_ability = document.getElementById('driverRating');
-    const driver_ability_text = document.getElementById('displayDriverRating');
+    climb_status = new OptionSelect("climb_status", updateFinalScore);
+    driver_ability = document.getElementById('driverRating');
     driver_ability.addEventListener('input', () => {
-        driver_ability_text.innerHTML = "Driver Ability: " + driver_ability.value;
+        document.getElementById('displayDriverRating')
+        .innerHTML = "Driver Ability: " + driver_ability.value;
     });
     //get the sync button
     const sync = document.getElementById('sync')
@@ -228,9 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
     //auto ui
 });
 
-document.getElementById('submit').addEventListener('click', () => dumpToCookie('testCookie'));
+document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
 
-function dumpToCookie(cookieName) {
+function dumpScoutingDataToLocalStorage() {
+    const matchNumber = 0, teamNumber = 1306;
+    const cookieName = "" + matchNumber + "-" + teamNumber;
+    
     let climbState = 0;
     switch (climb_status.selectedOption) {
         case "none": climbState = 0; break;
@@ -244,7 +253,6 @@ function dumpToCookie(cookieName) {
         case "ground": intakeAbilities = 1; break;
         case "both": intakeAbilities = 2; break;
     }
-
     const dictionary = {
         "auto_L1": auto_coral_1.inputField.value,
         "auto_L2": auto_coral_2.inputField.value,
@@ -263,8 +271,12 @@ function dumpToCookie(cookieName) {
 
         "climb_state": climbState,
         "driver_rating": driver_ability.value,
-        "intake_abilities": intakeAbilities
+        "intake_abilities": intakeAbilities,
+        "notes": document.getElementById('notes').value
     };
+
     //TODO: send to appwrite database
+    localStorage.setItem(cookieName, JSON.stringify(dictionary));
+    console.log("Saved match data: " + localStorage.getItem(cookieName));
 }
 
