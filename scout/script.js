@@ -86,7 +86,38 @@ function showSectionById(sectionId) {
         console.log('Section with ID ' + sectionId + ' not found.');
     }
 }
-
+//function to list all cookies
+function listCookies() {
+    // Remove the "session" cookie by setting its expiration date in the past.
+    // Note: If the cookie was set with a specific path or domain, you may need to include those.
+    document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  
+    // Retrieve the current cookies
+    const cookieString = document.cookie;
+    
+    // If there are no cookies, return an empty object
+    if (!cookieString) return {};
+  
+    // Split the cookie string into individual cookies (format: "name=value")
+    const cookiesArray = cookieString.split('; ');
+    
+    // Create an object to store cookie names and their values
+    const cookiesObj = {};
+  
+    cookiesArray.forEach(cookie => {
+      const [name, value] = cookie.split('=');
+      cookiesObj[name] = value;
+    });
+    
+    return cookiesObj;
+  }
+  
+  // Example usage:
+  console.log(listCookies());
+  
+  
+  // Example usage:
+  
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -148,6 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
     driver_ability.addEventListener('input', () => {
         driver_ability_text.innerHTML = "Driver Ability: " + driver_ability.value;
     });
+    //get the sync button
+    const sync = document.getElementById('sync')
+
+    sync.addEventListener("click",()=>{
+
+    });
+
     //code for switching from auto ui to teleop ui
     let currentMode = document.getElementById('currentMode');
     let button = document.getElementById('toggleButton');
