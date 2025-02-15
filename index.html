@@ -11,6 +11,11 @@
 
 </head>
 <body>
+<script> 
+  if (typeof navigator.serviceWorker != 'undefined'){
+    navigator.serviceWorker.register('service-worker.js')
+  }
+</script>
 <!-- Header Section -->
 <header class="header">
   <div class="container">
