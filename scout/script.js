@@ -1,8 +1,9 @@
-import {Client} from 'appwrite';
+import {Client, Databases} from 'appwrite';
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject('67609b010021900fc6e6');
 const sessionId = localStorage.getItem("session");
+const database = new Databases(client);
 if(!sessionId) window.location.href = '../login/login.html';
 class CoralCounter {
     constructor(incrementId, decrementId, inputId, updateScoreCallback) {
@@ -182,9 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
     //auto ui
 });
 
-document.getElementById('submit').addEventListener('click', () => dumpToCookie);
+document.getElementById('submit').addEventListener('click', () => dumpToCookie('testCookie'));
 
-function dumpToCookie() {
+function dumpToCookie(cookieName) {
     let climbState = 0;
     switch (climb_status.selectedOption) {
         case "none": climbState = 0; break;
@@ -219,5 +220,6 @@ function dumpToCookie() {
         "driver_rating": driver_ability.value,
         "intake_abilities": intakeAbilities
     };
+    //TODO: send to appwrite database
 }
 
