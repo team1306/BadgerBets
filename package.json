@@ -12,6 +12,7 @@
     "vite": "^6.1.0"
   },
   "dependencies": {
-    "appwrite": "^16.1.0"
+    "appwrite": "^16.1.0",
+    "qrcode": "^1.5.4"
   }
 }
