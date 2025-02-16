@@ -1,4 +1,4 @@
-import {Client, Databases} from '../appwrite';
+import {Client, Databases} from 'https://cdn.jsdelivr.net/npm/appwrite@17.0.0/dist/iife/sdk.min.js';
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
