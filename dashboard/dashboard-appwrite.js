@@ -1,6 +1,6 @@
 import {Client, Account, Databases} from 'https://esm.sh/appwrite@14.0.1';
 
-import {getBucks, setBucks} from '/AppwriteStuff.js';
+import {getBucks, setBucks} from '../AppwriteStuff.js';
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
