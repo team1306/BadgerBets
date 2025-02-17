@@ -1,4 +1,4 @@
-import { Client, Account } from "appwrite";
+import { Client, Account } from "https://esm.sh/appwrite@14.0.1";
 import {login} from "./login-helper.js";
   const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL

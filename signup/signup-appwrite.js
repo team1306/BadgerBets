@@ -1,4 +1,4 @@
-import {Client, Account, ID} from "appwrite";
+import {Client, Account, ID} from "https://esm.sh/appwrite@14.0.1";
 import {login} from "../login/login-helper.js";
 
 const client = new Client()
