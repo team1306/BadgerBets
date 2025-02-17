@@ -1,11 +1,11 @@
-//import {Client, Databases} from 'appwrite';
+import {Client, Databases} from 'https://esm.sh/appwrite@14.0.1';
 
-//const client = new Client()
-    //.setEndpoint('https://cloud.appwrite.io/v1')
-    //.setProject('67609b010021900fc6e6');
-//const sessionId = localStorage.getItem("session");
-//const database = new Databases(client);
-//if(!sessionId) window.location.href = '../login/login.html';
+const client = new Client()
+    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setProject('67609b010021900fc6e6');
+const sessionId = localStorage.getItem("session");
+const database = new Databases(client);
+if(!sessionId) window.location.href = '../login/login.html';
 
 let auto_coral_1, auto_coral_2, auto_coral_3, auto_coral_4, auto_algae_processor, auto_algae_net, auto_leave;
 let tele_coral_1, tele_coral_2, tele_coral_3, tele_coral_4, tele_algae_processor, tele_algae_net;
