@@ -13,7 +13,7 @@ const databases = new Databases(client);
 //getAPIScore();
 const sessionId = localStorage.getItem("session");
 if(!sessionId) {
-  window.location.href = '../login/login.html';
+  window.location.href = '../login/index.html';
 }
 account.getSession(sessionId).then(async (response) => {
   const balance = document.getElementById("balance");

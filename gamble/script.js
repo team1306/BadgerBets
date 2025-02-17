@@ -7,7 +7,7 @@ const client = new Client()
     .setProject('67609b010021900fc6e6');
 const databases = new Databases(client);
 const sessionId = localStorage.getItem("session");
-if(!sessionId) window.location.href = '../login/login.html';
+if(!sessionId) window.location.href = '../login/index.html';
 
 // This function runs when the page is loaded
 document.addEventListener('DOMContentLoaded', function () {
