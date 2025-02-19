@@ -42,7 +42,7 @@ if (signupForm) {
       const user = await account.get();
       
       const userId = user.$id;
-      await databases.createDocument('678dd2fb001b17f8e112', 'badgerBucks', userId,{badgerBucks: 100});
+      //await databases.createDocument('678dd2fb001b17f8e112', 'badgerBucks', userId,{badgerBucks: 100});
 
       // Redirect to dashboard
     } catch (error) {
