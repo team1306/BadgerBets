@@ -4,7 +4,7 @@ const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject('67609b010021900fc6e6');
 const sessionId = localStorage.getItem("session");
-const database = new Databases(client);
+const databases = new Databases(client);
 if(!sessionId) window.location.href = '../login/index.html';
 
 let auto_coral_1, auto_coral_2, auto_coral_3, auto_coral_4, auto_algae_processor, auto_algae_net, auto_leave;
@@ -92,38 +92,25 @@ function showSectionById(sectionId) {
         console.log('Section with ID ' + sectionId + ' not found.');
     }
 }
-//function to list all cookies
-function listCookies() {
-    // Remove the "session" cookie by setting its expiration date in the past.
-    // Note: If the cookie was set with a specific path or domain, you may need to include those.
-    document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-  
-    // Retrieve the current cookies
-    const cookieString = document.cookie;
-    
-    // If there are no cookies, return an empty object
-    if (!cookieString) return {};
-  
-    // Split the cookie string into individual cookies (format: "name=value")
-    const cookiesArray = cookieString.split('; ');
-    
-    // Create an object to store cookie names and their values
-    const cookiesObj = {};
-  
-    cookiesArray.forEach(cookie => {
-      const [name, value] = cookie.split('=');
-      cookiesObj[name] = value;
-    });
-    
-    return cookiesObj;
-  }
-  
-  // Example usage:
-  console.log(listCookies());
-  
-  
-  // Example usage:
-  
+
+/**
+ * @returns list of dictionaries 
+ */
+function getSavedMatches() {
+
+    let dictionaries = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (key == "session") continue;
+
+        let match = localStorage.getItem(key);
+
+        dictionaries.push(JSON.parse(match));
+    }
+
+    return dictionaries;
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -185,18 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('displayDriverRating')
         .innerHTML = "Driver Ability: " + driver_ability.value;
     });
-    //get the sync button
-    const sync = document.getElementById('sync')
-
-    sync.addEventListener("click",()=>{
-        const payload = {
-            auto_coral_L1: auto_coral_1.value, 
-            auto_coral_L2:auto_coral_2.value,
-            auto_coral_L3:auto_coral_3.value,
-            auto_coral_L4:auto_coral_4.value,
-        }
-        database.createDocument('sussex', 'testDatabase','1306', payload)
-    });
 
     //code for switching from auto ui to teleop ui
     let currentMode = document.getElementById('currentMode');
@@ -228,8 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         else {throw new Error();}
     });
-    document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
-
+    document.getElementById('submit').addEventListener('click', dumpScoutingDataToLocalStorage());
 function dumpScoutingDataToLocalStorage() {
     const matchNumber = 0, teamNumber = 1306;
     const cookieName = "" + matchNumber + "-" + teamNumber;
@@ -248,6 +222,8 @@ function dumpScoutingDataToLocalStorage() {
         case "both": intakeAbilities = 2; break;
     }
     const dictionary = {
+        "match": "T0",
+        "team": 1306,
         "auto_L1": auto_coral_1.inputField.value,
         "auto_L2": auto_coral_2.inputField.value,
         "auto_L3": auto_coral_3.inputField.value,
@@ -274,5 +250,38 @@ function dumpScoutingDataToLocalStorage() {
     console.log("Saved match data: " + localStorage.getItem(cookieName));
     }
 
-    //auto ui
+document.getElementById("sync").addEventListener('click', syncToAppwrite('test'))
+function syncToAppwrite(databaseID) {
+    const matches = getSavedMatches();
+    for (let i = 0; i < data.length; i++) {
+        const match = matches[i];
+
+        const collectionData = {
+            name: "" + match.match + match.team, //name
+            read: ['*'], //public
+            write: ['*'] //public
+        }
+        databases.createCollection(databaseID, collectionData)
+        .then(collection => {
+            for (let j = 0; j < Object.keys(match).length; j++) {
+                const key = Object.keys(match)[i];
+                const value = match[key];
+                
+                const documentData = {
+                    title: key,
+                    content: value
+                }
+    
+                databases.createDocument(databaseID, collection.$id, documentData)
+                .then(document => {
+                    console.log("Document Created Successfully: " + key);
+                }).catch(error => {
+                    console.error("Error Creating Document: " + error + "\n" + error.message);
+                })
+            }
+        }).catch(error => {
+            console.error("Error Creating Collection: " + error + "\n" + error.message);
+        });
+    }
+}
 });
