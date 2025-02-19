@@ -228,12 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         else {throw new Error();}
     });
-
-
-    //auto ui
-});
-
-document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
+    document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
 
 function dumpScoutingDataToLocalStorage() {
     const matchNumber = 0, teamNumber = 1306;
@@ -277,5 +272,7 @@ function dumpScoutingDataToLocalStorage() {
     //TODO: send to appwrite database
     localStorage.setItem(cookieName, JSON.stringify(dictionary));
     console.log("Saved match data: " + localStorage.getItem(cookieName));
-}
+    }
 
+    //auto ui
+});
