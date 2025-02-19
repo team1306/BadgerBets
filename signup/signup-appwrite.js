@@ -1,4 +1,4 @@
-import {Client, Account, ID} from "https://esm.sh/appwrite@14.0.1";
+import {Client, Account, ID, Database} from "https://esm.sh/appwrite@14.0.1";
 import {login} from "../login/login-helper.js";
 
 const client = new Client()
@@ -6,6 +6,7 @@ const client = new Client()
   .setProject('67609b010021900fc6e6');
 
 const account = new Account(client);
+const databases = new Database(client);
 
 // Code for the sign-up page
 const signupForm = document.getElementById('signup-form');
@@ -39,7 +40,9 @@ if (signupForm) {
 
       // Get user details
       const user = await account.get();
+      
       const userId = user.$id;
+      await databases.createDocument('678dd2fb001b17f8e112', 'badgerBucks', userId,{badgerBucks: 100});
 
       // Redirect to dashboard
     } catch (error) {
