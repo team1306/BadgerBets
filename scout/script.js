@@ -172,18 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('displayDriverRating')
         .innerHTML = "Driver Ability: " + driver_ability.value;
     });
-    //get the sync button
-    const sync = document.getElementById('sync')
-
-    sync.addEventListener("click",()=>{
-        const payload = {
-            auto_coral_L1: auto_coral_1.value, 
-            auto_coral_L2:auto_coral_2.value,
-            auto_coral_L3:auto_coral_3.value,
-            auto_coral_L4:auto_coral_4.value,
-        }
-        databases.createDocument('sussex', 'testDatabase','1306', payload)
-    });
 
     //code for switching from auto ui to teleop ui
     let currentMode = document.getElementById('currentMode');
