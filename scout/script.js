@@ -4,7 +4,7 @@ const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject('67609b010021900fc6e6');
 const sessionId = localStorage.getItem("session");
-const database = new Databases(client);
+const databases = new Databases(client);
 if(!sessionId) window.location.href = '../login/index.html';
 
 let auto_coral_1, auto_coral_2, auto_coral_3, auto_coral_4, auto_algae_processor, auto_algae_net, auto_leave;
@@ -96,7 +96,7 @@ function showSectionById(sectionId) {
 /**
  * @returns list of dictionaries 
  */
-function listSavedMatches() {
+function getSavedMatches() {
 
     let dictionaries = [];
 
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
             auto_coral_L3:auto_coral_3.value,
             auto_coral_L4:auto_coral_4.value,
         }
-        database.createDocument('sussex', 'testDatabase','1306', payload)
+        databases.createDocument('sussex', 'testDatabase','1306', payload)
     });
 
     //code for switching from auto ui to teleop ui
@@ -220,8 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //auto ui
 });
 
-document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
-
+document.getElementById('submit').addEventListener('click', dumpScoutingDataToLocalStorage());
 function dumpScoutingDataToLocalStorage() {
     const matchNumber = 0, teamNumber = 1306;
     const cookieName = "" + matchNumber + "-" + teamNumber;
@@ -240,6 +239,8 @@ function dumpScoutingDataToLocalStorage() {
         case "both": intakeAbilities = 2; break;
     }
     const dictionary = {
+        "match": "T0",
+        "team": 1306,
         "auto_L1": auto_coral_1.inputField.value,
         "auto_L2": auto_coral_2.inputField.value,
         "auto_L3": auto_coral_3.inputField.value,
@@ -266,3 +267,37 @@ function dumpScoutingDataToLocalStorage() {
     console.log("Saved match data: " + localStorage.getItem(cookieName));
 }
 
+document.getElementById("sync").addEventListener('click', syncToAppwrite('test'))
+function syncToAppwrite(databaseID) {
+    const matches = getSavedMatches();
+    for (let i = 0; i < data.length; i++) {
+        const match = matches[i];
+
+        const collectionData = {
+            name: "" + match.match + match.team, //name
+            read: ['*'], //public
+            write: ['*'] //public
+        }
+        databases.createCollection(databaseID, collectionData)
+        .then(collection => {
+            for (let j = 0; j < Object.keys(match).length; j++) {
+                const key = Object.keys(match)[i];
+                const value = match[key];
+                
+                const documentData = {
+                    title: key,
+                    content: value
+                }
+    
+                databases.createDocument(databaseID, collection.$id, documentData)
+                .then(document => {
+                    console.log("Document Created Successfully: " + key);
+                }).catch(error => {
+                    console.error("Error Creating Document: " + error + "\n" + error.message);
+                })
+            }
+        }).catch(error => {
+            console.error("Error Creating Collection: " + error + "\n" + error.message);
+        });
+    }
+}
