@@ -1,4 +1,4 @@
-import {Client, Account, ID, Database} from "https://esm.sh/appwrite@14.0.1";
+import {Client, Account, ID, Databases} from "https://esm.sh/appwrite@14.0.1";
 import {login} from "../login/login-helper.js";
 
 const client = new Client()
@@ -6,7 +6,7 @@ const client = new Client()
   .setProject('67609b010021900fc6e6');
 
 const account = new Account(client);
-const databases = new Database(client);
+const databases = new Databases(client);
 
 // Code for the sign-up page
 const signupForm = document.getElementById('signup-form');
