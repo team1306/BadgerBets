@@ -5,7 +5,7 @@ const client = new Client()
     .setProject('67609b010021900fc6e6');
 const sessionId = localStorage.getItem("session");
 const database = new Databases(client);
-if(!sessionId) window.location.href = '../login/login.html';
+if(!sessionId) window.location.href = '../login/index.html';
 
 let auto_coral_1, auto_coral_2, auto_coral_3, auto_coral_4, auto_algae_processor, auto_algae_net, auto_leave;
 let tele_coral_1, tele_coral_2, tele_coral_3, tele_coral_4, tele_algae_processor, tele_algae_net;
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .innerHTML = "Driver Ability: " + driver_ability.value;
     });
     //get the sync button
-    /*const sync = document.getElementById('sync')
+    const sync = document.getElementById('sync')
 
     sync.addEventListener("click",()=>{
         const payload = {
@@ -181,10 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
             auto_coral_L2:auto_coral_2.value,
             auto_coral_L3:auto_coral_3.value,
             auto_coral_L4:auto_coral_4.value,
-            
         }
         database.createDocument('sussex', 'testDatabase','1306', payload)
-    });*/
+    });
 
     //code for switching from auto ui to teleop ui
     let currentMode = document.getElementById('currentMode');
