@@ -256,12 +256,7 @@ function syncToAppwrite(databaseID) {
     for (let i = 0; i < matches.length; i++) {
         const match = matches[i];
 
-        const collectionData = {
-            name: "" + match.match + match.team, //name
-            read: ['*'], //public
-            write: ['*'] //public
-        }
-        databases.createCollection(databaseID, collectionData)
+        databases.createCollection(databaseID, match.match + match.team, match.match + match.team)
         .then(collection => {
             for (let j = 0; j < Object.keys(match).length; j++) {
                 const key = Object.keys(match)[i];
