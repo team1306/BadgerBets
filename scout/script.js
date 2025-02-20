@@ -253,7 +253,7 @@ function dumpScoutingDataToLocalStorage() {
 document.getElementById("sync").addEventListener('click', syncToAppwrite('test'))
 function syncToAppwrite(databaseID) {
     const matches = getSavedMatches();
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < matches.length; i++) {
         const match = matches[i];
 
         const collectionData = {
