@@ -250,32 +250,38 @@ function dumpScoutingDataToLocalStorage() {
     console.log("Saved match data: " + localStorage.getItem(cookieName));
     }
 
-document.getElementById("sync").addEventListener('click', syncToAppwrite('test'))
-function syncToAppwrite(databaseID) {
+document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
+function syncToAppwrite(collectionID) {
+    const databaseID = "match_data";
     const matches = getSavedMatches();
     for (let i = 0; i < matches.length; i++) {
         const match = matches[i];
-        console.log(databaseID, "" + match.match + match.team);
-        const promise = databases.createCollection(databaseID, "" + match.match + match.team, "" + match.match + match.team)
-        promise.then(collection => {
-            for (let j = 0; j < Object.keys(match).length; j++) {
-                const key = Object.keys(match)[i];
-                const value = match[key];
-                
-                const documentData = {
-                    title: key,
-                    content: value
-                }
-    
-                databases.createDocument(databaseID, collection.$id, documentData)
-                .then(document => {
-                    console.log("Document Created Successfully: " + key);
-                }).catch(error => {
-                    console.error("Error Creating Document: " + error + "\n" + error.message);
-                })
-            }
+        
+        const documentData = {
+            auto_L1: match.auto_L1,
+            auto_L2: match.auto_L2,
+            auto_L3: match.auto_L3,
+            auto_L4: match.auto_L4,
+            leave: match.leave,
+            auto_net: match.auto_net,
+            auto_processor: match.auto_processor,
+            teleop_L1: match.teleop_L1,
+            teleop_L2: match.teleop_L2,
+            teleop_L3: match.teleop_L3,
+            teleop_L4: match.teleop_L4,
+            teleop_net: match.teleop_net,
+            teleop_processor: match.teleop_processor,
+            climb_state: match.climb_state,
+            driver_rating: match.driver_rating,
+            intake_abilities: match.intake_abilities,
+            notes: match.notes, // Include any other fields you want to save
+        };
+
+        databases.createDocument(databaseID, collectionID, documentData)
+        .then(document => {
+            console.log("Document Created Successfully: " + key);
         }).catch(error => {
-            console.error("Error Creating Collection: " + error + "\n" + error.message);
+            console.error("Error Creating Document: " + error + "\n" + error.message);
         });
     }
 }
