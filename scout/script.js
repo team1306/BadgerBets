@@ -277,7 +277,7 @@ function syncToAppwrite(collectionID) {
             notes: match.notes, // Include any other fields you want to save
         };
 
-        databases.createDocument(databaseID, collectionID, documentData)
+        databases.createDocument(databaseID, collectionID, "" + match.match + "-" + match.teamNumber, documentData)
         .then(document => {
             console.log("Document Created Successfully: " + key);
         }).catch(error => {
