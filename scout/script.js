@@ -230,7 +230,7 @@ function dumpScoutingDataToLocalStorage() {
         "auto_L2": parseInt(auto_coral_2.inputField.value),
         "auto_L3": parseInt(auto_coral_3.inputField.value),
         "auto_L4": parseInt(auto_coral_4.inputField.value),
-        "leave": auto_leave.isChecked === "true",
+        "leave": auto_leave.isChecked,
         "auto_net": parseInt(auto_algae_net.inputField.value),
         "auto_processor": parseInt(auto_algae_processor.inputField.value),
 
