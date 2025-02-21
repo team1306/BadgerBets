@@ -217,7 +217,7 @@ function dumpScoutingDataToLocalStorage() {
     const matchType = document.getElementById('match_type').value;
     const matchNumber = document.getElementById('match_number').value;
     const teamNumber = document.getElementById('team_number').value;
-    const cookieName = "" + matchNumber + "-" + teamNumber;
+    const saveName = "" + matchNumber + "-" + teamNumber;
 
     let climbState = 0;
     switch (climb_status.selectedOption) {
@@ -234,7 +234,7 @@ function dumpScoutingDataToLocalStorage() {
     }
     console.log(auto_leave.isChecked);
     const dictionary = {
-        "match": "T" + matchNumber,
+        "match": matchType + matchNumber,
         "team": teamNumber,
         "auto_L1": parseInt(auto_coral_1.inputField.value),
         "auto_L2": parseInt(auto_coral_2.inputField.value),
@@ -258,8 +258,8 @@ function dumpScoutingDataToLocalStorage() {
     };
 
     //TODO: send to appwrite database
-    localStorage.setItem(cookieName, JSON.stringify(dictionary));
-    console.log("Saved match data: " + localStorage.getItem(cookieName));
+    localStorage.setItem(saveName, JSON.stringify(dictionary));
+    console.log("Saved match data: " + localStorage.getItem(saveName));
 }
 
 document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
