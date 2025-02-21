@@ -214,7 +214,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
 function dumpScoutingDataToLocalStorage() {
-    const matchNumber = 0, teamNumber = 1306;
+    const matchType = document.getElementById('match_type').value;
+    const matchNumber = document.getElementById('match_number').value;
+    const teamNumber = document.getElementById('team_number').value;
     const cookieName = "" + matchNumber + "-" + teamNumber;
 
     let climbState = 0;
