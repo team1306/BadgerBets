@@ -217,7 +217,7 @@ function dumpScoutingDataToLocalStorage() {
     const matchType = document.getElementById('match_type').value;
     const matchNumber = document.getElementById('match_number').value;
     const teamNumber = document.getElementById('team_number').value;
-    const saveName = "" + matchNumber + "-" + teamNumber;
+    const saveName = matchType + matchNumber + "-" + teamNumber;
 
     let climbState = 0;
     switch (climb_status.selectedOption) {
@@ -293,6 +293,8 @@ function syncToAppwrite(collectionID) {
         databases.createDocument(databaseID, collectionID, "" + match.match + "-" + match.team + "-" + name, documentData)
         .then(document => {
             console.log("Document Created Successfully");
+            const saveName = "" + match.match + "-" + match.team;
+            localStorage.removeItem();
         }).catch(error => {
             console.error("Error Creating Document: " + error + "\n" + error.message);
         });
