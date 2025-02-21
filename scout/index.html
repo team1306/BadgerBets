@@ -23,6 +23,16 @@
 </header>
 <body>
 <!-- Main Section -->
+<div id="prematch">
+    <select id="match_type">
+        <option value="T">Practice</option>
+        <option value="Q">Qualifier</option>
+        <option value="P">Playoff</option>
+    </select>
+    <input type="number" id="match_number" min="1" max="99" step="1" />
+    <input type="number" id="team_number" min="1" max="99999" step="1" />
+</div>
+
 <div id="modeToggle">
     <button id="toggleButton">Switch to Teleop</button>
     <p id="currentMode">Current Mode: Autonomous</p>
