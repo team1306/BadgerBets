@@ -295,8 +295,10 @@ function syncToAppwrite(collectionID) {
             console.log("Document Created Successfully");
             const saveName = "" + match.match + "-" + match.team;
             localStorage.removeItem(saveName);
+            alert("Synced successfully");
         }).catch(error => {
             console.error("Error Creating Document: " + error + "\n" + error.message);
+            alert("An error occurred while syncing");
         });
     }
 }
