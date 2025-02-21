@@ -279,7 +279,7 @@ function syncToAppwrite(collectionID) {
 
         databases.createDocument(databaseID, collectionID, "" + match.match + "-" + match.teamNumber, documentData)
         .then(document => {
-            console.log("Document Created Successfully: " + key);
+            console.log("Document Created Successfully");
         }).catch(error => {
             console.error("Error Creating Document: " + error + "\n" + error.message);
         });
