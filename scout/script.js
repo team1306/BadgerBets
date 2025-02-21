@@ -1,4 +1,5 @@
 import {Client, Databases} from 'https://esm.sh/appwrite@14.0.1';
+import {getUserId} from '/AppwriteStuff.js';
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -6,6 +7,8 @@ const client = new Client()
 const sessionId = localStorage.getItem("session");
 const databases = new Databases(client);
 if(!sessionId) window.location.href = '../login/index.html';
+
+let name;
 
 let auto_coral_1, auto_coral_2, auto_coral_3, auto_coral_4, auto_algae_processor, auto_algae_net, auto_leave;
 let tele_coral_1, tele_coral_2, tele_coral_3, tele_coral_4, tele_algae_processor, tele_algae_net;
@@ -113,7 +116,11 @@ function getSavedMatches() {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+
+    name = await getUserId().name;
+    console.log(name);
+
     //UI
     const updateFinalScore = () => {
         console.log(auto_leave.isChecked);
