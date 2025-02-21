@@ -8,15 +8,15 @@ const account = new Account(client);
 const databases = new Databases(client);
 
 /**
- * Gets the user current user ID from appwrite using the sessionID
+ * Gets the user current user object from appwrite using the sessionID
  * Redircts user to login if session a problem occurs
+ * @returns promise of the current user
  */
-export async function getUserId() {
+export async function getUser() {
     try {
         const sessionId = localStorage.getItem('session');
-        const userData = await account.get(); // Call account.get() to fetch user details
-        const userId = userData.$id; // Extract the user ID
-        return userId;
+        const user = await account.get(); // Call account.get() to fetch user details
+        return user;
     } catch (error) {
         console.error("Error getting userId:", error.message);
         if (error.code === 401) {
@@ -29,12 +29,12 @@ export async function getUserId() {
 
 export async function getBucks(){
 
-        const userId = await getUserId();
+        const user = await getUser();
 
         const document = await databases.getDocument(
             "678dd2fb001b17f8e112", // Database ID
             "badgerBucks", // Collection ID
-            userId // Document ID
+            user.$id // Document ID
         ); // Wait for the document to resolve
     
         // Access the resolved value (you are now parsing the result)
@@ -52,12 +52,12 @@ export async function setBucks(value) {
         console.error("Error parsing input for setBucks(): " + error.message);
     }
       
-    const userId = await getUserId();
+    const user = await getUser();
 
     await databases.updateDocument(
         "678dd2fb001b17f8e112", 
         "badgerBucks", 
-        userId,
+        user.$id,
         {"BadgerBucks" : value}
     );
 }

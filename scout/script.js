@@ -1,5 +1,5 @@
 import {Client, Databases} from 'https://esm.sh/appwrite@14.0.1';
-import {getUserId} from '../AppwriteStuff.js';
+import {getUser} from '../AppwriteStuff.js';
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -118,7 +118,8 @@ function getSavedMatches() {
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    name = await getUserId().name;
+    const user = await getUser();
+    name = user.name;
     console.log(name);
 
     //UI
