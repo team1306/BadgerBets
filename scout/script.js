@@ -108,7 +108,7 @@ function getSavedMatches() {
         if (key == "session") continue;
 
         let match = localStorage.getItem(key);
-
+        console.log(key);
         dictionaries.push(JSON.parse(match));
     }
 
@@ -268,6 +268,7 @@ function syncToAppwrite(collectionID) {
     const matches = getSavedMatches();
     for (let i = 0; i < matches.length; i++) {
         const match = matches[i];
+        
         
         const documentData = {
             auto_L1: match.auto_L1,
