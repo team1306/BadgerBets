@@ -21,7 +21,7 @@ export async function getUser() {
         console.error("Error getting userId:", error.message);
         if (error.code === 401) {
             // Redirect to login if session is invalid or expired
-            window.location.href = '../login/login.html';
+            window.location.href = '../login/index.html';
         }
     }
 }
