@@ -18,7 +18,7 @@ if (signupForm) {
     // Extract form values
     const email = (document.getElementById('email')).value.trim();
     const password = (document.getElementById('password')).value.trim();
-    const name = (document.getElementById('name')).value.trim();
+    const name = (document.getElementById('name')).value.trim().replace(/\s+/g, '_'); //replace spaces with underscores
 
     // Basic validation
     if (!email || !password || !name) {
