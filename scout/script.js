@@ -203,11 +203,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         else {throw new Error();}
     });
-    document.getElementById('submit').addEventListener('click', dumpScoutingDataToLocalStorage());
+
+document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
 function dumpScoutingDataToLocalStorage() {
     const matchNumber = 0, teamNumber = 1306;
     const cookieName = "" + matchNumber + "-" + teamNumber;
-    
+
     let climbState = 0;
     switch (climb_status.selectedOption) {
         case "none": climbState = 0; break;
@@ -248,7 +249,7 @@ function dumpScoutingDataToLocalStorage() {
     //TODO: send to appwrite database
     localStorage.setItem(cookieName, JSON.stringify(dictionary));
     console.log("Saved match data: " + localStorage.getItem(cookieName));
-    }
+}
 
 document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
 function syncToAppwrite(collectionID) {
