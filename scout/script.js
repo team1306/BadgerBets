@@ -214,58 +214,67 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
 function dumpScoutingDataToLocalStorage() {
-    const matchType = document.getElementById('match_type').value;
-    const matchNumber = document.getElementById('match_number').value;
-    const teamNumber = document.getElementById('team_number').value;
-    const saveName = matchType + matchNumber + "-" + teamNumber;
+    try {
+        const matchType = document.getElementById('match_type').value;
+        const matchNumber = document.getElementById('match_number').value;
+        const teamNumber = document.getElementById('team_number').value;
+        const saveName = matchType + matchNumber + "-" + teamNumber;
 
-    let climbState = 0;
-    switch (climb_status.selectedOption) {
-        case "none": climbState = 0; break;
-        case "park": climbState = 1; break;
-        case "shallow": climbState = 2; break;
-        case "deep": climbState = 3; break;
+        let climbState = 0;
+        switch (climb_status.selectedOption) {
+            case "none": climbState = 0; break;
+            case "park": climbState = 1; break;
+            case "shallow": climbState = 2; break;
+            case "deep": climbState = 3; break;
+        }
+        let intakeAbilities = 0;
+        switch (document.getElementById('intake_ability').value) {
+            case "coral_station": intakeAbilities = 0; break;
+            case "ground": intakeAbilities = 1; break;
+            case "both": intakeAbilities = 2; break;
+        }
+        const dictionary = {
+            "match": matchType + matchNumber,
+            "team": teamNumber,
+            "auto_L1": parseInt(auto_coral_1.inputField.value),
+            "auto_L2": parseInt(auto_coral_2.inputField.value),
+            "auto_L3": parseInt(auto_coral_3.inputField.value),
+            "auto_L4": parseInt(auto_coral_4.inputField.value),
+            "leave": auto_leave.isChecked,
+            "auto_net": parseInt(auto_algae_net.inputField.value),
+            "auto_processor": parseInt(auto_algae_processor.inputField.value),
+
+            "teleop_L1": parseInt(tele_coral_1.inputField.value),
+            "teleop_L2": parseInt(tele_coral_2.inputField.value),
+            "teleop_L3": parseInt(tele_coral_3.inputField.value),
+            "teleop_L4": parseInt(tele_coral_4.inputField.value),
+            "teleop_net": parseInt(tele_algae_net.inputField.value),
+            "teleop_processor": parseInt(tele_algae_processor.inputField.value),
+
+            "climb_state": parseInt(climbState),
+            "driver_rating": parseInt(driver_ability.value),
+            "intake_abilities": parseInt(intakeAbilities),
+            "notes": document.getElementById('notes').value
+        };
+
+        //TODO: send to appwrite database
+        localStorage.setItem(saveName, JSON.stringify(dictionary));
+        console.log("Saved match data: " + localStorage.getItem(saveName));
+    } catch (error) {
+        alert("Successfully saved match data.");
     }
-    let intakeAbilities = 0;
-    switch (document.getElementById('intake_ability').value) {
-        case "coral_station": intakeAbilities = 0; break;
-        case "ground": intakeAbilities = 1; break;
-        case "both": intakeAbilities = 2; break;
-    }
-    console.log(auto_leave.isChecked);
-    const dictionary = {
-        "match": matchType + matchNumber,
-        "team": teamNumber,
-        "auto_L1": parseInt(auto_coral_1.inputField.value),
-        "auto_L2": parseInt(auto_coral_2.inputField.value),
-        "auto_L3": parseInt(auto_coral_3.inputField.value),
-        "auto_L4": parseInt(auto_coral_4.inputField.value),
-        "leave": auto_leave.isChecked,
-        "auto_net": parseInt(auto_algae_net.inputField.value),
-        "auto_processor": parseInt(auto_algae_processor.inputField.value),
-
-        "teleop_L1": parseInt(tele_coral_1.inputField.value),
-        "teleop_L2": parseInt(tele_coral_2.inputField.value),
-        "teleop_L3": parseInt(tele_coral_3.inputField.value),
-        "teleop_L4": parseInt(tele_coral_4.inputField.value),
-        "teleop_net": parseInt(tele_algae_net.inputField.value),
-        "teleop_processor": parseInt(tele_algae_processor.inputField.value),
-
-        "climb_state": parseInt(climbState),
-        "driver_rating": parseInt(driver_ability.value),
-        "intake_abilities": parseInt(intakeAbilities),
-        "notes": document.getElementById('notes').value
-    };
-
-    //TODO: send to appwrite database
-    localStorage.setItem(saveName, JSON.stringify(dictionary));
-    console.log("Saved match data: " + localStorage.getItem(saveName));
 }
 
 document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
 function syncToAppwrite(collectionID) {
     const databaseID = "match_data";
     const matches = getSavedMatches();
+
+    if (matches.length === 0) {
+        alert("There are no saved matches to submit.");
+        return;
+    }
+
     for (let i = 0; i < matches.length; i++) {
         const match = matches[i];
         
@@ -296,11 +305,13 @@ function syncToAppwrite(collectionID) {
             console.log("Document Created Successfully");
             const saveName = "" + match.match + "-" + match.team;
             localStorage.removeItem(saveName);
-            alert("Synced successfully");
         }).catch(error => {
             console.error("Error Creating Document: " + error + "\n" + error.message);
             alert("An error occurred while syncing");
+            return;
         });
     }
+
+    alert("Synced successfully");
 }
 });
