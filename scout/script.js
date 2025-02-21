@@ -222,8 +222,8 @@ function dumpScoutingDataToLocalStorage() {
         case "both": intakeAbilities = 2; break;
     }
     const dictionary = {
-        "match": "T0",
-        "team": 1306,
+        "match": "T" + matchNumber,
+        "team": teamNumber,
         "auto_L1": parseInt(auto_coral_1.inputField.value),
         "auto_L2": parseInt(auto_coral_2.inputField.value),
         "auto_L3": parseInt(auto_coral_3.inputField.value),
@@ -276,6 +276,7 @@ function syncToAppwrite(collectionID) {
             intake_abilities: match.intake_abilities,
             notes: match.notes, // Include any other fields you want to save
         };
+        console.log(match.teamNumber);
 
         databases.createDocument(databaseID, collectionID, "" + match.match + "-" + match.teamNumber, documentData)
         .then(document => {
