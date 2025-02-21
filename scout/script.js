@@ -222,6 +222,7 @@ function dumpScoutingDataToLocalStorage() {
         case "ground": intakeAbilities = 1; break;
         case "both": intakeAbilities = 2; break;
     }
+    console.log(auto_leave.isChecked);
     const dictionary = {
         "match": "T" + matchNumber,
         "team": teamNumber,
@@ -277,9 +278,9 @@ function syncToAppwrite(collectionID) {
             intake_abilities: match.intake_abilities,
             notes: match.notes, // Include any other fields you want to save
         };
-        console.log(match.teamNumber);
+        console.log(match.team);
 
-        databases.createDocument(databaseID, collectionID, "" + match.match + "-" + match.teamNumber, documentData)
+        databases.createDocument(databaseID, collectionID, "" + match.match + "-" + match.team, documentData)
         .then(document => {
             console.log("Document Created Successfully");
         }).catch(error => {
