@@ -265,6 +265,7 @@ function dumpScoutingDataToLocalStorage() {
         return;
     }
     alert("Successfully saved match data");
+    window.location.reload;
 }
 
 document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
