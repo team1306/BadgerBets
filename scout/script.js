@@ -294,7 +294,7 @@ function syncToAppwrite(collectionID) {
         .then(document => {
             console.log("Document Created Successfully");
             const saveName = "" + match.match + "-" + match.team;
-            localStorage.removeItem();
+            localStorage.removeItem(saveName);
         }).catch(error => {
             console.error("Error Creating Document: " + error + "\n" + error.message);
         });
