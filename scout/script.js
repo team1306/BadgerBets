@@ -261,8 +261,10 @@ function dumpScoutingDataToLocalStorage() {
         localStorage.setItem(saveName, JSON.stringify(dictionary));
         console.log("Saved match data: " + localStorage.getItem(saveName));
     } catch (error) {
-        alert("Successfully saved match data.");
+        alert("Error saving match data");
+        return;
     }
+    alert("Successfully saved match data");
 }
 
 document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
