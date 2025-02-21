@@ -105,7 +105,7 @@ function getSavedMatches() {
 
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
-        if (key == "session") continue;
+        if (key == "session" || key == "cookieFallback") continue;
 
         let match = localStorage.getItem(key);
         console.log(key);
