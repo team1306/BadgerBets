@@ -1,4 +1,6 @@
 import QrCreator from 'https://cdn.jsdelivr.net/npm/qr-creator/dist/qr-creator.es6.min.js';
+import {getSavedMatches} from '../scout/script.js';
+
 let availableSettings = ['text', 'radius', 'ecLevel', 'fill', 'background', 'size'];
 
 var resultContainer = document.getElementById('qr-reader-results');
@@ -13,7 +15,7 @@ function onScanSuccess(decodedText, decodedResult) {
         ++countResults;
         lastResult = decodedText;
         // Handle on success condition with the decoded message.
-        console.log(`Scan result ${decodedText}`, decodedResult);
+        console.log(decodedText);
         result.innerHTML = decodedText;
     }
 }
@@ -25,11 +27,11 @@ function onScanError(errorMessage) {
 }
 
 var html5QrcodeScanner = new Html5QrcodeScanner(
-  "qr-reader", { fps: 10, qrbox: 250 });
+  "qr_reader", { fps: 10, qrbox: 250 });
   html5QrcodeScanner.render(onScanSuccess);
 
 // Set up the QR code scanner
-const html5QrCode = new Html5Qrcode("qr-reader");
+const html5QrCode = new Html5Qrcode("qr_reader");
 
 // Start the QR code scanner
 html5QrCode.start(
@@ -57,15 +59,20 @@ function readSettings() {
   return settings;
 }
 
-function renderQrCode() {
+/**
+ * Renders the QR code
+ * @param {*} data String for QR code data
+ */
+function renderQrCode(data) {
   let time = new Date(),
-    container = document.querySelector('#qr-code'),
+    container = document.querySelector('#qr_code'),
     settings = readSettings();
   container.innerHTML = '';
   QrCreator.render(settings, container);
 }
 
-for (let input of document.querySelectorAll('input, select')) {
-  input.addEventListener('change', renderQrCode);
-}
-renderQrCode();
+document.getElementById('display_saved_matches').addEventListener('click', () => {
+  const matches = getSavedMatches();
+  console.log(matches);
+  renderQrCode('data');
+});

@@ -97,7 +97,7 @@ function showSectionById(sectionId) {
 /**
  * @returns list of dictionaries 
  */
-function getSavedMatches() {
+export function getSavedMatches() {
 
     let dictionaries = [];
 
