@@ -218,14 +218,14 @@ function dumpScoutingDataToLocalStorage() {
         const matchType = document.getElementById('match_type').value;
         const matchNumber = document.getElementById('match_number').value;
         const teamNumber = document.getElementById('team_number').value;
-        const team = document.getElementById('team').value;
+        const allianceRole = document.getElementById('alliance_role').value;
 
         const saveName = matchType + matchNumber + "-" + teamNumber;
 
         const dictionary = {
             "match": matchType + matchNumber,
             "team_number": teamNumber,
-            "team": team,
+            "alliance_role": allianceRole,
             "auto_L1": parseInt(auto_coral_1.inputField.value),
             "auto_L2": parseInt(auto_coral_2.inputField.value),
             "auto_L3": parseInt(auto_coral_3.inputField.value),
@@ -295,7 +295,7 @@ function syncToAppwrite(collectionID) {
         };
         console.log(match.team_number);
 
-        databases.createDocument(databaseID, collectionID, "" + match.team + "-" + match.match + "-" + match.team_number + "-" + name, documentData)
+        databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + name, documentData)
         .then(document => {
             console.log("Document Created Successfully");
             const saveName = "" + match.match + "-" + match.team_number;
