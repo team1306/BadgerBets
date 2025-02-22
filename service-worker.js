@@ -27,7 +27,7 @@
             "/scout/index.html",
             "/scout/scripts.js",
             "/dashboard/index.html",
-            "/dashboard/dashboard-appwrite.js"
+            "/dashboard/dashboard-appwrite.js",
         ];
         
         // Install service worker and cache assets
