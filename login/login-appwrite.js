@@ -6,9 +6,13 @@ const client = new Client()
 
 const account = new Account(client);
 
-
-if (localStorage.getItem('session') != null) window.location.href = '../dashboard/index.html';
-console.log(localStorage.getItem('session'));
+try {
+  const sessionId = localStorage.getItem('session');
+  await account.get(); // Call account.get() to fetch user details
+  window.location.href = '../dashboard/index.html';
+} catch (error) {
+  
+}
 
 
 const loginForm = document.getElementById('login-form');
