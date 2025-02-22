@@ -1,6 +1,6 @@
 var resultContainer = document.getElementById('qr-reader-results');
 var lastResult, countResults = 0;
-
+const result = document.getElementById('result');
 // Initialize the QR code scanner
 function onScanSuccess(decodedText, decodedResult) {
     if (decodedText !== lastResult) {
@@ -8,6 +8,7 @@ function onScanSuccess(decodedText, decodedResult) {
         lastResult = decodedText;
         // Handle on success condition with the decoded message.
         console.log(`Scan result ${decodedText}`, decodedResult);
+        result.innerHTML = decodedText;
     }
 }
 
