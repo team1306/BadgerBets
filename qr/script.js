@@ -45,13 +45,15 @@ html5QrCode.start(
 //creating
 
 function readSettings() {
-  let settings = {};
-  for (let setting of availableSettings) {
-  settings[setting] = document.querySelector('#'+setting).value;
-  }
-  if (document.querySelector('#transparent').checked) {
-  settings.background = null;
-  }
+  let settings = {
+    'text':'example_text',
+    'radius':0,
+    'ecLevel':'L',
+    'fill':'#000000',
+    'background': null,
+    'size': 500
+  };
+  
   return settings;
 }
 
@@ -61,8 +63,6 @@ function renderQrCode() {
     settings = readSettings();
   container.innerHTML = '';
   QrCreator.render(settings, container);
-  document.querySelector('#stats').innerText = 'Rendered in ' + (new Date()-time) + 'ms';
-  document.querySelector('#json').innerText = JSON.stringify(settings, null, 2);
 }
 
 for (let input of document.querySelectorAll('input, select')) {
