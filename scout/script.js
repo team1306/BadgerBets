@@ -218,11 +218,14 @@ function dumpScoutingDataToLocalStorage() {
         const matchType = document.getElementById('match_type').value;
         const matchNumber = document.getElementById('match_number').value;
         const teamNumber = document.getElementById('team_number').value;
+        const team = document.getElementById('team').value;
+
         const saveName = matchType + matchNumber + "-" + teamNumber;
 
         const dictionary = {
             "match": matchType + matchNumber,
-            "team": teamNumber,
+            "team_number": teamNumber,
+            "team": team,
             "auto_L1": parseInt(auto_coral_1.inputField.value),
             "auto_L2": parseInt(auto_coral_2.inputField.value),
             "auto_L3": parseInt(auto_coral_3.inputField.value),
@@ -249,6 +252,8 @@ function dumpScoutingDataToLocalStorage() {
         console.log("Saved match data: " + localStorage.getItem(saveName));
     } catch (error) {
         alert("Error saving match data");
+        console.log(error.message);
+        console.log(error);
         return;
     }
     alert("Successfully saved match data");
@@ -288,12 +293,12 @@ function syncToAppwrite(collectionID) {
             intake_abilities: match.intake_abilities,
             notes: match.notes, // Include any other fields you want to save
         };
-        console.log(match.team);
+        console.log(match.team_number);
 
-        databases.createDocument(databaseID, collectionID, "" + match.match + "-" + match.team + "-" + name, documentData)
+        databases.createDocument(databaseID, collectionID, "" + match.team + "-" + match.match + "-" + match.team_number + "-" + name, documentData)
         .then(document => {
             console.log("Document Created Successfully");
-            const saveName = "" + match.match + "-" + match.team;
+            const saveName = "" + match.match + "-" + match.team_number;
             localStorage.removeItem(saveName);
         }).catch(error => {
             console.error("Error Creating Document: " + error + "\n" + error.message);
