@@ -9,6 +9,7 @@
     <link rel="icon" href="../ico.png" type="image/x-icon"/>
     <link rel="manifest" href="../manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <!-- Header Section -->
 <header class="header">
@@ -188,8 +189,11 @@
     <h2 id ="finalAutoScore">Final Autonomous Score: 0 </h2>
     <h2 id ="finalTeleScore">Final Teleop Score: 0</h2>
     <h2 id="finalScore">Final Score: 0</h2>
-    <button id="submit">Submit</button>
-    <button id="sync">Sync</button>
+    <button id="submit"><span class = "center"><span class="material-symbols-outlined">
+        input</span>Submit</span></button>
+    <br></br>
+    <button id="sync"><span class = "center"><span class="material-symbols-outlined center">
+        sync</span>Sync</span></button>
 </main>
 
 
@@ -223,7 +227,17 @@
         color: white;
         border: 1px solid red;
         resize: none;
-        
+    }
+    #sync{
+        background-color: #27c116;
+        color: white;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 100%;
+        max-width: 250px;
+        margin: 1rem auto;
+        border-radius: 5px;
     }
 </style>
 </html>

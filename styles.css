@@ -271,6 +271,12 @@ footer {
     button {
         width: 80px;
     }
+    .center{
+        display:flex;
+        align-items:center;
+        justify-content: center;
+        gap: 8px;
+    }
 
     #toggleButton,
     #submit {
