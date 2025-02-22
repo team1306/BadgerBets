@@ -24,6 +24,8 @@
             "/styles.css",
             "/script.js",
             "/images/logo.png",
+            "/scout/index.html",
+            "/scout/scripts.js",
         ];
         
         // Install service worker and cache assets
