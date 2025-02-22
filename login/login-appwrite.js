@@ -11,7 +11,6 @@ try {
   await account.get(); // Call account.get() to fetch user details
   window.location.href = '../dashboard/index.html';
 } catch (error) {
-  
 }
 
 
