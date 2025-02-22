@@ -136,12 +136,12 @@ button:active {
     background-color: #990000;
 }
 
-button:first-child {
+.decrement {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-button:last-child {
+.increment{
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -267,7 +267,7 @@ footer {
 
     button,
     input {
-        font-size: 1.3rem;
+        font-size: 13rem;
     }
 
     input[type="number"] {
