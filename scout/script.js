@@ -1,4 +1,4 @@
-import {Client, Databases} from 'appwrite';
+import {Client, Databases} from 'https://esm.sh/appwrite@14.0.1';
 import {getUser} from '../AppwriteStuff.js';
 
 const client = new Client()
