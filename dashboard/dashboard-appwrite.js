@@ -46,3 +46,13 @@ async function getAPIScore(){
      .then(result => console.log(result))
      .catch(error => console.log('error', error));
 }
+
+document.getElementById('logout').addEventListener('click', async () => {
+  localStorage.removeItem('session');
+  console.log("logout triggered");
+  await account.deleteSession('current')
+  .then(() => {
+    console.log('abc');
+    window.location.href = '../';
+  });
+});
