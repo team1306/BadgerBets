@@ -46,9 +46,13 @@ html5QrCode.start(
 
 //creating
 
-function readSettings() {
+/**
+ * Gets the settings for the qr code
+ * @param {*} data String for QR code data
+ */
+function getQrCodeSettings(data) {
   let settings = {
-    'text':'example_text',
+    'text': data,
     'radius':0,
     'ecLevel':'L',
     'fill':'#000000',
@@ -66,7 +70,7 @@ function readSettings() {
 function renderQrCode(data) {
   let time = new Date(),
     container = document.querySelector('#qr_code'),
-    settings = readSettings();
+    settings = getQrCodeSettings(data);
   container.innerHTML = '';
   QrCreator.render(settings, container);
 }
