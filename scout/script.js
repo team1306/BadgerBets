@@ -4,9 +4,7 @@ import {getUser} from '../AppwriteStuff.js';
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject('67609b010021900fc6e6');
-const sessionId = localStorage.getItem("session");
 const databases = new Databases(client);
-if(!sessionId) window.location.href = '../login/index.html';
 
 let name;
 
