@@ -125,8 +125,7 @@ button {
     cursor: pointer;
     background-color: #ff0000;
     color: #fff;
-    width: 60px;
-    transition: background-color 0.3s ease;
+       transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -237,6 +236,13 @@ footer {
     background-color: lime;
 }
 
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    gap: 8px;
+}
+
 /* Larger Screen Adjustments */
 @media (min-width: 768px) {
     .container {
@@ -268,9 +274,6 @@ footer {
         width: 100px;
     }
 
-    button {
-        width: 80px;
-    }
     .center{
         display:flex;
         align-items:center;
