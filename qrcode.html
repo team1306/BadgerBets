@@ -1,21 +1,82 @@
-    <div>
-      <h1>QR Code Generator</h1>
-      
-      <!-- Input field for user data -->
-      <input v-model="inputData" type="text" placeholder="Enter text or URL" />
-  
-      <!-- Button to trigger QR code generation -->
-      <button @click="onGenerateQRCode">Generate QR Code</button>
-  
-      <!-- Display QR code -->
-      <div id="qrcode"></div>
-    </div>
+<!DOCTYPE html>
+<html>
 
-  
-  <style scoped>
-  /* Optional: add styles for the QR code and layout */
-  #qrcode {
-    margin-top: 20px;
-  }
-  </style>
-  
+<head>
+    <meta charset="utf-8">
+    <title>QR code creator demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+</head>
+
+<body class="state-loading">
+  <header>
+    <h1>QR code creator demo</h1>
+  </header>
+  <main>
+    <section>
+    </section>
+    <section id="qr-code">
+    </section>
+    <section id="stats">
+    </section>
+    <section id="tools">
+      <label>Text: <input id="text" type="text" value="Hello world of QR codes!"></label>
+      <label>Radius: <input id="radius" type="range" value="0.5" step="0.025" min="0" max="0.5"></label>
+      <label>Error correction:
+      <select id="ecLevel">
+        <option value="L" label="Low, 7%">
+        <option value="M" label="Medium, 15%">
+        <option value="Q" label="Quarter, 25%">
+        <option value="H" label="High, 30%" selected>
+      </select></label>
+      <label>Color: <input id="fill" type="color" value="#0064a8"></label>
+      <label>Background: <input id="background" type="color"><input id="transparent" type="checkbox" checked> transparent</label>
+      <label>Size: <input id="size" type="range" value="250" step="10" min="20" max="1000"></label>
+    </section>
+    <section id="parameters">
+      <label>Parameters:</label>
+      <pre id="json"></pre>
+    </section>
+  </main>
+  <link rel="stylesheet" href="style.css">
+    <script type="module" src="qrcode.js"></script>
+</body>
+</html>
+<style>
+html {
+  padding: .666rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+section {
+  margin: 1.333rem 0;
+}
+
+#tools, #parameters {
+  margin-top: 4rem;
+  width: 50%;
+  float: left;
+}
+
+#tools {
+}
+
+label {
+  display: block;
+  margin: .666rem 0;
+}
+
+input:not([type=checkbox]), select {
+  display: block
+}
+
+</style>
