@@ -220,19 +220,6 @@ function dumpScoutingDataToLocalStorage() {
         const teamNumber = document.getElementById('team_number').value;
         const saveName = matchType + matchNumber + "-" + teamNumber;
 
-        let climbState = 0;
-        switch (climb_status.selectedOption) {
-            case "none": climbState = 0; break;
-            case "park": climbState = 1; break;
-            case "shallow": climbState = 2; break;
-            case "deep": climbState = 3; break;
-        }
-        let intakeAbilities = 0;
-        switch (document.getElementById('intake_ability').value) {
-            case "coral_station": intakeAbilities = 0; break;
-            case "ground": intakeAbilities = 1; break;
-            case "both": intakeAbilities = 2; break;
-        }
         const dictionary = {
             "match": matchType + matchNumber,
             "team": teamNumber,
@@ -251,9 +238,9 @@ function dumpScoutingDataToLocalStorage() {
             "teleop_net": parseInt(tele_algae_net.inputField.value),
             "teleop_processor": parseInt(tele_algae_processor.inputField.value),
 
-            "climb_state": parseInt(climbState),
+            "climb_state": climb_status.selectedOption,
             "driver_rating": parseInt(driver_ability.value),
-            "intake_abilities": parseInt(intakeAbilities),
+            "intake_abilities": document.getElementById('intake_ability').value,
             "notes": document.getElementById('notes').value
         };
 
