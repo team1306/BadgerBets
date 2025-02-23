@@ -1,0 +1,104 @@
+.boolInput {
+    width: 50px;
+    height: 50px;
+}
+
+h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #ff0000;
+    text-align: center;
+}
+
+.auto_leave_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textarea {
+    height: 100px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    border: 1px solid red;
+    resize: none;
+}
+
+.decrement {
+    background-color: #ff0000;
+    color: #fff;
+    cursor: pointer;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    outline: none;
+    border: none;
+    font-size: 1.3rem;
+    padding: 8px 16px;
+}
+
+.increment {
+    background-color: #ff0000;
+    color: #fff;
+    cursor: pointer;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 5px;
+    outline: none;
+    border: none;
+    font-size: 1.3rem;
+    padding: 8px 16px;
+}
+
+#modeToggle {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#toggleButton {
+    background-color: #ffff00;
+    color: #000;    
+}
+
+#currentMode {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #ff0000;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    accent-color: #ff0000;
+}
+
+/* Input and Button Styles */
+.stepper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+#sync {
+    background-color: #27c116;
+    color: white;
+    margin: auto 0;
+}
+
+#submit {
+    background-color: #ffff00;
+    color: #000;
+    margin: auto 0;
+}
+
+#submit:hover {
+    background-color: #cccc00;
+}
+
