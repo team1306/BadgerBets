@@ -3,155 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="manifest" href="../manifest.json" />
     <title>FRC Betting</title>
-    <link rel="stylesheet" href="../styles.css">
-   <!---- <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .betting-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 20px;
-        }
-        .team-list, .betting-odds, .betting-form {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        .team-list ul {
-            list-style: none;
-            padding: 0;
-        }
-        .team-list ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .betting-odds table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .betting-odds th, .betting-odds td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-        .betting-form label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-        .betting-form input[type="number"], .betting-form select {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        .betting-form button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-        .betting-form button:hover {
-            background-color: #218838;
-        }
-
-        /* Media Query for Small Screens */
-        @media (max-width: 768px) {
-            .betting-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            .team-list, .betting-odds, .betting-form {
-                width: 90%;
-            }
-        }
-        
-        /* Media Query for Extra Small Screens (Mobile Portrait) */
-        @media (max-width: 480px) {
-            header {
-                padding: 15px;
-            }
-            .betting-container {
-                padding: 10px;
-            }
-            .betting-form button {
-                padding: 12px;
-            }
-        }
-    </style>-->
-<script>navigator.serviceWorker.register("service-worker.js")</script> 
-
+    <link rel="stylesheet" href="../styles-new.css">
+    <link rel="icon" href="../ico.png" type="image/x-icon"/>
+    <link rel="manifest" href="../manifest.json" />
+    <script type='module' src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Welcome to BadgerBets Betting Platform</h1>
-    </header>
-
-    <div class="betting-container">
-        <!-- Team List Section -->
-        <div class="team-list">
-            <h2>Participating Teams</h2>
-            <h3>Blue Alliance</h3>
-            <ul>
-                <li id='team0'></li>
-                <li id='team1'></li>
-                <li id='team2'></li>
-            </ul>
-            <h3>Red Alliance</h3>
-            <ul>
-                <li id='team3'></li>
-                <li id='team4'></li>
-                <li id='team5'></li>
-            </ul>
-
-        </div>
-
-        <!-- Betting Form Section -->
-        <div class="betting-form">
-            <h2>Place Your Bet</h2>
-            <form id="bettingform" novalidate>
-                <label for="team">Select Alliance:</label>
-                <select id="allianceselector" required>
-                    <option value=0>Blue Alliance</option>
-                    <option value=1>Red Alliance</option>
-                </select>
-
-                <label for="matchtype">Select Match Type</label>
-                <select id="matchtype" required>
-                    <option value="0">Qualification</option>
-                    <option value="1">Playoff</option>
-                </select>
-
-                <label for="matchnumber">Enter Match Number</label>
-                <input type="number" id="matchnumber" placeholder="Enter the match number" required>
-
-                <label for="amount">Bet Amount:</label>
-                <input type="number" id="amount" min="1" step="1" required>
-
-                <button type="submit">Place Bet</button>
-            </form>
-        </div>
+    <div class="view">
+        <header class="header">
+            <span class="logo">Badger Bets</span>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="../dashboard/index.html">Dashboard</a></li>
+                    <li><a href="../scout/index.html">Scout</a></li>
+                    <li><a id="logout">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="main">
+            <div class="team-list">
+                <h2>Participating Teams</h2>
+                <h3>Blue Alliance</h3>
+                <ul>
+                    <li id='team0'></li>
+                    <li id='team1'></li>
+                    <li id='team2'></li>
+                </ul>
+                <h3>Red Alliance</h3>
+                <ul>
+                    <li id='team3'></li>
+                    <li id='team4'></li>
+                    <li id='team5'></li>
+                </ul>
+            </div>
+            <!-- Betting Form Section -->
+            <div class="betting-form">
+                <h2>Place Your Bet</h2>
+                <form id="bettingform" novalidate>
+                    <label for="team">Select Alliance:</label>
+                    <select id="allianceselector" class="select" required>
+                        <option value=0>Blue Alliance</option>
+                        <option value=1>Red Alliance</option>
+                    </select>
+    
+                    <label for="matchtype">Select Match Type</label>
+                    <select id="matchtype" class="select" required>
+                        <option value="0">Qualification</option>
+                        <option value="1">Playoff</option>
+                    </select>
+    
+                    <label for="matchnumber">Enter Match Number</label>
+                    <input type="number" id="matchnumber" class="select" placeholder="Enter the match number" required>
+    
+                    <label for="amount">Bet Amount:</label>
+                    <input type="number" id="amount" class="select" min="1" step="1" required>
+    
+                    <button type="submit" class="red btn">Place Bet</button>
+                </form>
+            </div>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2024 Badger Bets. All rights reserved.</p>
+        </footer>
     </div>
-    <script type='module' src="script.js"></script>
+    <script>navigator.serviceWorker.register("service-worker.js")</script> 
 </body>
 </html>
