@@ -58,6 +58,10 @@ body {
     font-size: 0.9rem;
 }
 
+.nav-links li {
+    cursor: pointer;
+}
+
 /* main */
 
 .main {

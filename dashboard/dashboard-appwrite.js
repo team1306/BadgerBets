@@ -16,8 +16,10 @@ if(!sessionId) {
   window.location.href = '../login/index.html';
 }
 account.getSession(sessionId).then(async (response) => {
+  console.log(response);
   const balance = document.getElementById("balance");
   balance.innerHTML = await getBucks();
+  document.getElementById('username').innerText = response.providerUid;
 }).catch(error => {
   console.error("Error getting session:", error);
 });
