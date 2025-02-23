@@ -31,7 +31,7 @@ function syncToAppwrite(collectionID) {
 
     for (let i = 0; i < matches.length; i++) {
         const match = matches[i];
-        
+        console.log(match.climb_state);
         
         const documentData = {
             auto_L1: match.auto_L1,

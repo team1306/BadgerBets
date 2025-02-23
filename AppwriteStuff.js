@@ -16,12 +16,15 @@ export async function getUser() {
     try {
         const sessionId = localStorage.getItem('session');
         const user = await account.get(); // Call account.get() to fetch user details
+        localStorage.setItem('user', JSON.stringify(user));
         return user;
     } catch (error) {
-        console.error("Error getting userId:", error.message);
+        console.error("Error getting user:", error.message);
         if (error.code === 401) {
             // Redirect to login if session is invalid or expired
             window.location.href = '../login/index.html';
+        } else {
+            return JSON.parse(localStorage.getItem('user'));
         }
     }
 }
