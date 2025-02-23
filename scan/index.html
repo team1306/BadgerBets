@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BadgerBets - Generate QR</title>
-  <!-- <link rel="stylesheet" href="../styles-new.css"> -->
+  <title>BadgerBets - Scan QR</title>
+  <link rel="stylesheet" href="../styles-new.css">
   <script type = 'module' src ="./script.js" ></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
   <link rel="icon" href="ico.png" type="image/x-icon"/>
   <link rel="manifest" href="./manifest.json" />
   <style>
@@ -27,8 +28,11 @@
     </header>
     <main class="main">
 
-        <button id="display_saved_matches">Generate Next Code</button>
-        <section id="qr_code"></section>
+        <div>
+            <h2>QR Code Scanner</h2>
+            <div id="qr_reader" style="width:400px"></div>
+            <p id ='result'></p>
+        </div>
 
     </main>
     <footer class="footer">

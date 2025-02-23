@@ -1,50 +1,7 @@
 import QrCreator from 'https://cdn.jsdelivr.net/npm/qr-creator/dist/qr-creator.es6.min.js';
 import {getSavedMatches} from '../scout/script.js';
 
-let availableSettings = ['text', 'radius', 'ecLevel', 'fill', 'background', 'size'];
-
-var resultContainer = document.getElementById('qr-reader-results');
-var lastResult, countResults = 0;
-
-//scanner
-
-
-// Initialize the QR code scanner
-function onScanSuccess(decodedText, decodedResult) {
-    if (decodedText !== lastResult) {
-      ++countResults;
-      lastResult = decodedText;
-      // Handle on success condition with the decoded message.
-      result.innerHTML = decodedText;
-      const dictionary = JSON.parse(decodedText);
-      const saveName = "*" + dictionary.match + "-" + dictionary.team_number + "-" + dictionary.name;
-      localStorage.setItem(saveName, JSON.stringify(dictionary));
-    }
-}
-
-function onScanError(errorMessage) {
-  // Handle scanning errors if needed
-  if (errorMessage === "QR code parse error, error = D: No MultiFormat Readers were able to detect the code.") return;
-  console.warn(errorMessage);
-}
-
-var html5QrcodeScanner = new Html5QrcodeScanner(
-  "qr_reader", { fps: 10, qrbox: 250 });
-  html5QrcodeScanner.render(onScanSuccess);
-
-// Set up the QR code scanner
-const html5QrCode = new Html5Qrcode("qr_reader");
-
-// Start the QR code scanner
-html5QrCode.start(
-  { facingMode: "environment" }, // Use the environment-facing camera
-  { fps: 10, qrbox: 250 },       // Scan settings
-  onScanSuccess,                 // Success callback
-  onScanError                    // Error callback
-).catch(err => {
-  console.error("QR Code Scanner Error: ", err);
-});
-
+let savedMatches, container = document.querySelector('#qr_code');;
 
 //creating
 
@@ -58,8 +15,8 @@ function getQrCodeSettings(data) {
     'radius':0,
     'ecLevel':'L',
     'fill':'#000000',
-    'background': null,
-    'size': 500
+    'background': '#FFFFFF',
+    'size': 400
   };
   
   return settings;
@@ -70,20 +27,52 @@ function getQrCodeSettings(data) {
  * @param {*} data String for QR code data
  */
 function renderQrCode(data) {
-  let time = new Date(),
-    container = document.querySelector('#qr_code'),
-    settings = getQrCodeSettings(data);
-  container.innerHTML = '';
+  let time = new Date();
+  let settings = getQrCodeSettings(data)
   QrCreator.render(settings, container);
+  
+  alert("Successfully generated QR code.");
+}
+
+function clearPreviousQR() {
+  try {
+    //if nothing is there don't clear
+    if (container.innerHTML === "") return;
+
+    container.innerHTML = "";
+    console.log("cleared previous code");
+
+    const match = savedMatches[0];
+    const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
+    localStorage.removeItem(saveName);
+    console.log("deleted save");
+
+  } catch (error) {
+    console.log(error);
+    console.log(error.message);
+  }
 }
 
 document.getElementById('display_saved_matches').addEventListener('click', () => {
-  const match = getSavedMatches()[0];
-  let string = JSON.stringify(match);
-  
-  const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
-  localStorage.removeItem(saveName);
-  
-  console.log(string);
-  renderQrCode(string);
+  try {
+    savedMatches = getSavedMatches();
+    clearPreviousQR();
+    savedMatches = getSavedMatches();
+
+    if (savedMatches.length == 0) {
+      alert("The are no saved matches.");
+      return;
+    }
+
+    const match = savedMatches[0];
+    let string = JSON.stringify(match);
+        
+    console.log(string);
+    renderQrCode(string);
+    
+  } catch (error) {
+    alert("Error generating QR code.");
+    console.log(error);
+    console.log(error.message);
+  }
 });
