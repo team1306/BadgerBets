@@ -3,20 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code Scanner</title>
+  <title>BadgerBets - Generate QR</title>
+  <!-- <link rel="stylesheet" href="../styles-new.css"> -->
+  <script type = 'module' src ="./script.js" ></script>
+  <link rel="icon" href="ico.png" type="image/x-icon"/>
+  <link rel="manifest" href="./manifest.json" />
+  <style>
+    .home-buttons {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 16px;
+    }
+  </style>
 </head>
 <body>
+  <div class="view">
+    <header class="header">
+      <span class="logo">Badger Bets</span>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="../dashboard/index.html">Dashboard</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
 
-  <div>
-    <h2>QR Code Scanner</h2>
-    <div id="qr-reader" style="width:500px"></div>
-    <div id="qr-reader-results"></div>
-    <p id ='result'></p>
+        <button id="display_saved_matches">Generate Next Code</button>
+        <section id="qr_code"></section>
+
+    </main>
+    <footer class="footer">
+      <span>&copy; 2024 BadgerBets. All rights reserved.</span>
+    </footer>
   </div>
-
-  <!-- Include the html5-qrcode library -->
-  <script src="https://unpkg.com/html5-qrcode"></script>
-  <script type = 'module' src ="./script.js" ></script>
-
+  <script> 
+    if (typeof navigator.serviceWorker != 'undefined'){
+      navigator.serviceWorker.register('service-worker.js')
+    }
+  </script>
 </body>
 </html>

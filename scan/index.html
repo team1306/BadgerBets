@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BadgerBets - Home</title>
-  <link rel="stylesheet" href="./styles-new.css">
+  <title>BadgerBets - Scan QR</title>
+  <link rel="stylesheet" href="../styles-new.css">
   <script type = 'module' src ="./script.js" ></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
   <link rel="icon" href="ico.png" type="image/x-icon"/>
   <link rel="manifest" href="./manifest.json" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=sync" />
   <style>
     .home-buttons {
       display: flex;
@@ -23,16 +23,18 @@
       <span class="logo">Badger Bets</span>
       <nav>
         <ul class="nav-links">
+          <li><a href="../dashboard/index.html">Dashboard</a></li>
         </ul>
       </nav>
     </header>
     <main class="main">
-      <h1 class="title">Welcome to Badger Bets</h1>
-      <p>Your ultimate platform for managing and tracking rewards for the BadgerBots FRC Season!</p>
-      <div class="home-buttons">
-        <a id="login" class="red btn" href="./login/index.html">Login</a>
-        <a id="signup" class="red btn" href="./signup/index.html">Sign Up</a>  
-      </div>
+
+        <div>
+            <h2>QR Code Scanner</h2>
+            <div id="qr_reader" style="width:400px"></div>
+            <p id ='result'></p>
+        </div>
+
     </main>
     <footer class="footer">
       <span>&copy; 2024 BadgerBets. All rights reserved.</span>

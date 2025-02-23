@@ -5,42 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Badger Bets</title>
     <link rel="manifest" href="../manifest.json" />
-    <link rel="stylesheet" href="../styles.css">
-
-
+    <link rel="stylesheet" href="../styles-new.css">
+    <script type="module" src="signup-appwrite.js" defer></script>
 </head>
-<header class="header">
-    <div class="container">
-      <h1 class="logo">Badger Bets</h1>
+<body>
+  <div class="view">
+    <header class="header">
+      <span class="logo">Badger Bets</span>
       <nav>
         <ul class="nav-links">
-          <li><a href="">Home</a></li>
-          <li><a href="/BadgerBets/about">About</a></li>
-          <li><a href="/BadgerBets/contact">Contact</a></li>
         </ul>
       </nav>
-    </div>
-  </header>
-<body>
-    
-    <section class="auth-section">
-        <div class="auth-container">
-            <h2>Create Account</h2>
-            <form id="signup-form" class="column">
-                <input type="text" id="name" placeholder="name" required>
-                </label><input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
-                
-                <button type="submit" class="btn btn-signup">Sign Up</button>
-              </form>
-            <p class="login-text" >Already have an account? <a class="btn-login" href="../login/index.html">Login</a></p>
-        </div>
-    </section>
-
-    <footer>
+    </header>
+    <main class="main">
+      <h1 class="title">Create Account</h1>
+      <form id="signup-form" class="column">
+        <input type="text" id="name" class="input" placeholder="Name" required>
+        <input type="email" id="email" class="input" placeholder="Email" required>
+        <input type="password" id="password" class="input" placeholder="Password" required>
+        <button type="submit" class="red btn">Sign Up</button>
+      </form>
+      <p class="login-text" >Already have an account? <a class="btn-login" href="../login/index.html">Login</a></p>
+    </main>
+    <footer class="footer">
         <p>&copy; 2024 Badger Bets. All rights reserved.</p>
     </footer>
-
-    <script type="module" src="signup-appwrite.js"></script>
 </body>
 </html>

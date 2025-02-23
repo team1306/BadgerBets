@@ -97,13 +97,13 @@ function showSectionById(sectionId) {
 /**
  * @returns list of dictionaries 
  */
-function getSavedMatches() {
+export function getSavedMatches() {
 
     let dictionaries = [];
 
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
-        if (key == "session" || key == "cookieFallback") continue;
+        if (key[0] != '*') continue;
 
         let match = localStorage.getItem(key);
         console.log(key);
@@ -218,12 +218,13 @@ function dumpScoutingDataToLocalStorage() {
         const teamNumber = document.getElementById('team_number').value;
         const allianceRole = document.getElementById('alliance_role').value;
 
-        const saveName = matchType + matchNumber + "-" + teamNumber;
+        const saveName = "*" + matchType + matchNumber + "-" + teamNumber + "-" + name;
 
         const dictionary = {
             "match": matchType + matchNumber,
             "team_number": teamNumber,
             "alliance_role": allianceRole,
+            "name": name,
             "auto_L1": parseInt(auto_coral_1.inputField.value),
             "auto_L2": parseInt(auto_coral_2.inputField.value),
             "auto_L3": parseInt(auto_coral_3.inputField.value),
@@ -258,53 +259,4 @@ function dumpScoutingDataToLocalStorage() {
     window.location.reload();
 }
 
-document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
-function syncToAppwrite(collectionID) {
-    const databaseID = "match_data";
-    const matches = getSavedMatches();
-
-    if (matches.length === 0) {
-        alert("There are no saved matches to submit.");
-        return;
-    }
-
-    for (let i = 0; i < matches.length; i++) {
-        const match = matches[i];
-        
-        
-        const documentData = {
-            auto_L1: match.auto_L1,
-            auto_L2: match.auto_L2,
-            auto_L3: match.auto_L3,
-            auto_L4: match.auto_L4,
-            leave: match.leave,
-            auto_net: match.auto_net,
-            auto_processor: match.auto_processor,
-            teleop_L1: match.teleop_L1,
-            teleop_L2: match.teleop_L2,
-            teleop_L3: match.teleop_L3,
-            teleop_L4: match.teleop_L4,
-            teleop_net: match.teleop_net,
-            teleop_processor: match.teleop_processor,
-            climb_state: match.climb_state,
-            driver_rating: match.driver_rating,
-            intake_abilities: match.intake_abilities,
-            notes: match.notes, // Include any other fields you want to save
-        };
-        console.log(match.team_number);
-
-        databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + name, documentData)
-        .then(document => {
-            console.log("Document Created Successfully");
-            const saveName = "" + match.match + "-" + match.team_number;
-            localStorage.removeItem(saveName);
-        }).catch(error => {
-            console.error("Error Creating Document: " + error + "\n" + error.message);
-            alert("An error occurred while syncing");
-            return;
-        });
-    }
-
-    alert("Synced successfully");
-}
 });
