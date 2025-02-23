@@ -77,6 +77,11 @@ function renderQrCode(data) {
 
 document.getElementById('display_saved_matches').addEventListener('click', () => {
   const matches = getSavedMatches();
-  console.log(matches);
-  renderQrCode('data');
+  let string = "";
+  for(let i = 0; i < matches.length; i++) {
+    string += JSON.stringify(matches[i]);
+    if (i != matches.length - 1) string += ",";
+  }
+  console.log(string);
+  renderQrCode(string);
 });

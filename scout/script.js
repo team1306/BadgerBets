@@ -103,7 +103,7 @@ export function getSavedMatches() {
 
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
-        if (key == "session" || key == "cookieFallback") continue;
+        if (key == "session" || key == "cookieFallback" || key == "HTML5_QRCODE_DATA") continue;
 
         let match = localStorage.getItem(key);
         console.log(key);
