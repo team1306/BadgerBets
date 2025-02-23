@@ -30,40 +30,47 @@ function syncToAppwrite(collectionID) {
     }
 
     for (let i = 0; i < matches.length; i++) {
-        const match = matches[i];
-        console.log(match.climb_state);
-        
-        const documentData = {
-            auto_L1: match.auto_L1,
-            auto_L2: match.auto_L2,
-            auto_L3: match.auto_L3,
-            auto_L4: match.auto_L4,
-            leave: match.leave,
-            auto_net: match.auto_net,
-            auto_processor: match.auto_processor,
-            teleop_L1: match.teleop_L1,
-            teleop_L2: match.teleop_L2,
-            teleop_L3: match.teleop_L3,
-            teleop_L4: match.teleop_L4,
-            teleop_net: match.teleop_net,
-            teleop_processor: match.teleop_processor,
-            climb_state: match.climb_state,
-            driver_rating: match.driver_rating,
-            intake_abilities: match.intake_abilities,
-            notes: match.notes, // Include any other fields you want to save
-        };
-        console.log(match.team_number);
+        try {
+            const match = matches[i];
+            console.log(match.climb_state);
+            
+            const documentData = {
+                auto_L1: match.auto_L1,
+                auto_L2: match.auto_L2,
+                auto_L3: match.auto_L3,
+                auto_L4: match.auto_L4,
+                leave: match.leave,
+                auto_net: match.auto_net,
+                auto_processor: match.auto_processor,
+                teleop_L1: match.teleop_L1,
+                teleop_L2: match.teleop_L2,
+                teleop_L3: match.teleop_L3,
+                teleop_L4: match.teleop_L4,
+                teleop_net: match.teleop_net,
+                teleop_processor: match.teleop_processor,
+                climb_state: match.climb_state,
+                driver_rating: match.driver_rating,
+                intake_abilities: match.intake_abilities,
+                notes: match.notes, // Include any other fields you want to save
+            };
+            console.log(match.team_number);
 
-        databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + match.name, documentData)
-        .then(document => {
-            console.log("Document Created Successfully");
-            const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
-            localStorage.removeItem(saveName);
-        }).catch(error => {
-            console.error("Error Creating Document: " + error + "\n" + error.message);
+            databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + match.name, documentData)
+            .then(document => {
+                console.log("Document Created Successfully");
+                const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
+                localStorage.removeItem(saveName);
+            }).catch(error => {
+                if (error === "AppwriteException: Failed to fetch") {
+                    alert("No Internet");
+                    return;
+                }
+            });
+        } catch (error) {
+            console.error("Error Syncing: " + error);
             alert("An error occurred while syncing");
             return;
-        });
+        };
     }
 
     alert("Synced successfully");
