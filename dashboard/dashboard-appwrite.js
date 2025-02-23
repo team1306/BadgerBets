@@ -54,10 +54,10 @@ function syncToAppwrite(collectionID) {
         };
         console.log(match.team_number);
 
-        databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + name, documentData)
+        databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + match.name, documentData)
         .then(document => {
             console.log("Document Created Successfully");
-            const saveName = "*" + match.match + "-" + match.team_number + "-" + user.name;
+            const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
             localStorage.removeItem(saveName);
         }).catch(error => {
             console.error("Error Creating Document: " + error + "\n" + error.message);

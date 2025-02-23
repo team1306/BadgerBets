@@ -16,6 +16,7 @@ function onScanSuccess(decodedText, decodedResult) {
             lastResult = decodedText;
 
             const dictionary = JSON.parse(decodedText);
+            alert(dictionary.name);
             const saveName = "*" + dictionary.match + "-" + dictionary.team_number + "-" + dictionary.name;
             localStorage.setItem(saveName, JSON.stringify(dictionary));
 
