@@ -256,7 +256,7 @@ function dumpScoutingDataToLocalStorage() {
         return;
     }
     alert("Successfully saved match data");
-    window.location.reload(true);
+    window.location.href = window.location.href;
 }
 
 });
