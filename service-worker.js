@@ -23,11 +23,22 @@
             "/index.html",
             "/styles.css",
             "/script.js",
+            "/manifest.json",
+            "/qrcode.html",
+            "/qrcodemaker.js",
             "/images/logo.png",
             "/scout/index.html",
             "/scout/scripts.js",
             "/dashboard/index.html",
-            "/dashboard/dashboard-appwrite.js"
+            "/dashboard/dashboard-appwrite.js",
+            "/login/index.html",
+            "/login-appwrite.js",
+            "/login-helper.js",
+            "/qr/index.html",
+            "/qr/script.js",
+            "/signup/index.html",
+            "/signup/signup-appwrite.js",
+
         ];
         
         // Install service worker and cache assets
