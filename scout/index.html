@@ -24,6 +24,7 @@
             </nav>
         </header>
         <main class="main column">
+
             <div id="prematch">
                 <h2>Match Type</h2>
                 <select id="match_type" class="select">
@@ -166,16 +167,22 @@
             </div>
         
             <br></br>
+            
+            <div id="modeToggle">
+                <button id="toggleButton" class="btn">Switch to Teleop</button>
+                <p id="currentMode">Current Mode: Autonomous</p>
+            </div>
         
-            <h2 id="finalAutoScore">Final Autonomous Score: 0 </h2>
-            <h2 id="finalTeleScore">Final Teleop Score: 0</h2>
-            <h2 id="finalScore">Final Score: 0</h2>
+            <h2 id="finalAutoScore">Total Autonomous Score: 0 </h2>
+            <h2 id="finalTeleScore">Total Teleop Score: 0</h2>
+            <h2 id="finalScore">Total Score: 0</h2>
             <div class="center">
                 <button id="submit" class="btn"><span class="center"><span class="material-symbols-outlined">input</span>Submit</span></button>
             </div>
             <div class="center">
                 <button id="sync" class="btn"><span class="center"><span class="material-symbols-outlined center">sync</span>Sync</span></button>
             </div>
+
         </main>
         <footer class="footer">
             <p>&copy; 2024 BadgerBets. All rights reserved.</p>
