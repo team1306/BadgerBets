@@ -1,6 +1,7 @@
 import {Client, Account, Databases} from 'https://esm.sh/appwrite@14.0.1';
 
-import {getBucks, setBucks} from '../AppwriteStuff.js';
+import {getBucks, getUser} from '../AppwriteStuff.js';
+import { getSavedMatches } from '../scout/script.js';
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -10,26 +11,63 @@ const client = new Client()
 const account = new Account(client);
 const databases = new Databases(client);
 
-//getAPIScore();
-const sessionId = localStorage.getItem("session");
-if(!sessionId) {
-  window.location.href = '../login/index.html';
-}
-account.getSession(sessionId).then(async (response) => {
-  console.log(response);
-  const balance = document.getElementById("balance");
-  balance.innerHTML = await getBucks();
-  document.getElementById('username').innerText = response.providerUid;
-}).catch(error => {
-  console.error("Error getting session:", error);
-});
-const zeroButton = document.getElementById("zeroButton")
+let user;
 
-zeroButton.addEventListener("click", async () => {
- const balance = document.getElementById("balance");
- await setBucks(0);
-  balance.innerHTML = await getBucks()
-})
+document.addEventListener("DOMContentLoaded", async () => {
+  user = await getUser();
+  document.getElementById("username").innerHTML = user.name;
+  document.getElementById("balance").innerHTML = "Your bucks: " + await getBucks();
+});
+
+document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
+function syncToAppwrite(collectionID) {
+    const databaseID = "match_data";
+    const matches = getSavedMatches();
+
+    if (matches.length === 0) {
+        alert("There are no saved matches to sync.");
+        return;
+    }
+
+    for (let i = 0; i < matches.length; i++) {
+        const match = matches[i];
+        
+        
+        const documentData = {
+            auto_L1: match.auto_L1,
+            auto_L2: match.auto_L2,
+            auto_L3: match.auto_L3,
+            auto_L4: match.auto_L4,
+            leave: match.leave,
+            auto_net: match.auto_net,
+            auto_processor: match.auto_processor,
+            teleop_L1: match.teleop_L1,
+            teleop_L2: match.teleop_L2,
+            teleop_L3: match.teleop_L3,
+            teleop_L4: match.teleop_L4,
+            teleop_net: match.teleop_net,
+            teleop_processor: match.teleop_processor,
+            climb_state: match.climb_state,
+            driver_rating: match.driver_rating,
+            intake_abilities: match.intake_abilities,
+            notes: match.notes, // Include any other fields you want to save
+        };
+        console.log(match.team_number);
+
+        databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + name, documentData)
+        .then(document => {
+            console.log("Document Created Successfully");
+            const saveName = "*" + match.match + "-" + match.team_number + "-" + user.name;
+            localStorage.removeItem(saveName);
+        }).catch(error => {
+            console.error("Error Creating Document: " + error + "\n" + error.message);
+            alert("An error occurred while syncing");
+            return;
+        });
+    }
+
+    alert("Synced successfully");
+}
 
 
 async function getAPIScore(){
