@@ -4,36 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="../manifest.json" />
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles-new.css">
     <title>Login - Badger Bets</title>
+    <script type="module" src="login-appwrite.js"></script>
 </head>
-<header class="header">
-    <div class="container">
-      <h1 class="logo">Badger Bets</h1>
+<body>
+  <div class="view">
+    <header class="header">
+      <span class="logo">Badger Bets</span>
       <nav>
         <ul class="nav-links">
-          <li><a href="">Home</a></li>
         </ul>
       </nav>
-    </div>
-  </header>
-<body>
-
-    <section class="auth-section">
-        <div class="auth-container">
-            <h2>Login</h2>
-            <form id="login-form" class="column">
-              <input type="email" id="login-email" placeholder="Email" required>
-              <input type="password" id="login-password" placeholder="Password" required>
-              <button type="submit" class="btn btn-login">Login</button>
-            </form>
-            <p class="signup-text">Don't have an account? <a class="btn-signup" href="../signup/index.html">Sign Up</a></p>
-        </div>
-    </section>
+    </header>
+    <main class="main">
+      <h1 class="title">Login</h1>
+      <form id="login-form" class="column">
+        <input type="email" id="login-email" class="input" placeholder="Email" required>
+        <input type="password" id="login-password" class="input" placeholder="Password" required>
+        <button type="submit" class="red btn">Login</button>
+      </form>
+      <p class="signup-text">Don't have an account? <a class="btn-signup" href="../signup/index.html">Sign Up</a></p>
+    </main>
     <footer>
         <p>&copy; 2024 Badger Bets. All rights reserved.</p>
     </footer>
-
-    <script type="module" src="login-appwrite.js"></script>
 </body>
 </html>

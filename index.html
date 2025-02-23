@@ -4,49 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BadgerBets - Home</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles-new.css">
   <script type = 'module' src ="./script.js" ></script>
   <link rel="icon" href="ico.png" type="image/x-icon"/>
   <link rel="manifest" href="./manifest.json" />
-
-
+  <style>
+    .home-buttons {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 16px;
+    }
+  </style>
 </head>
 <body>
-<script> 
-  if (typeof navigator.serviceWorker != 'undefined'){
-    navigator.serviceWorker.register('service-worker.js')
-  }
-</script>
-<!-- Header Section -->
-<header class="header">
-  <div class="container">
-    <h1 class="logo">Badger Bets</h1>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="">Home</a></li>
-      </ul>
-    </nav>
+  <div class="view">
+    <header class="header">
+      <span class="logo">Badger Bets</span>
+      <nav>
+        <ul class="nav-links">
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <h1 class="title">Welcome to Badger Bets</h1>
+      <p>Your ultimate platform for managing and tracking rewards for the BadgerBots FRC Season!</p>
+      <div class="home-buttons">
+        <a id="login" class="red btn" href="./login/index.html">Login</a>
+        <a id="signup" class="red btn" href="./signup/index.html">Sign Up</a>  
+      </div>
+    </main>
+    <footer class="footer">
+      <span>&copy; 2024 BadgerBets. All rights reserved.</span>
+    </footer>
   </div>
-</header>
-
-<!-- Main Section -->
-<section class="main-section">
-  <div class="content">
-    <h2>Welcome to Badger Bets</h2>
-    <p>Your ultimate platform for managing and tracking rewards for the BadgerBots FRC Season!</p>
-    <div class="buttons">
-      <button id = "login"><a href="./login/index.html">Login</a></button>
-      <button id = "signup"><a href="./signup/index.html">Sign Up</a></button>  
-    </div>
-  </div>
-</section>
-
-<!-- Footer Section -->
-
+  <script> 
+    if (typeof navigator.serviceWorker != 'undefined'){
+      navigator.serviceWorker.register('service-worker.js')
+    }
+  </script>
 </body>
-<footer>
-  <div class="container">
-    <p>&copy; 2024 BadgerBets. All rights reserved.</p>
-  </div>
-</footer>
 </html>
