@@ -12,11 +12,13 @@ var lastResult, countResults = 0;
 // Initialize the QR code scanner
 function onScanSuccess(decodedText, decodedResult) {
     if (decodedText !== lastResult) {
-        ++countResults;
-        lastResult = decodedText;
-        // Handle on success condition with the decoded message.
-        console.log(decodedText);
-        result.innerHTML = decodedText;
+      ++countResults;
+      lastResult = decodedText;
+      // Handle on success condition with the decoded message.
+      result.innerHTML = decodedText;
+      const dictionary = JSON.parse(decodedText);
+      const saveName = "*" + dictionary.match + "-" + dictionary.team_number + "-" + dictionary.name;
+      localStorage.setItem(saveName, JSON.stringify(dictionary));
     }
 }
 
@@ -76,12 +78,12 @@ function renderQrCode(data) {
 }
 
 document.getElementById('display_saved_matches').addEventListener('click', () => {
-  const matches = getSavedMatches();
-  let string = "";
-  for(let i = 0; i < matches.length; i++) {
-    string += JSON.stringify(matches[i]);
-    if (i != matches.length - 1) string += ",";
-  }
+  const match = getSavedMatches()[0];
+  let string = JSON.stringify(match);
+  
+  const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
+  localStorage.removeItem(saveName);
+  
   console.log(string);
   renderQrCode(string);
 });

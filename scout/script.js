@@ -103,7 +103,7 @@ export function getSavedMatches() {
 
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
-        if (key == "session" || key == "cookieFallback" || key == "HTML5_QRCODE_DATA") continue;
+        if (key[0] != '*') continue;
 
         let match = localStorage.getItem(key);
         console.log(key);
@@ -218,12 +218,13 @@ function dumpScoutingDataToLocalStorage() {
         const teamNumber = document.getElementById('team_number').value;
         const allianceRole = document.getElementById('alliance_role').value;
 
-        const saveName = matchType + matchNumber + "-" + teamNumber;
+        const saveName = "*" + matchType + matchNumber + "-" + teamNumber + "-" + name;
 
         const dictionary = {
             "match": matchType + matchNumber,
             "team_number": teamNumber,
             "alliance_role": allianceRole,
+            "name": name,
             "auto_L1": parseInt(auto_coral_1.inputField.value),
             "auto_L2": parseInt(auto_coral_2.inputField.value),
             "auto_L3": parseInt(auto_coral_3.inputField.value),
@@ -296,7 +297,7 @@ function syncToAppwrite(collectionID) {
         databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + name, documentData)
         .then(document => {
             console.log("Document Created Successfully");
-            const saveName = "" + match.match + "-" + match.team_number;
+            const saveName = "*" + match.match + "-" + match.team_number + "-" + name;
             localStorage.removeItem(saveName);
         }).catch(error => {
             console.error("Error Creating Document: " + error + "\n" + error.message);
