@@ -16,7 +16,7 @@ function getQrCodeSettings(data) {
     'ecLevel':'L',
     'fill':'#000000',
     'background': '#FFFFFF',
-    'size': 400
+    'size': 350
   };
   
   return settings;
