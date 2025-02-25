@@ -148,9 +148,20 @@
                 </select>
         
                 <br></br>
+                
+                <h2>Main Robot Role:</h2>
+                <select id="robot_role" class="select">
+                    <option value="immobile">Immobile</option>
+                    <option value="defense">Defense</option>
+                    <option value="offense">Offense</option>
+                </select>
+        
+                <br></br>
         
                 <h2>Driver Rating</h2>  
                 <p>Rate the drivers on a scale of 1-5.</p>
+                <h6>1 is >3 penalties, taking a >8 seconds to line up with game objectives, and ineffective at/against defense</h6>
+                <h6>5 is no penalties, taking a &lt;2 seconds to line up with game objectives, and very effective at/against defense</h6>
                 <input id=driverRating type="range" min="1" max="5" value="3" class="slider" id="myRange">
                 <p id= displayDriverRating>Driver Ability: 3</p>
                 

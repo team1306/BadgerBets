@@ -49,6 +49,7 @@ function syncToAppwrite(collectionID) {
                 teleop_net: match.teleop_net,
                 teleop_processor: match.teleop_processor,
                 climb_state: match.climb_state,
+                robot_role: match.robot_role,
                 driver_rating: match.driver_rating,
                 intake_abilities: match.intake_abilities,
                 notes: match.notes, // Include any other fields you want to save
