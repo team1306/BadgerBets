@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("balance").innerHTML = "Your bucks: " + await getBucks();
 });
 
-document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
+document.getElementById("sync").addEventListener('click', () => syncToAppwrite('duluth'))
 function syncToAppwrite(collectionID) {
     const databaseID = "match_data";
     const matches = getSavedMatches();
@@ -61,20 +61,20 @@ function syncToAppwrite(collectionID) {
                 console.log("Document Created Successfully");
                 const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
                 localStorage.removeItem(saveName);
+                alert("Synced successfully");
+                return;
             }).catch(error => {
-                if (error === "AppwriteException: Failed to fetch") {
+                if (error == "AppwriteException: Failed to fetch") {
                     alert("No Internet");
                     return;
                 }
             });
         } catch (error) {
             console.error("Error Syncing: " + error);
-            alert("An error occurred while syncing");
+            alert("An unknown error occurred while syncing");
             return;
         };
     }
-
-    alert("Synced successfully");
 }
 
 
