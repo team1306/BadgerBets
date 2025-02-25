@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BadgerBets - Generate QR</title>
-  <!-- <link rel="stylesheet" href="../styles-new.css"> -->
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="../styles-new.css">
   <script type = 'module' src ="./script.js" ></script>
   <link rel="icon" href="ico.png" type="image/x-icon"/>
   <link rel="manifest" href="./manifest.json" />
@@ -28,8 +29,10 @@
     </header>
     <main class="main">
 
-        <button id="display_saved_matches">Generate Next Code</button>
-        <section id="qr_code"></section>
+        <button class="btn center" id="display_saved_matches">Generate Next Code</button>
+        <br></br>
+        <section class="qr-container" class="center" id="qr_code"></section>
+        <h2 id="description">Displaying Match: None</h2>
 
     </main>
     <footer class="footer">
