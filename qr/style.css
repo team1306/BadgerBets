@@ -1,0 +1,6 @@
+.qr-container {
+    background-color: white; /* White square around the QR code */
+    padding: 10px; /* Space around the QR code inside the square */
+    width: 370px;
+    height: 370px;
+  }

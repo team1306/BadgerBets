@@ -7,7 +7,7 @@ let savedMatches, container = document.querySelector('#qr_code');;
 
 /**
  * Gets the settings for the qr code
- * @param {*} data String for QR code data
+ * @param {String} data String for QR code data
  */
 function getQrCodeSettings(data) {
   let settings = {
@@ -16,7 +16,7 @@ function getQrCodeSettings(data) {
     'ecLevel':'L',
     'fill':'#000000',
     'background': '#FFFFFF',
-    'size': 400
+    'size': 350
   };
   
   return settings;
@@ -24,12 +24,15 @@ function getQrCodeSettings(data) {
 
 /**
  * Renders the QR code
- * @param {*} data String for QR code data
+ * @param {String} data String for QR code data
  */
 function renderQrCode(data) {
   let time = new Date();
   let settings = getQrCodeSettings(data)
   QrCreator.render(settings, container);
+
+  const match = JSON.parse(data);
+  document.getElementById('description').innerHTML = "Displaying: Match " + match.match + " - Team " + match.team_number;
   
   alert("Successfully generated QR code.");
 }
@@ -40,6 +43,7 @@ function clearPreviousQR() {
     if (container.innerHTML === "") return;
 
     container.innerHTML = "";
+    document.getElementById('description').innerHTML = "Displaying: None";
     console.log("cleared previous code");
 
     const match = savedMatches[0];

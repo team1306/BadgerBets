@@ -241,6 +241,7 @@ function dumpScoutingDataToLocalStorage() {
             "teleop_processor": parseInt(tele_algae_processor.inputField.value),
 
             "climb_state": climb_status.selectedOption,
+            "robot_role": document.getElementById("robot_role").value,
             "driver_rating": parseInt(driver_ability.value),
             "intake_abilities": document.getElementById('intake_ability').value,
             "notes": document.getElementById('notes').value
@@ -256,7 +257,7 @@ function dumpScoutingDataToLocalStorage() {
         return;
     }
     alert("Successfully saved match data");
-    window.location.reload();
+    window.location.href = window.location.href;
 }
 
 });
