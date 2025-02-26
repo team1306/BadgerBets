@@ -17,8 +17,8 @@
         - Badges: https://microsoft.github.io/win-student-devs/#/30DaysOfPWA/advanced-capabilities/07?id=application-badges
     */
 
-        const CACHE_NAME = "offline-cache-v1";
-        const ASSETS = [
+        const cacheName = "offlineCache";
+        const cacheAssets = [
             "/",
             "/index.html",
             "/styles.css",
@@ -40,14 +40,30 @@
             "/signup/signup-appwrite.js",
 
         ];
-        
+        // old original install
         // Install service worker and cache assets
-        self.addEventListener("install", (event) => {
-        event.waitUntil(
-            caches.open(CACHE_NAME).then((cache) => {
-                return cache.addAll(ASSETS);
-            })
-        );
+        // self.addEventListener("install", (event) => {
+        // event.waitUntil(
+        //     caches.open(CACHE_NAME).then((cache) => {
+        //         return cache.addAll(ASSETS);
+        //     })
+        // );
+        // });
+
+        // Testing a better install
+        self.addEventListener('install', e => {
+            console.log('Service Worker: Installed');
+
+            e.waitUntil(
+                caches
+                .open(cacheName)
+                .then(cache => {
+                    console.log(cache)
+                    console.log('Service Worker: Caching Files', cache);
+                    cache.addAll(cacheAssets);
+                })
+                .then(() => self.skipWaiting())
+            );
         });
         
 
@@ -97,7 +113,14 @@
      *
      *  void respondWith(Promise<Response> r)
      */
+    
+    // testing a simpler fetch
+    self.addEventListener('fetch', e => {
+        console.log('Service Worker: Fetching');
+        e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+      });
 
+//Original fetch request
     // self.addEventListener('fetch', event => {
     // // Skip some of cross-origin requests, like those for Google Analytics.
     // if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
