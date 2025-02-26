@@ -54,12 +54,12 @@ h2 {
     text-align: center;
 }
 
-#toggleButton {
+.toggleButton {
     background-color: #ffff00;
     color: #000;    
 }
 
-#currentMode {
+.currentMode {
     margin-top: 5px;
     font-size: 0.9rem;
     font-style: italic;
