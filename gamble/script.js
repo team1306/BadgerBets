@@ -67,6 +67,18 @@ document.getElementById('bettingform').addEventListener('submit', async function
 function getWinner(matchType, matchNumber) {
     return 0;
 }
+function calculateEarnings(myBet, myAlliance, totalRed, totalBlue, winner){
+    if (myAlliance == winner){
+    if (winner == 0){ // blue won
+        return (myBet/totalBlue)*totalBlue+totalRed;
+    }
+    if (winner == 1){ // red won
+        return (myBet/totalRed)*totalBlue+totalRed;
+    }
+}  else{
+    return -myBet;
+}
+}
 
 /**
  * Sets the text for teams
