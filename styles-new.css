@@ -82,6 +82,7 @@ body {
     padding: 8px 16px;
     border-radius: 6px;
     font-size: 1.3rem;
+    
 }
 
 .btn:hover {
@@ -113,7 +114,9 @@ body {
 
 .center{
     display:flex;
+    margin: auto;
     align-items:center;
+    text-align:center;
     justify-content: center;
     gap: 8px;
 }

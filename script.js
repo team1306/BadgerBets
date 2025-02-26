@@ -3,7 +3,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const signupBtn = document.getElementById('signup');
 
     loginBtn.addEventListener('click', () => {
-        window.location.href = 'login.html';
+        if(localStorage.getItem('user')!=null){
+        window.location.href = '/dashboard/index.html';
+        }
+        else{
+            window.location.href = '/login/index.html';
+        }
     });
     signupBtn.addEventListener('click', () => {
         window.location.href = 'signup.html';

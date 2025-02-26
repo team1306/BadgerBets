@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("balance").innerHTML = "Your bucks: " + await getBucks();
 });
 
-document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
+document.getElementById("sync").addEventListener('click', () => syncToAppwrite('duluth'))
 function syncToAppwrite(collectionID) {
     const databaseID = "match_data";
     const matches = getSavedMatches();
@@ -49,6 +49,7 @@ function syncToAppwrite(collectionID) {
                 teleop_net: match.teleop_net,
                 teleop_processor: match.teleop_processor,
                 climb_state: match.climb_state,
+                robot_role: match.robot_role,
                 driver_rating: match.driver_rating,
                 intake_abilities: match.intake_abilities,
                 notes: match.notes, // Include any other fields you want to save
@@ -60,20 +61,20 @@ function syncToAppwrite(collectionID) {
                 console.log("Document Created Successfully");
                 const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
                 localStorage.removeItem(saveName);
+                alert("Synced successfully");
+                return;
             }).catch(error => {
-                if (error === "AppwriteException: Failed to fetch") {
+                if (error == "AppwriteException: Failed to fetch") {
                     alert("No Internet");
                     return;
                 }
             });
         } catch (error) {
             console.error("Error Syncing: " + error);
-            alert("An error occurred while syncing");
+            alert("An unknown error occurred while syncing");
             return;
         };
     }
-
-    alert("Synced successfully");
 }
 
 
