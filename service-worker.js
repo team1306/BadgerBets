@@ -17,8 +17,8 @@
         - Badges: https://microsoft.github.io/win-student-devs/#/30DaysOfPWA/advanced-capabilities/07?id=application-badges
     */
 
-        const CACHE_NAME = "offline-cache-v1";
-        const ASSETS = [
+        const cacheName = "offlineCache";
+        const cacheAssets = [
             "/",
             "/index.html",
             "/styles.css",
@@ -40,14 +40,30 @@
             "/signup/signup-appwrite.js",
 
         ];
-        
+        // old original install
         // Install service worker and cache assets
-        self.addEventListener("install", (event) => {
-        event.waitUntil(
-            caches.open(CACHE_NAME).then((cache) => {
-                return cache.addAll(ASSETS);
-            })
-        );
+        // self.addEventListener("install", (event) => {
+        // event.waitUntil(
+        //     caches.open(CACHE_NAME).then((cache) => {
+        //         return cache.addAll(ASSETS);
+        //     })
+        // );
+        // });
+
+        // Testing a better install
+        self.addEventListener('install', e => {
+            console.log('Service Worker: Installed');
+
+            e.waitUntil(
+                caches
+                .open(cacheName)
+                .then(cache => {
+                    console.log(cache)
+                    console.log('Service Worker: Caching Files', cache);
+                    cache.addAll(cacheAssets);
+                })
+                .then(() => self.skipWaiting())
+            );
         });
         
 
@@ -97,32 +113,40 @@
      *
      *  void respondWith(Promise<Response> r)
      */
-    self.addEventListener('fetch', event => {
-    // Skip some of cross-origin requests, like those for Google Analytics.
-    if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
-        // Stale-while-revalidate
-        // similar to HTTP's stale-while-revalidate: https://www.mnot.net/blog/2007/12/12/stale
-        // Upgrade from Jake's to Surma's: https://gist.github.com/surma/eb441223daaedf880801ad80006389f1
-        const cached = caches.match(event.request)
-        const fixedUrl = getFixedUrl(event.request)
-        const fetched = fetch(fixedUrl, { cache: 'no-store' })
-        const fetchedCopy = fetched.then(resp => resp.clone())
+    
+    // testing a simpler fetch
+    self.addEventListener('fetch', e => {
+        console.log('Service Worker: Fetching');
+        e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+      });
 
-        // Call respondWith() with whatever we get first.
-        // If the fetch fails (e.g disconnected), wait for the cache.
-        // If there’s nothing in cache, wait for the fetch.
-        // If neither yields a response, return offline pages.
-        event.respondWith(
-        Promise.race([fetched.catch(_ => cached), cached])
-            .then(resp => resp || fetched)
-            .catch(_ => { /* eat any errors */ })
-        )
+//Original fetch request
+    // self.addEventListener('fetch', event => {
+    // // Skip some of cross-origin requests, like those for Google Analytics.
+    // if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
+    //     // Stale-while-revalidate
+    //     // similar to HTTP's stale-while-revalidate: https://www.mnot.net/blog/2007/12/12/stale
+    //     // Upgrade from Jake's to Surma's: https://gist.github.com/surma/eb441223daaedf880801ad80006389f1
+    //     const cached = caches.match(event.request)
+    //     const fixedUrl = getFixedUrl(event.request)
+    //     const fetched = fetch(fixedUrl, { cache: 'no-store' })
+    //     const fetchedCopy = fetched.then(resp => resp.clone())
 
-        // Update the cache with the version we fetched (only for ok status)
-        event.waitUntil(
-        Promise.all([fetchedCopy, caches.open("pwa-cache")])
-            .then(([response, cache]) => response.ok && cache.put(event.request, response))
-            .catch(_ => { /* eat any errors */ })
-        )
-    }
-    })
+    //     // Call respondWith() with whatever we get first.
+    //     // If the fetch fails (e.g disconnected), wait for the cache.
+    //     // If there’s nothing in cache, wait for the fetch.
+    //     // If neither yields a response, return offline pages.
+    //     event.respondWith(
+    //     Promise.race([fetched.catch(_ => cached), cached])
+    //         .then(resp => resp || fetched)
+    //         .catch(_ => { /* eat any errors */ })
+    //     )
+
+    //     // Update the cache with the version we fetched (only for ok status)
+    //     event.waitUntil(
+    //     Promise.all([fetchedCopy, caches.open("pwa-cache")])
+    //         .then(([response, cache]) => response.ok && cache.put(event.request, response))
+    //         .catch(_ => { /* eat any errors */ })
+    //     )
+    // }
+    // })

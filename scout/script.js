@@ -198,6 +198,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     //code for switching from auto ui to teleop ui
     let currentMode = document.getElementById('currentMode');
     let button = document.getElementById('toggleButton');
+    let button2 = document.getElementById('toggleButton2');
+    let currentMode2 = document.getElementById('currentMode2');
     button.addEventListener('click', () => {
         //auto
         if (button.textContent === "Switch to Teleop") {
@@ -222,6 +224,33 @@ document.addEventListener('DOMContentLoaded', async () => {
             hideSectionById('end');
             showSectionById('autonomous');
             currentMode.innerHTML = "Current Mode: Auto";
+        }
+        else {throw new Error();}
+    });
+    button2.addEventListener('click', () => {
+        //auto
+        if (button.textContent === "Switch to Teleop") {
+            button.textContent = "Switch to End";
+            hideSectionById('autonomous');
+            hideSectionById('end');
+            showSectionById('teleop');
+            currentMode2.innerHTML = "Current Mode: Teleop";
+        }
+        //teleop
+        else if (button.textContent === "Switch to End") {
+            button.textContent = "Switch to Auto";
+            hideSectionById('teleop');
+            hideSectionById('autonomous');
+            showSectionById('end');
+            currentMode2.innerHTML = "Current Mode: End";
+        }
+        //end
+        else if (button.textContent === "Switch to Auto") {
+            button.textContent = "Switch to Teleop";
+            hideSectionById('teleop');
+            hideSectionById('end');
+            showSectionById('autonomous');
+            currentMode2.innerHTML = "Current Mode: Auto";
         }
         else {throw new Error();}
     });
