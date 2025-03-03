@@ -95,24 +95,40 @@ function showSectionById(sectionId) {
 }
 
 /**
- * @returns list of dictionaries 
+ * 
+ * @param {String} matchID match type + match number
+ * @param {int} teamNumber number of the team scouted
+ * @param {String} userName name of the user who scouted
+ * @param {Boolean} archived whether the match is archived or not
+ * @returns 
  */
-export function getSavedMatches() {
+export function getSaveName(matchID, teamNumber, userName, archived) {
+    return (!archived ? "MATCH_" : "ARCHIVED_") + matchID + "-" + teamNumber + "-" + userName;
+}
 
+/**
+ * Gets matches saved in local storage based on the starting characters of the key
+ * @param {String} prefix 
+ * @returns list of dictionaries from local storage
+ */
+export function getSavedMatchesByPrefix(prefix) {
     let dictionaries = [];
-
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
-        if (key[0] != '*') continue;
-
+        if (!key.startsWith(prefix)) continue; // thanks to connor mulligan this also skips archived entries
         let match = localStorage.getItem(key);
         console.log(key);
         dictionaries.push(JSON.parse(match));
     }
-
     return dictionaries;
 }
-
+/**
+ * NOTE FROM ETHAN SANDERS -- DO NOT DO THIS! CODE SHOULD NOT BE REUSED
+ * @returns list of archived matches dictionaries 
+ */
+export function getArchivedMatches() {
+    
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -210,6 +226,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         else {throw new Error();}
     });
 
+
 document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
 function dumpScoutingDataToLocalStorage() {
     try {
@@ -218,7 +235,7 @@ function dumpScoutingDataToLocalStorage() {
         const teamNumber = document.getElementById('team_number').value;
         const allianceRole = document.getElementById('alliance_role').value;
 
-        const saveName = "*" + matchType + matchNumber + "-" + teamNumber + "-" + name;
+        const saveName = "MATCH_" + matchType + matchNumber + "-" + teamNumber + "-" + name;
 
         const dictionary = {
             "match": matchType + matchNumber,

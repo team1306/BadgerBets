@@ -1,5 +1,5 @@
 import QrCreator from 'https://cdn.jsdelivr.net/npm/qr-creator/dist/qr-creator.es6.min.js';
-import {getSavedMatches} from '../scout/script.js';
+import {getSavedMatchesByPrefix, getSaveName} from '../scout/script.js';
 
 let savedMatches, container = document.querySelector('#qr_code');;
 
@@ -46,8 +46,10 @@ function clearPreviousQR() {
     document.getElementById('description').innerHTML = "Displaying: None";
     console.log("cleared previous code");
 
-    const match = savedMatches[0];
-    const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
+    const match = getSavedMatchesByPrefix("MATCH_")[0];
+
+    const saveName = getSaveName(match.match, match.team_number, match.name, false);
+    localStorage.setItem("ARCHIVE_" + saveName, localStorage.getItem(saveName));
     localStorage.removeItem(saveName);
     console.log("deleted save");
 
@@ -59,9 +61,8 @@ function clearPreviousQR() {
 
 document.getElementById('display_saved_matches').addEventListener('click', () => {
   try {
-    savedMatches = getSavedMatches();
     clearPreviousQR();
-    savedMatches = getSavedMatches();
+    savedMatches = getSavedMatchesByPrefix("MATCH_");
 
     if (savedMatches.length == 0) {
       alert("The are no saved matches.");
