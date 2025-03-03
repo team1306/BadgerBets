@@ -1,13 +1,12 @@
 import {Client, Databases} from 'https://esm.sh/appwrite@14.0.1';
 
-import {getBucks, setBucks} from '/AppwriteStuff.js';
-
+import {getBucks, setBucks, getUser} from '/AppwriteStuff.js';
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject('67609b010021900fc6e6');
 const databases = new Databases(client);
 const sessionId = localStorage.getItem("session");
-if(!sessionId) window.location.href = '../login/index.html';
+//if(!sessionId) window.location.href = '../login/index.html';
 
 // This function runs when the page is loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -28,7 +27,10 @@ document.getElementById('bettingform').addEventListener('submit', async function
 
     const bet = document.getElementById('allianceselector').value;
     if (!bet) {isValid = false;console.log("bet is wrong");}
-    const matchType = document.getElementById('matchtype').value;
+    const matchType = (() => {
+        const value = document.getElementById('matchtype').value;
+        return value === '0' ? 'Q' : value === '1' ? 'P': null;
+    })();
     if (!matchType) {isValid = false;console.log("type is wrong");}
 
     const matchNumber = document.getElementById('matchnumber').value;
@@ -39,6 +41,13 @@ document.getElementById('bettingform').addEventListener('submit', async function
 
     // If the form is valid, submit it
     if (isValid) {
+        let user = await getUser(sessionId);
+        user = user.$id;
+        let matchId = matchType+matchNumber;
+        console.log("Bet:"+bet)
+
+        const redOrBlue = parseInt(bet);
+        await databases.createDocument("678dd2fb001b17f8e112", "bets",matchType+matchNumber+user,{user,amount, matchId,redOrBlue});
         alert("Form submitted successfully!");
     } else {
         alert("Please fix the errors in the form.");
