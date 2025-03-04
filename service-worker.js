@@ -17,85 +17,51 @@
         - Badges: https://microsoft.github.io/win-student-devs/#/30DaysOfPWA/advanced-capabilities/07?id=application-badges
     */
 
-        const cacheName = "offlineCache";
+        // once pages are cached, they'll never get updated. Update the cacheName to force
+        // a reload of all pages. These are the different urls and need to exist.
+        // All listed assets must exist and not return a 404. '/' is the same as root index.html 
+        // and both should be included.
+        const cacheName = "offlineCacheV2";
         const cacheAssets = [
-            "/",
+            "/", // same as index.html
             "/index.html",
-            "/styles.css",
+            "/AppwriteStuff.js",
             "/script.js",
-            "/manifest.json",
-            "/qrcode.html",
-            "/qrcodemaker.js",
-            "/images/logo.png",
-            "/scout/index.html",
-            "/scout/scripts.js",
-            "/dashboard/index.html",
+            "/styles-new.css",
             "/dashboard/dashboard-appwrite.js",
+            "/dashboard/dashboard.css",
+            "/dashboard/index.html",
+            "/gamble/index.html",
+            "/gamble/script.js",
             "/login/index.html",
-            "/login-appwrite.js",
-            "/login-helper.js",
+            "/login/login-appwrite.js",
+            "/login/login-helper.js",
             "/qr/index.html",
             "/qr/script.js",
+            "/qr/style.css",
+            "/scan/index.html",
+            "/scan/script.js",
+            "/scout/index.html",
+            "/scout/scout.css",
+            "/scout/script.js",
             "/signup/index.html",
-            "/signup/signup-appwrite.js",
-
+            "/signup/signup-appwrite.js"            
         ];
-        // old original install
-        // Install service worker and cache assets
-        // self.addEventListener("install", (event) => {
-        // event.waitUntil(
-        //     caches.open(CACHE_NAME).then((cache) => {
-        //         return cache.addAll(ASSETS);
-        //     })
-        // );
-        // });
 
-        // Testing a better install
         self.addEventListener('install', e => {
             console.log('Service Worker: Installed');
-
+        
             e.waitUntil(
-                caches
-                .open(cacheName)
-                .then(cache => {
-                    console.log(cache)
-                    console.log('Service Worker: Caching Files', cache);
-                    cache.addAll(cacheAssets);
-                })
-                .then(() => self.skipWaiting())
+                (async () => {
+                    try {
+                        const cache = await caches.open(cacheName);
+                        await cache.addAll(cacheAssets);
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                })(),
             );
         });
-        
-
-
-    const HOSTNAME_WHITELIST = [
-        self.location.hostname,
-        'fonts.gstatic.com',
-        'fonts.googleapis.com',
-        'cdn.jsdelivr.net'
-    ]
-
-    // The Util Function to hack URLs of intercepted requests
-    const getFixedUrl = (req) => {
-        var now = Date.now()
-        var url = new URL(req.url)
-
-        // 1. fixed http URL
-        // Just keep syncing with location.protocol
-        // fetch(httpURL) belongs to active mixed content.
-        // And fetch(httpRequest) is not supported yet.
-        url.protocol = self.location.protocol
-
-        // 2. add query for caching-busting.
-        // Github Pages served with Cache-Control: max-age=600
-        // max-age on mutable content is error-prone, with SW life of bugs can even extend.
-        // Until cache mode of Fetch API landed, we have to workaround cache-busting with query string.
-        // Cache-Control-Bug: https://bugs.chromium.org/p/chromium/issues/detail?id=453190
-        if (url.hostname === self.location.hostname) {
-            url.search += (url.search ? '&' : '?') + 'cache-bust=' + now
-        }
-        return url.href
-    }
 
     /**
      *  @Lifecycle Activate
@@ -107,46 +73,26 @@
       event.waitUntil(self.clients.claim())
     })
 
-    /**
-     *  @Functional Fetch
-     *  All network requests are being intercepted here.
-     *
-     *  void respondWith(Promise<Response> r)
-     */
+    self.addEventListener("fetch", (e) => {
+        e.respondWith(
+            // defining async so we can use await in try..catch on promise 
+            // instead of .then(..).catch(..)
+            (async () => {
+                try {
+                    // this will filter out any GET that has a page in the
+                    // cache and returning it. Any other fetch call (GET/POST/PUT)
+                    // will then use fetch to execute request
+                    const cachedResponse = await caches.match(e.request);
+                    if (cachedResponse) {
+                        return cachedResponse;
+                    }
+        
+                    // if reponse isn't cached, use fetch
+                    return fetch(e.request);
+                } catch(error) {
+                    console.log(error);
+                }
+            })()
+        );
+    });
     
-    // testing a simpler fetch
-    self.addEventListener('fetch', e => {
-        console.log('Service Worker: Fetching');
-        e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-      });
-
-//Original fetch request
-    // self.addEventListener('fetch', event => {
-    // // Skip some of cross-origin requests, like those for Google Analytics.
-    // if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
-    //     // Stale-while-revalidate
-    //     // similar to HTTP's stale-while-revalidate: https://www.mnot.net/blog/2007/12/12/stale
-    //     // Upgrade from Jake's to Surma's: https://gist.github.com/surma/eb441223daaedf880801ad80006389f1
-    //     const cached = caches.match(event.request)
-    //     const fixedUrl = getFixedUrl(event.request)
-    //     const fetched = fetch(fixedUrl, { cache: 'no-store' })
-    //     const fetchedCopy = fetched.then(resp => resp.clone())
-
-    //     // Call respondWith() with whatever we get first.
-    //     // If the fetch fails (e.g disconnected), wait for the cache.
-    //     // If there’s nothing in cache, wait for the fetch.
-    //     // If neither yields a response, return offline pages.
-    //     event.respondWith(
-    //     Promise.race([fetched.catch(_ => cached), cached])
-    //         .then(resp => resp || fetched)
-    //         .catch(_ => { /* eat any errors */ })
-    //     )
-
-    //     // Update the cache with the version we fetched (only for ok status)
-    //     event.waitUntil(
-    //     Promise.all([fetchedCopy, caches.open("pwa-cache")])
-    //         .then(([response, cache]) => response.ok && cache.put(event.request, response))
-    //         .catch(_ => { /* eat any errors */ })
-    //     )
-    // }
-    // })
