@@ -1,7 +1,7 @@
 import {Client, Account, Databases} from 'https://esm.sh/appwrite@14.0.1';
 
 import {getBucks, getUser} from '../AppwriteStuff.js';
-import { getSavedMatches } from '../scout/script.js';
+import { getSavedMatchesByPrefix, getSaveName} from '../scout/script.js';
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("balance").innerHTML = "Your bucks: " + await getBucks();
 });
 
-document.getElementById("sync").addEventListener('click', () => syncToAppwrite('duluth'))
+document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
 function syncToAppwrite(collectionID) {
     const databaseID = "match_data";
-    const matches = getSavedMatches();
+    const matches = getSavedMatchesByPrefix("MATCH_");
 
     if (matches.length === 0) {
         alert("There are no saved matches to sync.");
@@ -59,7 +59,8 @@ function syncToAppwrite(collectionID) {
             databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + match.name, documentData)
             .then(document => {
                 console.log("Document Created Successfully");
-                const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
+                const saveName = getSaveName(match.match, match.team_number, match.name, false);
+                localStorage.setItem("ARCHIVE_" + saveName, localStorage.getItem(saveName));
                 localStorage.removeItem(saveName);
                 alert("Synced successfully");
                 return;
