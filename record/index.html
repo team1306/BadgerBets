@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="../manifest.json" />
+    <title>Record - BadgerBets</title>
+    <script type="module" src="./script.js" defer></script>
+    <link rel="stylesheet" href="../styles-new.css">
+    <link rel="icon" href="../ico.png" type="image/x-icon"/>
+</head>
+<body>
+    <div class="view">
+        <header class="header">
+            <span class="logo">Badger Bets</span>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="../gamble/index.html">Gamble</a></li>
+                    <li><a href="../scout/index.html">Scout</a></li>
+                    <li><a id="logout">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="main">
+            <div id='archive'>
+                <h1>ARCHIVE</h1>
+                <br>
+
+                <div>
+                    <h3>Enter a match to remove it from archive</h2>
+                    <form id="archive-removal-form" novalidate>
+                        <label for='match-type'>Match Type</label>
+                        <select class='select' id="match-type" required>
+                            <option value=T>Practice</option>
+                            <option value=Q>Qualifier</option>
+                            <option value=P>Playoff</option>
+                        </select>
+                        <br>
+                        <label for="matchnumber">Match Number</label>
+                        <input class='select' type="number" id="matchnumber" placeholder="Enter the match number" required>
+                        <br>
+                        <button type="submit" class="red btn">Find</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2024 BadgerBets. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

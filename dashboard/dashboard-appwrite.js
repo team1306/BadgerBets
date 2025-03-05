@@ -79,7 +79,34 @@ function syncToAppwrite(collectionID) {
 }
 
 
-async function getAPIScore(){
+
+document.getElementById('logout').addEventListener('click', async () => {
+    localStorage.removeItem('session');
+    console.log("logout triggered");
+    await account.deleteSession('current')
+    .then(() => {
+      console.log('abc');
+      window.location.href = '../';
+    });
+  });
+
+document.getElementById('delete-archive').addEventListener('click', () => {
+    const archives = getSavedMatchesByPrefix("ARCHIVE_");
+
+    if (archives.length == 0) {
+        alert("There are no archived matches");
+        return;
+    }
+    
+    for (let i = 0; i < archives.length; i++) {
+        const archive = archives[i];
+        const saveName = getSaveName(archive.match, archive.team_number, archive.name, true);
+        console.log(saveName);
+        localStorage.removeItem(saveName);
+    }
+});
+
+async function getAPIScore() {
  let myHeaders = new Headers();
  myHeaders.append("Authorization", "Basic 9f2f3a71-be4c-4b86-b90a-7212daad0a1b");
  myHeaders.append("If-Modified-Since", "");
@@ -95,13 +122,3 @@ async function getAPIScore(){
      .then(result => console.log(result))
      .catch(error => console.log('error', error));
 }
-
-document.getElementById('logout').addEventListener('click', async () => {
-  localStorage.removeItem('session');
-  console.log("logout triggered");
-  await account.deleteSession('current')
-  .then(() => {
-    console.log('abc');
-    window.location.href = '../';
-  });
-});

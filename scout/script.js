@@ -103,7 +103,7 @@ function showSectionById(sectionId) {
  * @returns 
  */
 export function getSaveName(matchID, teamNumber, userName, archived) {
-    return (!archived ? "MATCH_" : "ARCHIVED_") + matchID + "-" + teamNumber + "-" + userName;
+    return (archived ? "ARCHIVE_" : "") + "MATCH_" + matchID + "-" + teamNumber + "-" + userName;
 }
 
 /**

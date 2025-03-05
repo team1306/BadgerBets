@@ -3,3 +3,8 @@
     color: white;
     margin: auto 0;
 }
+
+#delete-archive {
+    background-color: red;
+    color: white;
+}
