@@ -1,8 +1,3 @@
-import QrCreator from 'https://cdn.jsdelivr.net/npm/qr-creator/dist/qr-creator.es6.min.js';
-import {getSavedMatches} from '../scout/script.js';
-
-let availableSettings = ['text', 'radius', 'ecLevel', 'fill', 'background', 'size'];
-
 var lastResult, countResults = 0;
 
 //scanner
