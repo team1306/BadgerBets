@@ -1,5 +1,82 @@
 import {getSaveName, getSavedMatchesByPrefix} from '../scout/script.js';
 
+document.addEventListener('DOMContentLoaded', () => {
+    const matchContainer = document.getElementById("match-container");
+    const savedMatches = getSavedMatchesByPrefix("MATCH_");
+    for (let i = 0; i < savedMatches.length; i++) {
+        const match = savedMatches[i];
+        const button = document.createElement('button');
+        button.innerHTML = "Details";
+        button.classList.add("btn");
+        button.id = i;
+        button.addEventListener('click', () => showMatchDetails(match));
+
+        const label = document.createElement('label');
+        let labelText = "";
+        switch (match.match[0]) {
+            case "T": labelText += "Practice "; break;
+            case "Q": labelText += "Qualifier "; break;
+            case "P": labelText += "Playoff "; break;
+        }
+        labelText += match.match.substring(1);
+        labelText += " ";
+        label.innerHTML = labelText;
+        label.htmlFor = i;
+
+        matchContainer.appendChild(label);
+        matchContainer.appendChild(button);
+
+        const br = document.createElement('br');
+        const br2 = document.createElement('br');
+        matchContainer.appendChild(br);
+        matchContainer.appendChild(br2);
+    };
+});
+
+/**
+ * @param {Dictionary} match match dictionary
+ */
+function showMatchDetails(match) {
+    console.log(JSON.stringify(match));
+    
+    const statsContainer = document.getElementById('stats-container');
+    let child = statsContainer.lastElementChild;
+        while (child) {
+            statsContainer.removeChild(child);
+            child = statsContainer.lastElementChild;
+        }
+    
+    Object.entries(match).forEach(([key, value]) => {
+
+        const valueContainer = document.createElement('input');
+        valueContainer.placeholder = value;
+        valueContainer.classList.add('select');
+        valueContainer.id = key;
+        valueContainer.addEventListener('change', () => modifyMatchInfo(match, key, valueContainer.value));
+
+        const infoContainer = document.createElement('label');
+        infoContainer.htmlFor = key;
+        infoContainer.innerHTML = key;
+
+        statsContainer.appendChild(infoContainer);
+        statsContainer.appendChild(valueContainer);
+
+        const br = document.createElement('br');
+        statsContainer.appendChild(br);
+    });
+}
+
+function modifyMatchInfo(match, key, value) {
+    if (key === "match" || key === "team_number" || key === "name") {
+        localStorage.setItem(getSaveName(match.match, match.team_number, match.name, true), JSON.stringify(match));
+        localStorage.removeItem(getSaveName(match.match, match.team_number, match.name, false));
+    }
+
+    match[key] = value;
+
+    localStorage.setItem(getSaveName(match.match, match.team_number, match.name, false), JSON.stringify(match));
+}
+
 document.getElementById('archive-removal-form').addEventListener('submit', () => {
     event.preventDefault();
 
