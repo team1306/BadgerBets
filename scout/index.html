@@ -23,8 +23,9 @@
                 </ul>
             </nav>
         </header>
+     
         <main class="main column">
-
+           
             <div id="prematch">
                 <h2>Match Type</h2>
                 <select id="match_type" class="select">
@@ -49,10 +50,12 @@
                 </select>
             </div>
             
-            <div id="modeToggle">
-                <button id="toggleButton" class="toggleButton btn">Switch to Teleop</button>
-                <p id="currentMode" class = "currentMode">Current Mode: Autonomous</p>
-            </div>
+            <div class = 'tab'>
+                <button id="autoButton" class="tablinks" onclick="showElementById('autonomous');hideElementById('end'); hideElementById('teleop')">Auto</button>
+                <button id="teleopButton" class="tablinks" onclick="showElementById('teleop'); hideElementById('autonomous'); hideElementById('end')">Teleop</button>
+                <button id="endButton" class="tablinks" onclick="showElementById('end'); hideElementById('autonomous'); hideElementById('teleop')">End</button>
+            </div> 
+            
 
             <br></br>
 
@@ -183,10 +186,10 @@
         
             <br></br>
             
-            <div id="modeToggle">
-                <button id="toggleButton2" class="toggleButton btn">Switch to Teleop</button>
-                <p id="currentMode2" class="currentMode">Current Mode: Autonomous</p>
-            </div>
+          </div>
+          <br/>
+            <div class="tab">
+          
         
             <h2 id="finalAutoScore">Total Autonomous Score: 0 </h2>
             <h2 id="finalTeleScore">Total Teleop Score: 0</h2>
