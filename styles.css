@@ -7,30 +7,34 @@
 
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #fff;
-    background-color: #000;
-    font-size: 16px;
-}
-
-.container {
     width: 100%;
-    padding: 0 15px;
-    margin: 0 auto;
+    height: 100vh;
 }
 
-/* Header Styles */
-.header {
-    background-color: #1a1a1a;
+.view {
+    background-color: #000;
     color: #fff;
-    padding: 1rem 0;
-    border-bottom: 2px solid #ff0000;
+    font-size: 16px;
+    line-height: 1.6;
+    
+    max-width: 414px;
+    min-height: 896px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
-.header .container {
+/* headers */
+
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 1rem;
+    border-bottom: 2px solid #ff0000;
 }
 
 .logo {
@@ -54,65 +58,89 @@ body {
     font-size: 0.9rem;
 }
 
-/* Main Content Styles */
-main {
-    padding: 1rem 0;
+.nav-links li {
+    cursor: pointer;
 }
 
-h2 {
+/* main */
+
+.main {
+    padding: 8px;
+}
+
+.title {
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
     color: #ff0000;
 }
 
-/* Mode Toggle Styles */
-#modeToggle {
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-#toggleButton {
-    background-color: #ffff00;
-    color: #000;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 200px;
-    font-weight: bold;
-}
-
-#currentMode {
-    margin-top: 5px;
-    font-size: 0.9rem;
-    font-style: italic;
-    color: #ff0000;
-}
-
-/* Input and Button Styles */
-.l1_coral {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-}
-
-button,
-input {
+.btn {
+    text-decoration: none;
+    cursor: pointer;
     outline: none;
     border: none;
-    padding: 15px;
-    font-size: 1.2rem;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 1.3rem;
+    
 }
 
-input[type="number"] {
-    width: 80px;
+.btn:hover {
+    background-color: #cc0000;
+}
+
+.btn:active {
+    background-color: #990000;
+}
+
+/* footer */
+
+.footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.8rem;
+    border-top: 2px solid #ff0000;
+}
+
+/* general */
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    gap: 8px;
+}
+
+.center{
+    display:flex;
+    margin: auto;
+    align-items:center;
+    text-align:center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.red {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.input {
+    outline: none;
+    border: none;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 1.3rem;
     text-align: center;
     border: 1px solid #ff0000;
     border-radius: 0;
+    padding: 15px;
+}
+
+/* remove spinner */
+input[type="number"] {
     -moz-appearance: textfield;
-    background-color: #1a1a1a;
-    color: #fff;
 }
 
 input[type="number"]::-webkit-inner-spin-button, 
@@ -121,47 +149,7 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-button {
-    cursor: pointer;
-    background-color: #ff0000;
-    color: #fff;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #cc0000;
-}
-
-button:active {
-    background-color: #990000;
-}
-
-.decrement {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-.increment{
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-/* Checkbox Styling */
-.checkbox {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.checkbox input[type="checkbox"] {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    accent-color: #ff0000;
-}
-
-/* Select Styling */
-select {
+.select {
     width: 100%;
     padding: 15px;
     font-size: 1rem;
@@ -172,8 +160,8 @@ select {
     margin-bottom: 1rem;
 }
 
-/* Slider Styling */
 .slider {
+    appearance: none;
     -webkit-appearance: none;
     width: 100%;
     height: 25px;
@@ -201,96 +189,4 @@ select {
     border-radius: 50%;
     background: #ff0000;
     cursor: pointer;
-}
-
-/* Submit Button Styling */
-#submit {
-    display: block;
-    width: 100%;
-    max-width: 250px;
-    margin: 1rem auto;
-    padding: 15px;
-    background-color: #ffff00;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-#submit:hover {
-    background-color: #cccc00;
-}
-
-/* Footer Styles */
-footer {
-    background-color: #1a1a1a;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
-    font-size: 0.8rem;
-    border-top: 2px solid #ff0000;
-}
-.sync{
-    background-color: lime;
-}
-
-.column {
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-    gap: 8px;
-}
-
-/* Larger Screen Adjustments */
-@media (min-width: 768px) {
-    .container {
-        max-width: 750px;
-    }
-
-    body {
-        font-size: 18px;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-    }
-
-    .nav-links a {
-        font-size: 1rem;
-    }
-
-    h2 {
-        font-size: 1.4rem;
-    }
-
-    button,
-    input {
-        font-size: 1.3rem;
-    }
-
-    input[type="number"] {
-        width: 100px;
-    }
-
-    .center{
-        display:flex;
-        align-items:center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    #toggleButton,
-    #submit {
-        font-size: 1.2rem;
-    }
-
-    select {
-        font-size: 1.1rem;
-    }
-
-    footer {
-        font-size: 1rem;
-    }
 }
