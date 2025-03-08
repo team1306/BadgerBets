@@ -204,9 +204,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideSectionById('teleop');
         hideSectionById('end');
         showSectionById('autonomous');
-        auto_button.style.backgroundColor = '#787804';
-        teleop_button.style.backgroundColor = '#cccc00';
-        end_button.style.backgroundColor = '#cccc00';
+        auto_button.style.backgroundColor = '#cccc00';
+        teleop_button.style.backgroundColor = '#ffff00';
+        end_button.style.backgroundColor = '#ffff00';
 
     }
     );
@@ -214,9 +214,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideSectionById('autonomous');
         hideSectionById('end');
         showSectionById('teleop');
-        auto_button.style.backgroundColor = '#787804';
+        auto_button.style.backgroundColor = '#ffff00';
         teleop_button.style.backgroundColor = '#cccc00';
-        end_button.style.backgroundColor = '#cccc00';
+        end_button.style.backgroundColor = '#ffff00';
 
     }
     );
@@ -224,6 +224,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideSectionById('autonomous');
         hideSectionById('teleop');
         showSectionById('end');
+        auto_button.style.backgroundColor = '#ffff00';
+        teleop_button.style.backgroundColor = '#ffff00';
+        end_button.style.backgroundColor = '#cccc00';
     }
     );
 
