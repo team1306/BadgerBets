@@ -32,7 +32,7 @@ function syncToAppwrite(collectionID) {
     for (let i = 0; i < matches.length; i++) {
         try {
             const match = matches[i];
-            console.log(match.climb_state);
+            console.log(JSON.stringify(match));
             
             const documentData = {
                 auto_L1: match.auto_L1,

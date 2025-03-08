@@ -1,5 +1,7 @@
 import {getSaveName, getSavedMatchesByPrefix} from '../scout/script.js';
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const matchContainer = document.getElementById("match-container");
     const savedMatches = getSavedMatchesByPrefix("MATCH_");
@@ -67,6 +69,23 @@ function showMatchDetails(match) {
 }
 
 function modifyMatchInfo(match, key, value) {
+    if (key === "team_number" || key === "auto_L1" || key === "auto_L2" || key === "auto_L3" || key === "auto_L4" || key === "auto_net" || key === "auto_processor" || key === "teleop_L1" || key === "teleop_L2" || key === "teleop_L3" || key === "teleop_L4" || key === "teleop_net" || key === "teleop_processor" || key === "driver_rating") {
+        value = parseInt(value);
+        if (isNaN(value)) {
+            alert("Could not convert value to integer.");
+            return;
+        }
+    }
+
+    if (key === "leave") {
+        if (value === "true" || value === "false")
+            value = value === "true";
+        else {
+            alert("Could not convert " + value + " to boolean.");
+            return;
+        }
+    }    
+
     if (key === "match" || key === "team_number" || key === "name") {
         localStorage.setItem(getSaveName(match.match, match.team_number, match.name, true), JSON.stringify(match));
         localStorage.removeItem(getSaveName(match.match, match.team_number, match.name, false));
