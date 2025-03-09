@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const container = document.getElementById("container");
 
     await hasConnectionAppwrite().then(async connected => {
-        if (true) {
+        if (!connected) {
             container.innerHTML = `
                 <div>
                     <p>No internet connection</p>
