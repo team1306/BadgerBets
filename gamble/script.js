@@ -1,42 +1,68 @@
+let bets = {};
+/*
+{
+  matchID: [bet, htmlelement],
+  matchID: [bet, htmlelement],
+  ...
+}
+*/
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const container = document.getElementById("container");
-    const matches = getMatches();
+    const loadedBets = getBets();
 
-    for (let i = 0; i < matches.length; i++) {
-        const match = matches[i];
-
+    for (let i = 0; i < loadedBets.length; i++) {
+        const bet = loadedBets[i];
         const matchContainer = document.createElement('h2');
-        let text = match.match + " - ";
-        if (match.bet.amount === 0) text += "No bet placed";
-        else text += match.bet.amount + " on " + match.bet.alliance;
-        matchContainer.innerHTML = text;
-        matchContainer.addEventListener('click', () => openBetDetails(match, matchContainer));
+        bets[bet.matchID] = [bet, matchContainer];
+        
+        matchContainer.innerHTML = betText(bet);
+        matchContainer.addEventListener('click', () => openBetDetails(bet, matchContainer));
 
         container.appendChild(matchContainer);
     }
 
 });
 
-function openBetDetails(match, matchInfo) {
+function betText(bet) {
+    let text = bet.matchID + " - ";
+    if (bet.amount === 0) text += "No bet placed";
+    else text += bet.amount + " on " + bet.alliance;
+    return text;
+}
+
+function openBetDetails(bet, matchInfo) {
     document.querySelectorAll('.details-box').forEach(e => e.remove());
 
     const detailsContainer = document.createElement('div');
     detailsContainer.classList.add('details-box');
 
-    const teams = document.createElement('div');
-    for (let i = 0; i < getTeams(match.match).length; i++) {
-        const team = getTeams(match.match)[i];
+    const teamsContainer = document.createElement('div');
+    teamsContainer.classList.add('teams-container');
+    
+    const blueContainer = document.createElement('div');
+    blueContainer.classList.add('blue-teams');
+    teamsContainer.appendChild(blueContainer);
+    const redContainer = document.createElement('div');
+    redContainer.classList.add('blue-teams');
+    teamsContainer.appendChild(redContainer);
+    for (let i = 0; i < getTeams(bet.matchID).length; i++) {
+        const team = getTeams(bet.matchID)[i];
         const teamName = getTeamName(team);
 
         const teamElement = document.createElement('p');
 
         teamElement.innerHTML = team + " - " + teamName + "<br>";
 
-        if (i < 3) teamElement.style = "color: blue";
-        else teamElement.style = "color: red";
-
-        teams.appendChild(teamElement);
+        if (i < 3) {
+            teamElement.classList.add('blue-team');
+            blueContainer.appendChild(teamElement);
+        }
+        else {
+            teamElement.classList.add('red-team');
+            redContainer.appendChild(teamElement);
+        }
     }
 
     const teamSelect = document.createElement('select');
@@ -52,31 +78,91 @@ function openBetDetails(match, matchInfo) {
     blueOption.innerHTML = "Blue";
     teamSelect.appendChild(blueOption);
 
-    if (match.bet.alliance === "Red") redOption.selected = true;
+    if (bet.alliance === "Red") redOption.selected = true;
     else blueOption.selected = true;
 
     const amountInput = document.createElement('input');
     amountInput.type = "number";
     amountInput.id = "amount-input";
     amountInput.classList.add('select');
-    amountInput.placeholder = match.bet.amount;
+    amountInput.placeholder = 0;
+    amountInput.value = bet.amount;
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('button-container');
 
     const submitButton = document.createElement('button');
-    submitButton.innerHTML = "Submit";
-    submitButton.classList.add('btn');
-    submitButton.addEventListener('click', () => submitBet(match.match, matchInfo));
+    submitButton.id = 'submit';
+    submitButton.className = 'btn';
 
-    detailsContainer.appendChild(teams);
+    // Create the inner span for the icon and text
+    const submitSpanWrapper = document.createElement('span');
+    submitSpanWrapper.className = 'center';
+
+    // Create the Material Icon
+    const submitIcon = document.createElement('span');
+    submitIcon.className = 'material-symbols-outlined';
+    submitIcon.innerText = 'input'; // This is the name of the Material Icon
+
+    // Create the text node for "Submit"
+    const submitText = document.createTextNode('Submit');
+
+    // Append icon and text to the span wrapper
+    submitSpanWrapper.appendChild(submitIcon);
+    submitSpanWrapper.appendChild(submitText);
+
+    // Append the span wrapper to the button
+    submitButton.appendChild(submitSpanWrapper);
+    submitButton.addEventListener('click', () => {
+        updateBet(new Bet(bet.matchID, teamSelect.value, parseInt(amountInput.value)));
+        detailsContainer.remove();
+    });
+
+    const cancelButton = document.createElement('button');
+    cancelButton.id = 'cancel';
+    cancelButton.className = 'btn';
+
+    const cancelSpanWrapper = document.createElement('span');
+    cancelSpanWrapper.className = 'center';
+
+    const cancelIcon = document.createElement('span');
+    cancelIcon.className = 'material-symbols-outlined';
+    cancelIcon.innerText = 'cancel'; // This is the name of the Material Icon
+
+    const cancelText = document.createTextNode('Cancel');
+
+    cancelSpanWrapper.appendChild(cancelIcon);
+    cancelSpanWrapper.appendChild(cancelText);
+
+    cancelButton.appendChild(cancelSpanWrapper);
+    cancelButton.addEventListener('click', () => detailsContainer.remove());
+
+    buttonContainer.appendChild(submitButton);
+    buttonContainer.appendChild(cancelButton);
+
+    detailsContainer.appendChild(teamsContainer);
     detailsContainer.appendChild(teamSelect);
     detailsContainer.appendChild(amountInput);
+    detailsContainer.appendChild(buttonContainer);
     insertAfter(detailsContainer, matchInfo);
 }
 
-function getMatches() {
+function updateBet(bet) {
+    if (isNaN(bet.amount)) bet.amount = 0;
+    console.log("ALLIANCE: " + bet.alliance);
+    console.log("AMOUNT: " + bet.amount);
+
+    console.log(bets[bet.matchID]);
+    bets[bet.matchID][0].alliance = bet.alliance;
+    bets[bet.matchID][0].amount = bet.amount;
+    bets[bet.matchID][1].innerHTML = betText(bet);
+}
+
+function getBets() {
     return [
-        new Match("Q1", new Bet("Red", 100)),
-        new Match("Q2", new Bet("Blue", 200)),
-        new Match("Q3", new Bet("Red", 300))
+        new Bet("Q1", "Blue", 0),
+        new Bet("Q2", "Blue", 0),
+        new Bet("Q3", "Blue", 0)
     ];
 }
 
@@ -97,14 +183,9 @@ function getTeamName(teamNumber) {
     return "Test Team";
 }
 
-class Match {
-    constructor(match, bet) {
-        this.match = match;
-        this.bet = bet;
-    }
-}
 class Bet {
-    constructor(alliance, amount) {
+    constructor(matchID, alliance, amount) {
+        this.matchID = matchID;
         this.alliance = alliance;
         this.amount = amount;
     }

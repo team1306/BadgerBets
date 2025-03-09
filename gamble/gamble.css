@@ -1,0 +1,50 @@
+.details-box {
+    background-color: lightgray;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.teams-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.blue-teams, .red-teams {
+    display: flex;
+    flex-direction: column; /* Stack teams vertically */
+}
+
+.red-team {
+    color: red;
+    text-align: right; /* Align text to the right for red teams */
+}
+
+.blue-team {
+    color: blue;
+    text-align: left; /* Align text to the left for blue teams */
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#submit {
+    background-color: #228B22;
+    color: #fff;
+}
+
+#submit:hover {
+    background-color: #1C741C;
+}
+
+#cancel {
+    background-color: #ff0000;
+    color: #fff;
+    margin-left: auto; /* Push the cancel button to the right */
+}
+
+#cancel:hover {
+    background-color: #cc0000;
+}
