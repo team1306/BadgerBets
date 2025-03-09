@@ -104,7 +104,7 @@ h2 {
 .tab .tablinks {
     width:33%;
     padding:0;
-    background-color: #cccc00;
+    background-color: #ffff00;
     margin:0;
     height:40px;
     border: none;
@@ -124,7 +124,7 @@ h2 {
 .tab .tablinks:last-child {
     width:33%;
     padding:0;
-    background-color: #cccc00;
+    background-color: #ffff00;
     margin:0;
     height:40px;
     border: none;
@@ -136,7 +136,7 @@ h2 {
     width:33%;
     height:40px;
     padding:0;
-    background-color: #787804;
+    background-color: #cccc00;
     margin:0;
     border: none;
     float: left;

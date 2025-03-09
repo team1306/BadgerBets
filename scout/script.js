@@ -27,6 +27,7 @@ class CoralCounter {
         const currentValue = parseInt(this.inputField.value, 10);
         this.inputField.value = currentValue + 1;
         this.updateScoreCallback();
+        startHaptics(100)
     }
 
     decrement() {
@@ -34,6 +35,7 @@ class CoralCounter {
         if (currentValue > 0) { // Prevent negative values if not desired
             this.inputField.value = currentValue - 1;
             this.updateScoreCallback();
+            startHaptics(100)
         }
     }
 }
@@ -93,6 +95,11 @@ function showSectionById(sectionId) {
         console.log('Section with ID ' + sectionId + ' not found.');
     }
 }
+//function for haptics
+function startHaptics(pattern){
+    navigator.vibrate(pattern)
+}
+
 
 /**
  * 
@@ -204,9 +211,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideSectionById('teleop');
         hideSectionById('end');
         showSectionById('autonomous');
-        auto_button.style.backgroundColor = '#787804';
-        teleop_button.style.backgroundColor = '#cccc00';
-        end_button.style.backgroundColor = '#cccc00';
+        auto_button.style.backgroundColor = '#cccc00';
+        teleop_button.style.backgroundColor = '#ffff00';
+        end_button.style.backgroundColor = '#ffff00';
 
     }
     );
@@ -214,9 +221,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideSectionById('autonomous');
         hideSectionById('end');
         showSectionById('teleop');
-        auto_button.style.backgroundColor = '#787804';
+        auto_button.style.backgroundColor = '#ffff00';
         teleop_button.style.backgroundColor = '#cccc00';
-        end_button.style.backgroundColor = '#cccc00';
+        end_button.style.backgroundColor = '#ffff00';
 
     }
     );
@@ -224,6 +231,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideSectionById('autonomous');
         hideSectionById('teleop');
         showSectionById('end');
+        auto_button.style.backgroundColor = '#ffff00';
+        teleop_button.style.backgroundColor = '#ffff00';
+        end_button.style.backgroundColor = '#cccc00';
     }
     );
 
@@ -265,7 +275,7 @@ function dumpScoutingDataToLocalStorage() {
             "notes": document.getElementById('notes').value
         };
 
-        //TODO: send to appwrite database
+
         localStorage.setItem(saveName, JSON.stringify(dictionary));
         console.log("Saved match data: " + localStorage.getItem(saveName));
     } catch (error) {
