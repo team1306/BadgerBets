@@ -12,15 +12,21 @@ let bets = {};
 let user;
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const container = document.getElementById("container");
+
     await hasConnectionAppwrite().then(async connected => {
-        if (!connected) {
-            alert("No internet connection");
+        if (true) {
+            container.innerHTML = `
+                <div>
+                    <p>No internet connection</p>
+                    <a href="javascript:location.reload()">Try Again</a>
+                </div>
+            `;
             return;
         }
 
         user = await getUser();
 
-        const container = document.getElementById("container");
         const loadedBets = getBets();
 
         for (let i = 0; i < loadedBets.length; i++) {
