@@ -29,6 +29,16 @@ export async function getUser() {
     }
 }
 
+export async function hasConnectionAppwrite() {
+    try {
+        await account.get();
+        console.log('✅ Connection to Appwrite is successful');
+        return true;
+    } catch (error) {
+        console.error('❌ Failed to connect to Appwrite:', error);
+        return false;
+    }
+}
 
 export async function getBucks(){
 
