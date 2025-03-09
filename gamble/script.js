@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             container.innerHTML = `
                 <div>
                     <p>No internet connection</p>
-                    <a href="javascript:location.reload()">Try Again</a>
+                    <a href="javascript:window.location.href = window.location.href">Try Again</a>
                 </div>
             `;
             return;
