@@ -27,6 +27,7 @@ class CoralCounter {
         const currentValue = parseInt(this.inputField.value, 10);
         this.inputField.value = currentValue + 1;
         this.updateScoreCallback();
+        startHaptics(100)
     }
 
     decrement() {
@@ -34,6 +35,7 @@ class CoralCounter {
         if (currentValue > 0) { // Prevent negative values if not desired
             this.inputField.value = currentValue - 1;
             this.updateScoreCallback();
+            startHaptics(100)
         }
     }
 }
@@ -93,6 +95,11 @@ function showSectionById(sectionId) {
         console.log('Section with ID ' + sectionId + ' not found.');
     }
 }
+//function for haptics
+function startHaptics(pattern){
+    navigator.vibrate(pattern)
+}
+
 
 /**
  * 
@@ -268,7 +275,7 @@ function dumpScoutingDataToLocalStorage() {
             "notes": document.getElementById('notes').value
         };
 
-        //TODO: send to appwrite database
+
         localStorage.setItem(saveName, JSON.stringify(dictionary));
         console.log("Saved match data: " + localStorage.getItem(saveName));
     } catch (error) {
