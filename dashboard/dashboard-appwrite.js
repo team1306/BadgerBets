@@ -1,7 +1,7 @@
 import {Client, Account, Databases} from 'https://esm.sh/appwrite@14.0.1';
 
 import {getBucks, getUser} from '../AppwriteStuff.js';
-import { getSavedMatches } from '../scout/script.js';
+import { getSavedMatchesByPrefix, getSaveName} from '../scout/script.js';
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("balance").innerHTML = "Your bucks: " + await getBucks();
 });
 
-document.getElementById("sync").addEventListener('click', () => syncToAppwrite('duluth'))
+document.getElementById("sync").addEventListener('click', () => syncToAppwrite('test'))
 function syncToAppwrite(collectionID) {
     const databaseID = "match_data";
-    const matches = getSavedMatches();
+    const matches = getSavedMatchesByPrefix("MATCH_");
 
     if (matches.length === 0) {
         alert("There are no saved matches to sync.");
@@ -32,7 +32,7 @@ function syncToAppwrite(collectionID) {
     for (let i = 0; i < matches.length; i++) {
         try {
             const match = matches[i];
-            console.log(match.climb_state);
+            console.log(JSON.stringify(match));
             
             const documentData = {
                 auto_L1: match.auto_L1,
@@ -59,7 +59,8 @@ function syncToAppwrite(collectionID) {
             databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + match.name, documentData)
             .then(document => {
                 console.log("Document Created Successfully");
-                const saveName = "*" + match.match + "-" + match.team_number + "-" + match.name;
+                const saveName = getSaveName(match.match, match.team_number, match.name, false);
+                localStorage.setItem("ARCHIVE_" + saveName, localStorage.getItem(saveName));
                 localStorage.removeItem(saveName);
                 alert("Synced successfully");
                 return;
@@ -78,7 +79,34 @@ function syncToAppwrite(collectionID) {
 }
 
 
-async function getAPIScore(){
+
+document.getElementById('logout').addEventListener('click', async () => {
+    localStorage.removeItem('session');
+    console.log("logout triggered");
+    await account.deleteSession('current')
+    .then(() => {
+      console.log('abc');
+      window.location.href = '../';
+    });
+  });
+
+document.getElementById('delete-archive').addEventListener('click', () => {
+    const archives = getSavedMatchesByPrefix("ARCHIVE_");
+
+    if (archives.length == 0) {
+        alert("There are no archived matches");
+        return;
+    }
+    
+    for (let i = 0; i < archives.length; i++) {
+        const archive = archives[i];
+        const saveName = getSaveName(archive.match, archive.team_number, archive.name, true);
+        console.log(saveName);
+        localStorage.removeItem(saveName);
+    }
+});
+
+async function getAPIScore() {
  let myHeaders = new Headers();
  myHeaders.append("Authorization", "Basic 9f2f3a71-be4c-4b86-b90a-7212daad0a1b");
  myHeaders.append("If-Modified-Since", "");
@@ -94,13 +122,3 @@ async function getAPIScore(){
      .then(result => console.log(result))
      .catch(error => console.log('error', error));
 }
-
-document.getElementById('logout').addEventListener('click', async () => {
-  localStorage.removeItem('session');
-  console.log("logout triggered");
-  await account.deleteSession('current')
-  .then(() => {
-    console.log('abc');
-    window.location.href = '../';
-  });
-});

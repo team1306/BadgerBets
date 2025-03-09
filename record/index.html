@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="../manifest.json" />
+    <title>Record - BadgerBets</title>
+    <script type="module" src="./script.js" defer></script>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../ico.png" type="image/x-icon"/>
+</head>
+<body>
+    <div class="view">
+        <header class="header">
+            <span class="logo">Badger Bets</span>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="../dashboard/index.html">Dashboard</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="main">
+            <div id="saves">
+                <h1>SAVES</h1>
+                <br />
+                <div id="match-container">
+
+                </div>
+                <div id="stats-container">
+
+                </div>
+                <br /><br />
+            </div>
+            <div id='archive'>
+                <h1>ARCHIVE</h1>
+                <br>
+                <div>
+                    <h3>Enter match info to remove it from archive</h2>
+                    <form id="archive-removal-form" novalidate>
+                        <select class='select' id="match-type" required>
+                            <option value=T>Practice</option>
+                            <option value=Q>Qualifier</option>
+                            <option value=P>Playoff</option>
+                        </select>
+                        <br>
+                        <input class='select' type="number" id="match-number" placeholder="Enter the match number" required>
+                        <input class='select' type="number" id="team-number" placeholder="Enter the team number (optional)">
+                        <input class='select' type="number" id="name" placeholder="Enter the scouter's username (optional)">
+                        <br>
+                        <button type="submit" class="red btn">Find</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2024 BadgerBets. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

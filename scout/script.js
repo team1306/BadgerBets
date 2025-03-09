@@ -27,6 +27,7 @@ class CoralCounter {
         const currentValue = parseInt(this.inputField.value, 10);
         this.inputField.value = currentValue + 1;
         this.updateScoreCallback();
+        startHaptics(100)
     }
 
     decrement() {
@@ -34,6 +35,7 @@ class CoralCounter {
         if (currentValue > 0) { // Prevent negative values if not desired
             this.inputField.value = currentValue - 1;
             this.updateScoreCallback();
+            startHaptics(100)
         }
     }
 }
@@ -93,26 +95,47 @@ function showSectionById(sectionId) {
         console.log('Section with ID ' + sectionId + ' not found.');
     }
 }
+//function for haptics
+function startHaptics(pattern){
+    navigator.vibrate(pattern)
+}
+
 
 /**
- * @returns list of dictionaries 
+ * 
+ * @param {String} matchID match type + match number
+ * @param {int} teamNumber number of the team scouted
+ * @param {String} userName name of the user who scouted
+ * @param {Boolean} archived whether the match is archived or not
+ * @returns 
  */
-export function getSavedMatches() {
+export function getSaveName(matchID, teamNumber, userName, archived) {
+    return (archived ? "ARCHIVE_" : "") + "MATCH_" + matchID + "-" + teamNumber + "-" + userName;
+}
 
+/**
+ * Gets matches saved in local storage based on the starting characters of the key
+ * @param {String} prefix 
+ * @returns list of dictionaries from local storage
+ */
+export function getSavedMatchesByPrefix(prefix) {
     let dictionaries = [];
-
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
-        if (key[0] != '*') continue;
-
+        if (!key.startsWith(prefix)) continue; // thanks to connor mulligan this also skips archived entries
         let match = localStorage.getItem(key);
         console.log(key);
         dictionaries.push(JSON.parse(match));
     }
-
     return dictionaries;
 }
-
+/**
+ * NOTE FROM ETHAN SANDERS -- DO NOT DO THIS! CODE SHOULD NOT BE REUSED
+ * @returns list of archived matches dictionaries 
+ */
+export function getArchivedMatches() {
+    
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -179,65 +202,41 @@ document.addEventListener('DOMContentLoaded', async () => {
         .innerHTML = "Driver Ability: " + driver_ability.value;
     });
 
-    //code for switching from auto ui to teleop ui
-    let currentMode = document.getElementById('currentMode');
-    let button = document.getElementById('toggleButton');
-    let button2 = document.getElementById('toggleButton2');
-    let currentMode2 = document.getElementById('currentMode2');
-    button.addEventListener('click', () => {
-        //auto
-        if (button.textContent === "Switch to Teleop") {
-            button.textContent = "Switch to End";
-            hideSectionById('autonomous');
-            hideSectionById('end');
-            showSectionById('teleop');
-            currentMode.innerHTML = "Current Mode: Teleop";
-        }
-        //teleop
-        else if (button.textContent === "Switch to End") {
-            button.textContent = "Switch to Auto";
-            hideSectionById('teleop');
-            hideSectionById('autonomous');
-            showSectionById('end');
-            currentMode.innerHTML = "Current Mode: End";
-        }
-        //end
-        else if (button.textContent === "Switch to Auto") {
-            button.textContent = "Switch to Teleop";
-            hideSectionById('teleop');
-            hideSectionById('end');
-            showSectionById('autonomous');
-            currentMode.innerHTML = "Current Mode: Auto";
-        }
-        else {throw new Error();}
-    });
-    button2.addEventListener('click', () => {
-        //auto
-        if (button.textContent === "Switch to Teleop") {
-            button.textContent = "Switch to End";
-            hideSectionById('autonomous');
-            hideSectionById('end');
-            showSectionById('teleop');
-            currentMode2.innerHTML = "Current Mode: Teleop";
-        }
-        //teleop
-        else if (button.textContent === "Switch to End") {
-            button.textContent = "Switch to Auto";
-            hideSectionById('teleop');
-            hideSectionById('autonomous');
-            showSectionById('end');
-            currentMode2.innerHTML = "Current Mode: End";
-        }
-        //end
-        else if (button.textContent === "Switch to Auto") {
-            button.textContent = "Switch to Teleop";
-            hideSectionById('teleop');
-            hideSectionById('end');
-            showSectionById('autonomous');
-            currentMode2.innerHTML = "Current Mode: Auto";
-        }
-        else {throw new Error();}
-    });
+    //new switch thingy
+    const auto_button = document.getElementById('autoButton');
+    const teleop_button = document.getElementById('teleopButton');
+    const end_button = document.getElementById('endButton');
+
+    auto_button.addEventListener('click', () => {
+        hideSectionById('teleop');
+        hideSectionById('end');
+        showSectionById('autonomous');
+        auto_button.style.backgroundColor = '#cccc00';
+        teleop_button.style.backgroundColor = '#ffff00';
+        end_button.style.backgroundColor = '#ffff00';
+
+    }
+    );
+    teleop_button.addEventListener('click', () => {
+        hideSectionById('autonomous');
+        hideSectionById('end');
+        showSectionById('teleop');
+        auto_button.style.backgroundColor = '#ffff00';
+        teleop_button.style.backgroundColor = '#cccc00';
+        end_button.style.backgroundColor = '#ffff00';
+
+    }
+    );
+    end_button.addEventListener('click', () => {
+        hideSectionById('autonomous');
+        hideSectionById('teleop');
+        showSectionById('end');
+        auto_button.style.backgroundColor = '#ffff00';
+        teleop_button.style.backgroundColor = '#ffff00';
+        end_button.style.backgroundColor = '#cccc00';
+    }
+    );
+
 
 document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
 function dumpScoutingDataToLocalStorage() {
@@ -247,7 +246,7 @@ function dumpScoutingDataToLocalStorage() {
         const teamNumber = document.getElementById('team_number').value;
         const allianceRole = document.getElementById('alliance_role').value;
 
-        const saveName = "*" + matchType + matchNumber + "-" + teamNumber + "-" + name;
+        const saveName = "MATCH_" + matchType + matchNumber + "-" + teamNumber + "-" + name;
 
         const dictionary = {
             "match": matchType + matchNumber,
@@ -276,7 +275,7 @@ function dumpScoutingDataToLocalStorage() {
             "notes": document.getElementById('notes').value
         };
 
-        //TODO: send to appwrite database
+
         localStorage.setItem(saveName, JSON.stringify(dictionary));
         console.log("Saved match data: " + localStorage.getItem(saveName));
     } catch (error) {
