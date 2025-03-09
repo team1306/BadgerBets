@@ -1,3 +1,5 @@
+import { getUser, hasConnectionAppwrite } from '../AppwriteStuff.js';
+
 let bets = {};
 /*
 {
@@ -7,22 +9,33 @@ let bets = {};
 }
 */
 
-document.addEventListener('DOMContentLoaded', () => {
+let user;
 
-    const container = document.getElementById("container");
-    const loadedBets = getBets();
+document.addEventListener('DOMContentLoaded', async () => {
+    await hasConnectionAppwrite().then(async connected => {
+        if (!connected) {
+            alert("No internet connection");
+            return;
+        }
 
-    for (let i = 0; i < loadedBets.length; i++) {
-        const bet = loadedBets[i];
-        const matchContainer = document.createElement('h2');
-        bets[bet.matchID] = [bet, matchContainer];
-        
-        matchContainer.innerHTML = betText(bet);
-        matchContainer.addEventListener('click', () => openBetDetails(bet, matchContainer));
+        user = await getUser();
 
-        container.appendChild(matchContainer);
-    }
+        const container = document.getElementById("container");
+        const loadedBets = getBets();
 
+        for (let i = 0; i < loadedBets.length; i++) {
+            const bet = loadedBets[i];
+            const matchContainer = document.createElement('h2');
+            bets[bet.matchID] = [bet, matchContainer];
+            
+            matchContainer.innerHTML = betText(bet);
+            matchContainer.addEventListener('click', () => openBetDetails(bet, matchContainer));
+
+            container.appendChild(matchContainer);
+        }
+    }).catch(err => {
+        console.error(err);
+    });
 });
 
 function betText(bet) {
