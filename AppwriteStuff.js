@@ -57,7 +57,7 @@ export async function getBucks(){
     
 }
 
-export async function setBucks(value) {
+export async function setIntAttribute(value) {
     try {
         value = parseInt(value);
         if (value === NaN) console.error("Error parsing input for setBucks(): Value is NaN");
@@ -73,4 +73,47 @@ export async function setBucks(value) {
         user.$id,
         {"BadgerBucks" : value}
     );
+}
+
+/**
+ * Creates an Appwrite document in the specified database and collection with the specified data.
+ * If a document with the same ID already exists, it updates it.
+ * @param {String} databaseID 
+ * @param {String} collectionID 
+ * @param {String} documentID 
+ * @param {Object} data 
+ * @returns true if document is created/updated successfully, false otherwise
+ */
+export async function updateAppwriteDocument(databaseID, collectionID, documentID, data) {
+    console.log("Updating document...");
+
+    await hasConnectionAppwrite().then(async connected => {
+        if (!connected) {
+            console.error("No internet connection");
+            return false;
+        }
+
+        try { //check if document exists
+            await databases.getDocument(databaseID, collectionID, documentID);
+            console.log("Document exists, updating...");
+            try {
+                await databases.updateDocument(databaseID, collectionID, documentID, data);
+                console.log("Document updated successfully");
+                return true;
+            } catch (e) {
+                console.error("Error updating document:", e.message);
+                return false;
+            }
+        } catch (e) { //document does not exist
+            console.log("Document does not exist, creating new document...");
+            try {
+                await databases.createDocument(databaseID, collectionID, documentID, data);
+                console.log("Document created successfully");
+                return true;
+            } catch (error) {
+                console.error("Error creating document:", error.message);
+                return false;
+            }
+        }
+    });
 }

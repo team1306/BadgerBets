@@ -1,4 +1,4 @@
-import { getUser, hasConnectionAppwrite } from '../AppwriteStuff.js';
+import { getUser, hasConnectionAppwrite, updateAppwriteDocument } from '../AppwriteStuff.js';
 
 let bets = {};
 /*
@@ -10,6 +10,14 @@ let bets = {};
 */
 
 let user;
+
+
+document.getElementById("test").addEventListener('click', async () => {
+    console.log("Creating document");
+    await updateAppwriteDocument("678dd2fb001b17f8e112", "bets", "test", {user: "testUser", amount: 5, matchId: "T1", redorblue: "Red"});
+});
+
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     const container = document.getElementById("container");
