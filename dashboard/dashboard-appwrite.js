@@ -1,6 +1,6 @@
 import {Client, Account, Databases} from 'https://esm.sh/appwrite@14.0.1';
 
-import {getBucks, getUser, hasConnectionAppwrite} from '../AppwriteStuff.js';
+import {getAttribute, getBucks, getUser, hasConnectionAppwrite} from '../AppwriteStuff.js';
 import { getSavedMatchesByPrefix, getSaveName} from '../scout/script.js';
 
 const client = new Client()
@@ -16,7 +16,7 @@ let user;
 document.addEventListener("DOMContentLoaded", async () => {
   user = await getUser();
   document.getElementById("username").innerHTML = user.name;
-  document.getElementById("balance").innerHTML = "Your bucks: " + await getBucks();
+  document.getElementById("balance").innerHTML = "Your bucks: " + await getAttribute("678dd2fb001b17f8e112", "badgerBucks", user.$id, "BadgerBucks");
 
   await hasConnectionAppwrite().then((connected) => console.log("Connected to Appwrite:", connected));
 });

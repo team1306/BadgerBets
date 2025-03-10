@@ -58,22 +58,33 @@ export async function getBucks(){
     
 }
 
-export async function setIntAttribute(value) {
+/**
+ * Gets the value of a specified attribute from a specified document
+ * @param {String} databaseID 
+ * @param {String} collectionID 
+ * @param {String} documentID 
+ * @param {String} attributeID 
+ * @returns the value of the attribute. If the docuemnt or attribute does not exist, returns null.
+ */
+export async function getAttribute(databaseID, collectionID, documentID, attributeID) {
+    console.log("Getting attribute " + attributeID + "...");
     try {
-        value = parseInt(value);
-        if (value === NaN) console.error("Error parsing input for setBucks(): Value is NaN");
+        let appwriteDocument;
+        try {
+            appwriteDocument = await databases.getDocument(
+                databaseID, // Database ID
+                collectionID, // Collection ID
+                documentID // Document ID
+            );
+        } catch (error) {
+            console.error("Document not found: " + error.message);
+            return null;
+        }
+        return appwriteDocument[attributeID];
     } catch (error) {
-        console.error("Error parsing input for setBucks(): " + error.message);
+        console.error("Error getting attribute: ", error.message);
+        return null;
     }
-      
-    const user = await getUser();
-
-    await databases.updateDocument(
-        "678dd2fb001b17f8e112", 
-        "badgerBucks", 
-        user.$id,
-        {"BadgerBucks" : value}
-    );
 }
 
 /**
