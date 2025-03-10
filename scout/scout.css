@@ -9,11 +9,12 @@ h2 {
     color: #ff0000;
     text-align: center;
 }
-.guide{
+#guide{
     width: 25%;
     display: block;
     margin-left: auto;
-    margin-right: auto
+    margin-right: auto;
+    justify-content:center
 }
 .auto_leave_div {
     display: flex;
