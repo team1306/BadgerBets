@@ -1,6 +1,6 @@
 import {Client, Account, Databases} from 'https://esm.sh/appwrite@14.0.1';
 
-import {getAttribute, getBucks, getUser, hasConnectionAppwrite} from '../AppwriteStuff.js';
+import {getAttribute, setAttribute, getUser, hasConnectionAppwrite} from '../AppwriteStuff.js';
 import { getSavedMatchesByPrefix, getSaveName} from '../scout/script.js';
 
 const client = new Client()

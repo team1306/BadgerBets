@@ -67,6 +67,13 @@ export async function getBucks(){
  * @returns the value of the attribute. If the docuemnt or attribute does not exist, returns null.
  */
 export async function getAttribute(databaseID, collectionID, documentID, attributeID) {
+    await hasConnectionAppwrite().then(connected => {
+        if (!connected) {
+            console.error("No internet connection");
+            return null;
+        }
+    });
+
     console.log("Getting attribute " + attributeID + "...");
     try {
         let appwriteDocument;
@@ -84,6 +91,52 @@ export async function getAttribute(databaseID, collectionID, documentID, attribu
     } catch (error) {
         console.error("Error getting attribute: ", error.message);
         return null;
+    }
+}
+
+/**
+ * 
+ * @param {String} databaseID 
+ * @param {String} collectionID 
+ * @param {String} documentID 
+ * @param {String} attributeID 
+ * @param {*} value must be the same as the type of the attribute
+ * @returns true if successful, false otherwise
+ */
+export async function setAttribute(databaseID, collectionID, documentID, attributeID, value) {
+    console.log("Setting attribute " + attributeID + " to " + value + "...");
+
+    await hasConnectionAppwrite().then(connected => {
+        if (!connected) {
+            console.error("No internet connection");
+            return false;
+        }
+    });
+
+    try {
+        await databases.getDocument(
+            databaseID, // Database ID
+            collectionID, // Collection ID
+            documentID // Document ID
+        );
+    } catch (error) {
+        console.error("Document not found: " + error.message);
+        return false;
+    }
+
+    try {
+        await databases.updateDocument(
+            databaseID, // Database ID
+            collectionID, // Collection ID
+            documentID, // Document ID
+            { [attributeID]: value } // Data
+        );
+
+        console.log("Attribute set successfully");
+        return true;
+    } catch (error) {
+        console.error("Error setting attribute: ", error.message);
+        return false;
     }
 }
 
