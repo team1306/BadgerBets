@@ -9,15 +9,7 @@ let bets = {};
 }
 */
 
-let user;
-
-
-document.getElementById("test").addEventListener('click', async () => {
-    console.log("Creating document");
-    await updateAppwriteDocument("678dd2fb001b17f8e112", "bets", "test", {user: "testUser", amount: 5, matchId: "T1", redorblue: "Red"});
-});
-
-
+let user = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
     const container = document.getElementById("container");
@@ -34,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         user = await getUser();
+        
 
         const loadedBets = getBets();
 
@@ -174,7 +167,7 @@ function openBetDetails(bet, matchInfo) {
     insertAfter(detailsContainer, matchInfo);
 }
 
-function updateBet(bet) {
+async function updateBet(bet) {
     if (isNaN(bet.amount)) bet.amount = 0;
     console.log("ALLIANCE: " + bet.alliance);
     console.log("AMOUNT: " + bet.amount);
@@ -183,6 +176,13 @@ function updateBet(bet) {
     bets[bet.matchID][0].alliance = bet.alliance;
     bets[bet.matchID][0].amount = bet.amount;
     bets[bet.matchID][1].innerHTML = betText(bet);
+
+    try {
+        await updateAppwriteDocument("678dd2fb001b17f8e112", "bets", bet.matchID + "-" + user.$id, { "user": user.$id, "amount": bet.amount, "matchId": bet.matchID, "redorblue": bet.alliance });
+        console.log("Document update success");
+    } catch (error) {
+        console.error("Error in updating document:", error);
+    }
 }
 
 function getBets() {

@@ -13,6 +13,7 @@ const databases = new Databases(client);
  * @returns promise of the current user
  */
 export async function getUser() {
+    console.log("Getting user...");
     try {
         const sessionId = localStorage.getItem('session');
         const user = await account.get(); // Call account.get() to fetch user details

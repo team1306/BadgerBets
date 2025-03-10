@@ -36,6 +36,7 @@
             "/dashboard/index.html",
             "/gamble/index.html",
             "/gamble/script.js",
+            "/gamble/gamble.css",
             "/login/index.html",
             "/login/login-appwrite.js",
             "/login/login-helper.js",
