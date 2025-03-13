@@ -21,35 +21,34 @@
         // a reload of all pages. These are the different urls and need to exist.
         // All listed assets must exist and not return a 404. '/' is the same as root index.html 
         // and both should be included.
-        const cacheName = "offlineCacheV2";
+        const cacheName = "offlineCacheV3";
         const cacheAssets = [
-            "/", // same as index.html
-            "/index.html",
-            "/AppwriteStuff.js",
-            "/script.js",
-            "/styles.css",
-            "/manifest.json",
-            "/service-worker.js",
-            "/ico.png",
-            "/dashboard/dashboard-appwrite.js",
-            "/dashboard/dashboard.css",
-            "/dashboard/index.html",
-            "/gamble/index.html",
-            "/gamble/script.js",
-            "/gamble/gamble.css",
-            "/login/index.html",
-            "/login/login-appwrite.js",
-            "/login/login-helper.js",
-            "/qr/index.html",
-            "/qr/script.js",
-            "/qr/style.css",
-            "/scan/index.html",
-            "/scan/script.js",
-            "/scout/index.html",
-            "/scout/scout.css",
-            "/scout/script.js",
-            "/signup/index.html",
-            "/signup/signup-appwrite.js"            
+            "index.html",
+            "AppwriteStuff.js",
+            "script.js",
+            "styles.css",
+            "manifest.json",
+            "service-worker.js",
+            "ico.png",
+            "dashboard/dashboard-appwrite.js",
+            "dashboard/dashboard.css",
+            "dashboard/index.html",
+            "gamble/index.html",
+            "gamble/script.js",
+            "gamble/gamble.css",
+            "login/index.html",
+            "login/login-appwrite.js",
+            "login/login-helper.js",
+            "qr/index.html",
+            "qr/script.js",
+            "qr/style.css",
+            "scan/index.html",
+            "scan/script.js",
+            "scout/index.html",
+            "scout/scout.css",
+            "scout/script.js",
+            "signup/index.html",
+            "signup/signup-appwrite.js"            
         ];
 
         self.addEventListener('install', e => {
