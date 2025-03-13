@@ -36,8 +36,14 @@ export async function hasConnectionAppwrite() {
         console.log('✅ Connection to Appwrite is successful');
         return true;
     } catch (error) {
-        console.error('❌ Failed to connect to Appwrite:', error);
-        return false;
+        // Catch the error, check if it's related to authentication
+        if (error.code === 401) {
+            console.error('❌ User is not logged in to Appwrite.');
+            return true;
+        } else {
+            console.error('❌ Failed to connect to Appwrite:', error);
+            return false;
+        }
     }
 }
 

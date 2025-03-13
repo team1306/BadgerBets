@@ -91,10 +91,10 @@ document.getElementById('logout').addEventListener('click', async () => {
     console.log("logout triggered");
     await account.deleteSession('current')
     .then(() => {
-      console.log('abc');
-      window.location.href = '../';
+        console.log('abc');
+        window.location.href = '../';
     });
-  });
+});
 
 document.getElementById('delete-archive').addEventListener('click', () => {
     const archives = getSavedMatchesByPrefix("ARCHIVE_");
