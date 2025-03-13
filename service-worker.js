@@ -23,32 +23,33 @@
         // and both should be included.
         const cacheName = "offlineCacheV2";
         const cacheAssets = [
-            "index.html",
-            // "/AppwriteStuff.js",
-            // "/script.js",
-            // "/styles.css",
-            // "/manifest.json",
-            // "/service-worker.js",
-            // "/ico.png",
-            // "/dashboard/dashboard-appwrite.js",
-            // "/dashboard/dashboard.css",
-            // "/dashboard/index.html",
-            // "/gamble/index.html",
-            // "/gamble/script.js",
-            // "/gamble/gamble.css",
-            // "/login/index.html",
-            // "/login/login-appwrite.js",
-            // "/login/login-helper.js",
-            // "/qr/index.html",
-            // "/qr/script.js",
-            // "/qr/style.css",
-            // "/scan/index.html",
-            // "/scan/script.js",
-            // "/scout/index.html",
-            // "/scout/scout.css",
-            // "/scout/script.js",
-            // "/signup/index.html",
-            // "/signup/signup-appwrite.js"            
+            "/", // same as index.html
+            "/index.html",
+            "/AppwriteStuff.js",
+            "/script.js",
+            "/styles.css",
+            "/manifest.json",
+            "/service-worker.js",
+            "/ico.png",
+            "/dashboard/dashboard-appwrite.js",
+            "/dashboard/dashboard.css",
+            "/dashboard/index.html",
+            "/gamble/index.html",
+            "/gamble/script.js",
+            "/gamble/gamble.css",
+            "/login/index.html",
+            "/login/login-appwrite.js",
+            "/login/login-helper.js",
+            "/qr/index.html",
+            "/qr/script.js",
+            "/qr/style.css",
+            "/scan/index.html",
+            "/scan/script.js",
+            "/scout/index.html",
+            "/scout/scout.css",
+            "/scout/script.js",
+            "/signup/index.html",
+            "/signup/signup-appwrite.js"            
         ];
 
         self.addEventListener('install', e => {
@@ -87,6 +88,7 @@
                     // will then use fetch to execute request
                     const cachedResponse = await caches.match(e.request);
                     if (cachedResponse) {
+                        console.log(cachedResponse.url);
                         return cachedResponse;
                     }
         
