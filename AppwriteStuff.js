@@ -10,10 +10,17 @@ const databases = new Databases(client);
 /**
  * Gets the user current user object from appwrite using the sessionID
  * Redircts user to login if session a problem occurs
- * @returns promise of the current user
+ * @returns {Object} the user object or null if there is no internet connection
  */
 export async function getUser() {
     console.log("Getting user...");
+
+    const connected = await hasConnectionAppwrite();
+    if (!connected) {
+        console.error("No internet connection");
+        return null;
+    }
+
     try {
         const sessionId = localStorage.getItem('session');
         const user = await account.get(); // Call account.get() to fetch user details
