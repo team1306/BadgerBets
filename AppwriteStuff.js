@@ -41,21 +41,27 @@ export async function hasConnectionAppwrite() {
     }
 }
 
-export async function getBucks(){
-
-        const user = await getUser();
-
-        const document = await databases.getDocument(
-            "678dd2fb001b17f8e112", // Database ID
-            "badgerBucks", // Collection ID
-            user.$id // Document ID
-        ); // Wait for the document to resolve
-    
-        // Access the resolved value (you are now parsing the result)
-        const result = document.BadgerBucks;
-        console.log("BadgerBucks:", result);
-        return result; // Logs your expected value, e.g., 10
-    
+/**
+ * Gets all documents in a specified collection
+ * @param {String} databaseID 
+ * @param {String} collectionID 
+ * @return {Array} array of all documents in the collection, null if the collection is not found
+ */
+export async function getAllDocumentsInCollection(databaseID, collectionID) {
+    const connected = await hasConnectionAppwrite();
+    if (!connected) {
+        console.error("No internet connection");
+        return null;
+    }
+    try {
+        const collection = await databases.getCollection(databaseID, collectionID);
+    } catch (error) {
+        console.error("Collection not found: " + error.message);
+        return null;
+    }
+        
+    const documents = await databases.listDocuments(databaseID, collectionID);
+    return documents.documents;
 }
 
 /**
