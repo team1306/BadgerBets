@@ -1,4 +1,4 @@
-import { getUser, hasConnectionAppwrite, updateAppwriteDocument } from '../AppwriteStuff.js';
+import { getDocument, getUser, hasConnectionAppwrite, updateAppwriteDocument, getAllDocumentsInCollection } from '../AppwriteStuff.js';
 
 let bets = {};
 /*
@@ -27,11 +27,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         user = await getUser();
         
+        bets = await fillBets();
+        console.log(bets);
+        console.log(Object.keys(bets));
 
-        const loadedBets = getBets();
-
-        for (let i = 0; i < loadedBets.length; i++) {
-            const bet = loadedBets[i];
+        for (let i = 0; i < Object.keys(bets).length; i++) {
+            const bet = bets[Object.keys(bets)[i]];
+            console.log(bet);
             const matchContainer = document.createElement('h2');
             bets[bet.matchID] = [bet, matchContainer];
             
@@ -185,11 +187,36 @@ async function updateBet(bet) {
     }
 }
 
-function getBets() {
+async function fillBets() {
+    let bets = {};
+
+    let unbetMatches = [];
+    for (const match of getMatches()) {
+        const bet = await getDocument("678dd2fb001b17f8e112", "bets", match + "-" + user.$id);
+        if (bet === null) {
+            console.log("No bet found for " + match);
+            unbetMatches.push(match);
+            continue;
+        }
+        bets[match] = new Bet(match, bet.redorblue, bet.amount);
+    }
+
+    for(const match of unbetMatches) {
+        bets[match] = new Bet(match, "Blue", 0);
+    }
+
+    return Object.fromEntries(
+        Object.entries(bets).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+    );
+}
+
+function getMatches() {
     return [
-        new Bet("Q1", "Blue", 0),
-        new Bet("Q2", "Blue", 0),
-        new Bet("Q3", "Blue", 0)
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5"
     ];
 }
 

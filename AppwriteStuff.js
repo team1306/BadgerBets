@@ -58,23 +58,53 @@ export async function hasConnectionAppwrite() {
  * Gets all documents in a specified collection
  * @param {String} databaseID 
  * @param {String} collectionID 
- * @return {Array} array of all documents in the collection, null if the collection is not found
+ * @return {Promise<Object[]>} array of all documents in the collection, null if the collection is not found
  */
 export async function getAllDocumentsInCollection(databaseID, collectionID) {
-    const connected = await hasConnectionAppwrite();
-    if (!connected) {
-        console.error("No internet connection");
-        return null;
-    }
-    try {
-        const collection = await databases.getCollection(databaseID, collectionID);
-    } catch (error) {
-        console.error("Collection not found: " + error.message);
-        return null;
-    }
+    const connected = await hasConnectionAppwrite().then(async connected => {
+        if (!connected) {
+            console.error("No internet connection");
+            return null;
+        }
         
-    const documents = await databases.listDocuments(databaseID, collectionID);
-    return documents.documents;
+        try {
+            const documents = await databases.listDocuments(databaseID, collectionID);
+            console.log(documents.documents);
+            return documents.documents;
+        } catch (error) {
+            console.error("Error getting documents:", error.message);
+            return null;
+        }
+    });
+}
+
+/**
+ * Gets the value of a specified attribute from a specified document
+ * @param {String} databaseID 
+ * @param {String} collectionID 
+ * @param {String} documentID 
+ * @return {Promise<Object>} the document object. If the docuemnt does not exist, returns null.
+ */
+export async function getDocument(databaseID, collectionID, documentID) {
+    await hasConnectionAppwrite().then(connected => {
+        if (!connected) {
+            console.error("No internet connection");
+            return null;
+        }
+    });
+
+    console.log("Getting document " + documentID + "...");
+    try {
+        const appwriteDocument = await databases.getDocument(
+            databaseID, // Database ID
+            collectionID, // Collection ID
+            documentID // Document ID
+        ); 
+        return appwriteDocument;
+    } catch (error) {
+        console.error("Document not found: " + error.message);
+        return null;
+    }
 }
 
 /**
