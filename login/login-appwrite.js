@@ -1,13 +1,11 @@
-import { Client, Account } from "https://esm.sh/appwrite@14.0.1";
 import {login} from "./login-helper.js";
-const client = new Client()
+const client = new Appwrite.Client()
   .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL
   .setProject('67609b010021900fc6e6');
 
-const account = new Account(client);
+const account = new Appwrite.Account(client);
 
 try {
-  const sessionId = localStorage.getItem('session');
   await account.get(); // Call account.get() to fetch user details
   window.location.href = '../dashboard/index.html';
 } catch (error) {

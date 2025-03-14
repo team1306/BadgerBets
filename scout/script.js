@@ -1,10 +1,9 @@
-import {Client, Databases} from 'https://esm.sh/appwrite@14.0.1';
-import {getUser} from '../AppwriteStuff.js';
+import {getLoggedInUser} from '../AppwriteStuff.js';
 
-const client = new Client()
+const client = new Appwrite.Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject('67609b010021900fc6e6');
-const databases = new Databases(client);
+//const databases = new Appwrite.Databases(client);
 
 let name;
 
@@ -110,7 +109,8 @@ export function getArchivedMatches() {
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    const user = await getUser();
+    // redirects to login if online and not logged in
+    const user = await getLoggedInUser();
     name = user.name;
     console.log(name);
 
