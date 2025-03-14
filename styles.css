@@ -16,11 +16,9 @@ body {
     color: #fff;
     font-size: 16px;
     line-height: 1.6;
-    
-    max-width: 414px;
-    min-height: 896px;
+    max-width: 440px;
+    min-height: 100vh;
     margin: 0 auto;
-
     display: grid;
     grid-template-rows: auto 1fr auto;
 }

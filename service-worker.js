@@ -48,7 +48,8 @@
             "scout/scout.css",
             "scout/script.js",
             "signup/index.html",
-            "signup/signup-appwrite.js"            
+            "signup/signup-appwrite.js",
+            "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"   
         ];
 
         self.addEventListener('install', e => {
@@ -82,19 +83,17 @@
             // instead of .then(..).catch(..)
             (async () => {
                 try {
-                    // this will filter out any GET that has a page in the
-                    // cache and returning it. Any other fetch call (GET/POST/PUT)
-                    // will then use fetch to execute request
+                    // try to retreive first - if offline, will throw an error
+                    return await fetch(e.request);
+                } catch (error) {
+                    // see if we have a cached resource and serve it up
                     const cachedResponse = await caches.match(e.request);
                     if (cachedResponse) {
-                        console.log(cachedResponse.url);
+                        console.log(`cached: ${cachedResponse.url}`);
                         return cachedResponse;
                     }
-        
-                    // if reponse isn't cached, use fetch
-                    return fetch(e.request);
-                } catch(error) {
-                    console.log(error);
+                    console.log(`uncached: ${e.request.url}`);
+                    throw error;
                 }
             })()
         );

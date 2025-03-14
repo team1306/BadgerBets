@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BadgerBets - Scan QR</title>
   <link rel="stylesheet" href="../styles.css">
-  <script type = 'module' src ="./script.js" ></script>
-  <script src="https://unpkg.com/html5-qrcode"></script>
-  <link rel="icon" href="ico.png" type="image/x-icon"/>
-  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="../ico.png" type="image/x-icon"/>
+  <script src="https://unpkg.com/html5-qrcode" defer></script>
+  <script type="module" src ="./script.js" defer></script>
 </head>
 <body>
   <div class="view">
@@ -33,10 +32,5 @@
       <span>&copy; 2024 BadgerBets. All rights reserved.</span>
     </footer>
   </div>
-  <script> 
-    if (typeof navigator.serviceWorker != 'undefined'){
-      navigator.serviceWorker.register('service-worker.js')
-    }
-  </script>
 </body>
 </html>

@@ -6,9 +6,8 @@
   <title>BadgerBets - Generate QR</title>
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="../styles.css">
-  <script type = 'module' src ="./script.js" ></script>
   <link rel="icon" href="ico.png" type="image/x-icon"/>
-  <link rel="manifest" href="./manifest.json" />
+  <script type="module" src ="./script.js" defer></script>
 </head>
 <body>
   <div class="view">
@@ -34,10 +33,5 @@
       <span>&copy; 2024 BadgerBets. All rights reserved.</span>
     </footer>
   </div>
-  <script> 
-    if (typeof navigator.serviceWorker != 'undefined'){
-      navigator.serviceWorker.register('service-worker.js')
-    }
-  </script>
 </body>
 </html>
