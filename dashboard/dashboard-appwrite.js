@@ -1,7 +1,7 @@
 import {Client, Account, Databases} from 'https://esm.sh/appwrite@14.0.1';
 
 import {getAttribute, getAllDocumentsInCollection, getUser, hasConnectionAppwrite} from '../AppwriteStuff.js';
-import { getSavedMatchesByPrefix, getSaveName} from '../scout/script.js';
+import { getSavedMatchesByPrefix, getSaveName} from '../match-data.js';
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')

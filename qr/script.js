@@ -1,5 +1,5 @@
 import QrCreator from 'https://cdn.jsdelivr.net/npm/qr-creator/dist/qr-creator.es6.min.js';
-import {getSavedMatchesByPrefix, getSaveName} from '../scout/script.js';
+import {getSavedMatchesByPrefix, getSaveName} from '../match-data.js';
 
 let savedMatches, container = document.querySelector('#qr_code');;
 

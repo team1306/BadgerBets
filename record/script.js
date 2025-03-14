@@ -1,6 +1,4 @@
-import {getSaveName, getSavedMatchesByPrefix} from '../scout/script.js';
-
-
+import {getSaveName, getSavedMatchesByPrefix} from '../match-data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const matchContainer = document.getElementById("match-container");
