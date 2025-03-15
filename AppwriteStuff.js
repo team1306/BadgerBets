@@ -57,7 +57,7 @@ export async function getLoggedInUser(redirectLogin = true) {
 
         // unauthorized
         if (error.code === 401 && redirectLogin) {
-            window.location.href = '/login/index.html';
+            window.location.href = '../login/index.html';
         }
 
         return null;
