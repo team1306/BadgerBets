@@ -82,6 +82,34 @@ export async function hasConnectionAppwrite() {
 }
 
 /**
+ * Deletes a specified document from appwrite
+ * @param {String} databaseID 
+ * @param {String} collectionID 
+ * @param {String} documentID 
+ * @returns {Promise<Boolean>} true if document is deleted successfully, false otherwise
+ */
+export async function deleteDocument(databaseID, collectionID, documentID) {
+    await hasConnectionAppwrite().then(connected => {
+        if (!connected) {
+            console.error("No internet connection");
+            return false;
+        }
+    });
+
+    try {
+        await databases.deleteDocument(
+            databaseID, // Database ID
+            collectionID, // Collection ID
+            documentID // Document ID
+        ); 
+        return true;
+    } catch (error) {
+        console.error("Problem deleting document: " + error.message);
+        return false;
+    }
+}
+
+/**
  * Gets all documents in a specified collection
  * @param {String} databaseID 
  * @param {String} collectionID 
@@ -253,3 +281,9 @@ export async function updateAppwriteDocument(databaseID, collectionID, documentI
         }
     }
 }
+
+// export async function getMatches(){
+//     let result = await functions.createExecution('getMatches');
+
+//     return result;
+// }
