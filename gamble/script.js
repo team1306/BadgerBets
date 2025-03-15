@@ -244,7 +244,10 @@ function getTeams(matchID) {
 }
 
 function getTeamName(teamNumber) {
-    return "Unknown Team";
+    switch(teamNumber) {
+        case 1306: return "BadgerBOTS";
+        default: return "Unknown Team";
+    }
 }
 
 class Bet {
