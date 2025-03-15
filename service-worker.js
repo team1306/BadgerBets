@@ -21,7 +21,7 @@
         // a reload of all pages. These are the different urls and need to exist.
         // All listed assets must exist and not return a 404. '/' is the same as root index.html 
         // and both should be included.
-        const cacheName = "offlineCacheV4";
+        const cacheName = "offlineCacheV5";
         const cacheAssets = [
             "index.html",
             "AppwriteStuff.js",
