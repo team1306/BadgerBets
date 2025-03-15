@@ -93,6 +93,13 @@ body {
 
 /* footer */
 
+#offline {
+    display: flex;
+    justify-content: center;
+    background-color: #333333;
+    color: white;
+}
+
 .footer {
     background-color: #1a1a1a;
     color: #fff;

@@ -21,7 +21,7 @@
         // a reload of all pages. These are the different urls and need to exist.
         // All listed assets must exist and not return a 404. '/' is the same as root index.html 
         // and both should be included.
-        const cacheName = "offlineCacheV4";
+        const cacheName = "offlineCacheV5";
         const cacheAssets = [
             "index.html",
             "AppwriteStuff.js",
@@ -47,10 +47,12 @@
             "scan/script.js",
             "scout/index.html",
             "scout/scout.css",
+            "scout/Untitled drawing.png",
             "scout/script.js",
             "signup/index.html",
             "signup/signup-appwrite.js",
-            "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"   
+            "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0",
+            "https://cdn.jsdelivr.net/npm/appwrite@17.0.0"
         ];
 
         self.addEventListener('install', e => {
