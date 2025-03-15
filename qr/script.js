@@ -34,7 +34,7 @@ function renderQrCode(data) {
   const match = JSON.parse(data);
   document.getElementById('description').innerHTML = "Displaying: Match " + match.match + " - Team " + match.team_number;
   
-  alert("Successfully generated QR code.");
+alert("Successfully generated QR code.");
 }
 
 function clearPreviousQR() {
