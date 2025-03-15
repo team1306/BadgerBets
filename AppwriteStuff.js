@@ -12,7 +12,7 @@ const databases = new Databases(client);
 /**
  * Gets the user current user object from appwrite using the sessionID
  * Redircts user to login if session a problem occurs
- * @returns {Object} the user object or null if there is no internet connection
+ * @returns {Promise<Object>} the user object or null if there is no internet connection
  */
 export async function getUser() {
     console.log("Getting user...");
@@ -39,6 +39,10 @@ export async function getUser() {
     }
 }
 
+/**
+ * Gets whether the user has a connection to Appwrite
+ * @returns {Promise<Boolean>} true if there is a connection to Appwrite, false otherwise
+ */
 export async function hasConnectionAppwrite() {
     try {
         await account.get();
@@ -143,7 +147,7 @@ export async function getDocument(databaseID, collectionID, documentID) {
  * @param {String} collectionID 
  * @param {String} documentID 
  * @param {String} attributeID 
- * @returns the value of the attribute. If the docuemnt or attribute does not exist, returns null.
+ * @return {any} the value of the attribute. If the docuemnt or attribute does not exist, returns null.
  */
 export async function getAttribute(databaseID, collectionID, documentID, attributeID) {
     await hasConnectionAppwrite().then(connected => {
@@ -179,8 +183,8 @@ export async function getAttribute(databaseID, collectionID, documentID, attribu
  * @param {String} collectionID 
  * @param {String} documentID 
  * @param {String} attributeID 
- * @param {*} value must be the same as the type of the attribute
- * @returns true if successful, false otherwise
+ * @param {any} value must be the same as the type of the attribute
+ * @return {Promise<Boolean>} true if successful, false otherwise
  */
 export async function setAttribute(databaseID, collectionID, documentID, attributeID, value) {
     console.log("Setting attribute " + attributeID + " to " + value + "...");
@@ -226,7 +230,7 @@ export async function setAttribute(databaseID, collectionID, documentID, attribu
  * @param {String} collectionID 
  * @param {String} documentID 
  * @param {Object} data 
- * @returns true if document is created/updated successfully, false otherwise
+ * @return {Promise<Boolean>} true if document is created/updated successfully, false otherwise
  */
 export async function updateAppwriteDocument(databaseID, collectionID, documentID, data) {
     console.log("Updating document...");
