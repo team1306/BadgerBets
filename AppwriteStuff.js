@@ -36,15 +36,9 @@ function showOfflineMessage() {
 }
 
 /**
-<<<<<<< HEAD
- * Gets the current user object from appwrite using the sessionID
- * Redirects user to login if session a problem occurs
- * @returns {Object} the user object or null if there is no internet connection
-=======
  * Gets the user current user object from appwrite using the sessionID
  * Redircts user to login if session a problem occurs
  * @returns {Promise<Object>} the user object or null if there is no internet connection
->>>>>>> main-vite
  */
 export async function getLoggedInUser(redirectLogin = true) {
 
