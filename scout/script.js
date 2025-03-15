@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             auto_coral_3.inputField.value * 6 +
             auto_coral_4.inputField.value * 7 +
             auto_algae_processor.inputField.value * 6 +
-            auto_algae_net.inputField.value * 5 +
+            auto_algae_net.inputField.value * 4 +
             (auto_leave.isChecked ? 3 : 0); //if it is checked, value is 3, otherwise 0
         finalAutoScore.innerHTML = "Final Auto Score: "+  finalAutoScoreText.toString();
 
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             tele_coral_3.inputField.value * 4 +
             tele_coral_4.inputField.value * 5 +
             tele_algae_processor.inputField.value * 6 +
-            tele_algae_net.inputField.value * 7;
+            tele_algae_net.inputField.value * 4;
         finalTeleScore.innerHTML = "Final Teleop Score: "+  finalTeleScoreText.toString();
 
         let climbScore = 0;
@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             case "park": climbScore = 2; break;
             case "shallow": climbScore = 6; break;
             case "deep": climbScore = 12; break;
+            case "none": climbScore = 0; break;
         }
 
         const finalScoreElement = document.getElementById('finalScore');

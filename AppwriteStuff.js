@@ -1,4 +1,5 @@
 import { Client, Account, Databases} from "https://esm.sh/appwrite@14.0.1";
+// import {Functions} from "appwrite";
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -6,6 +7,7 @@ const client = new Client()
 
 const account = new Account(client);
 const databases = new Databases(client);
+// const functions = new Functions(client);
 
 /**
  * Gets the user current user object from appwrite using the sessionID
@@ -259,3 +261,8 @@ export async function updateAppwriteDocument(databaseID, collectionID, documentI
         }
     });
 }
+// export async function getMatches(){
+//     let result = await functions.createExecution('getMatches');
+
+//     return result;
+// }
