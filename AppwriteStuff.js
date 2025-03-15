@@ -16,7 +16,7 @@ if (logout) {
         }
         
         localStorage.removeItem('user');
-        window.location.href = '/index.html';
+        window.location.href = '../index.html';
     });
 }
 
@@ -36,15 +36,9 @@ function showOfflineMessage() {
 }
 
 /**
-<<<<<<< HEAD
- * Gets the current user object from appwrite using the sessionID
- * Redirects user to login if session a problem occurs
- * @returns {Object} the user object or null if there is no internet connection
-=======
  * Gets the user current user object from appwrite using the sessionID
  * Redircts user to login if session a problem occurs
  * @returns {Promise<Object>} the user object or null if there is no internet connection
->>>>>>> main-vite
  */
 export async function getLoggedInUser(redirectLogin = true) {
 
@@ -99,12 +93,11 @@ export async function hasConnectionAppwrite() {
  * @returns {Promise<Boolean>} true if document is deleted successfully, false otherwise
  */
 export async function deleteDocument(databaseID, collectionID, documentID) {
-    await hasConnectionAppwrite().then(connected => {
-        if (!connected) {
-            console.error("No internet connection");
-            return false;
-        }
-    });
+    const connected = await hasConnectionAppwrite();
+    if (!connected) {
+        console.error("No internet connection");
+        return false;
+    }
 
     try {
         await databases.deleteDocument(
@@ -131,10 +124,9 @@ export async function getAllDocumentsInCollection(databaseID, collectionID) {
         console.error("No internet connection");
         return null;
     }
-        
+    
     try {
         const documents = await databases.listDocuments(databaseID, collectionID);
-        console.log(documents.documents);
         return documents.documents;
     } catch (error) {
         console.error("Error getting documents:", error.message);
