@@ -2,35 +2,8 @@ import {getSaveName, getSavedMatchesByPrefix} from '../match-data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const matchContainer = document.getElementById("match-container");
-    const savedMatches = getSavedMatchesByPrefix("MATCH_");
-    for (let i = 0; i < savedMatches.length; i++) {
-        const match = savedMatches[i];
-        const button = document.createElement('button');
-        button.innerHTML = "Details";
-        button.classList.add("btn");
-        button.id = i;
-        button.addEventListener('click', () => showMatchDetails(match));
-
-        const label = document.createElement('label');
-        let labelText = "";
-        switch (match.match[0]) {
-            case "T": labelText += "Practice "; break;
-            case "Q": labelText += "Qualifier "; break;
-            case "P": labelText += "Playoff "; break;
-        }
-        labelText += match.match.substring(1);
-        labelText += " ";
-        label.innerHTML = labelText;
-        label.htmlFor = i;
-
-        matchContainer.appendChild(label);
-        matchContainer.appendChild(button);
-
-        const br = document.createElement('br');
-        const br2 = document.createElement('br');
-        matchContainer.appendChild(br);
-        matchContainer.appendChild(br2);
-    };
+    createMatchSelectors('MATCH_', 'match-container');
+    createMatchSelectors('ARCHIVE_', 'archive-container');
 });
 
 /**
@@ -133,3 +106,49 @@ document.getElementById('archive-removal-form').addEventListener('submit', () =>
     }
     
 });
+
+function createMatchSelectors(prefix, element ){
+    const savedMatches = getSavedMatchesByPrefix(prefix);
+    const matchContainer = document.getElementById(element);
+    for (let i = 0; i < savedMatches.length; i++) {
+        const match = savedMatches[i];
+        const button = document.createElement('button');
+        
+        button.classList.add("btn");
+        button.id = i;
+        if(element === 'match-container'){
+            button.addEventListener('click', () => showMatchDetails(match));
+            button.innerHTML = "Details";
+        }
+        if(element === 'archive-container'){
+            button.addEventListener('click', () => moveToStorage(match));
+            button.innerHTML = "Retrieve";
+
+        }
+
+        const label = document.createElement('label');
+        let labelText = "";
+        switch (match.match[0]) {
+            case "T": labelText += "Practice "; break;
+            case "Q": labelText += "Qualifier "; break;
+            case "P": labelText += "Playoff "; break;
+        }
+        labelText += match.match.substring(1);
+        labelText += " ";
+        label.innerHTML = labelText;
+        label.htmlFor = i;
+
+        matchContainer.appendChild(label);
+        matchContainer.appendChild(button);
+
+        const br = document.createElement('br');
+        const br2 = document.createElement('br');
+        matchContainer.appendChild(br);
+        matchContainer.appendChild(br2);
+    };
+}
+function moveToStorage(match){
+    localStorage.setItem(getSaveName(match.match, match.team_number, match.name, false), JSON.stringify(match));
+    localStorage.removeItem(getSaveName(match.match, match.team_number, match.name, true));
+    window.location.reload();
+}
