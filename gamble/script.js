@@ -1,4 +1,4 @@
-import { getDocument, getUser, hasConnectionAppwrite, updateAppwriteDocument, getAllDocumentsInCollection } from '../AppwriteStuff.js';
+import { getDocument, getLoggedInUser, updateAppwriteDocument, getAllDocumentsInCollection } from '../AppwriteStuff.js';
 
 let bets = {};
 /*
@@ -12,39 +12,26 @@ let bets = {};
 let user = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // redirects to login if not logged in and online
+    user = await getLoggedInUser();
+
     const container = document.getElementById("container");
 
-    await hasConnectionAppwrite().then(async connected => {
-        if (!connected) {
-            container.innerHTML = `
-                <div>
-                    <p>No internet connection</p>
-                    <a href="javascript:window.location.href = window.location.href">Try Again</a>
-                </div>
-            `;
-            return;
-        }
+    bets = await fillBets();
+    console.log(bets);
+    console.log(Object.keys(bets));
 
-        user = await getUser();
+    for (let i = 0; i < Object.keys(bets).length; i++) {
+        const bet = bets[Object.keys(bets)[i]];
+        console.log(bet);
+        const matchContainer = document.createElement('h2');
+        bets[bet.matchID] = [bet, matchContainer];
         
-        bets = await fillBets();
-        console.log(bets);
-        console.log(Object.keys(bets));
+        matchContainer.innerHTML = betText(bet);
+        matchContainer.addEventListener('click', () => openBetDetails(bet, matchContainer));
 
-        for (let i = 0; i < Object.keys(bets).length; i++) {
-            const bet = bets[Object.keys(bets)[i]];
-            console.log(bet);
-            const matchContainer = document.createElement('h2');
-            bets[bet.matchID] = [bet, matchContainer];
-            
-            matchContainer.innerHTML = betText(bet);
-            matchContainer.addEventListener('click', () => openBetDetails(bet, matchContainer));
-
-            container.appendChild(matchContainer);
-        }
-    }).catch(err => {
-        console.error(err);
-    });
+        container.appendChild(matchContainer);
+    }
 });
 
 function betText(bet) {

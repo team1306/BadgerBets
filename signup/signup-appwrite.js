@@ -1,12 +1,11 @@
-import {Client, Account, ID, Databases} from "https://esm.sh/appwrite@14.0.1";
 import {login} from "../login/login-helper.js";
 
-const client = new Client()
+const client = new Appwrite.Client()
   .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL
   .setProject('67609b010021900fc6e6');
 
-const account = new Account(client);
-const databases = new Databases(client);
+const account = new Appwrite.Account(client);
+//const databases = new Appwrite.Databases(client);
 
 // Code for the sign-up page
 const signupForm = document.getElementById('signup-form');
