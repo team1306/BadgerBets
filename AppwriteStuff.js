@@ -68,12 +68,11 @@ export async function hasConnectionAppwrite() {
  * @returns {Promise<Boolean>} true if document is deleted successfully, false otherwise
  */
 export async function deleteDocument(databaseID, collectionID, documentID) {
-    await hasConnectionAppwrite().then(connected => {
-        if (!connected) {
-            console.error("No internet connection");
-            return false;
-        }
-    });
+    const connected = await hasConnectionAppwrite();
+    if (!connected) {
+        console.error("No internet connection");
+        return false;
+    }
 
     try {
         await databases.deleteDocument(
@@ -95,21 +94,19 @@ export async function deleteDocument(databaseID, collectionID, documentID) {
  * @return {Promise<Object[]>} array of all documents in the collection, null if the collection is not found
  */
 export async function getAllDocumentsInCollection(databaseID, collectionID) {
-    const connected = await hasConnectionAppwrite().then(async connected => {
-        if (!connected) {
-            console.error("No internet connection");
-            return null;
-        }
-        
-        try {
-            const documents = await databases.listDocuments(databaseID, collectionID);
-            console.log(documents.documents);
-            return documents.documents;
-        } catch (error) {
-            console.error("Error getting documents:", error.message);
-            return null;
-        }
-    });
+    const connected = await hasConnectionAppwrite()
+    if (!connected) {
+        console.error("No internet connection");
+        return null;
+    }
+    
+    try {
+        const documents = await databases.listDocuments(databaseID, collectionID);
+        return documents.documents;
+    } catch (error) {
+        console.error("Error getting documents:", error.message);
+        return null;
+    }
 }
 
 /**

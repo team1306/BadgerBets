@@ -190,10 +190,14 @@ async function updateBet(bet) {
 async function fillBets() {
     let bets = {};
 
+    const allBets = await getAllDocumentsInCollection("678dd2fb001b17f8e112", "bets");
+    const allUserBets = allBets.filter(bet => bet.user === user.$id);
+
     let unbetMatches = [];
     for (const match of getMatches()) {
-        const bet = await getDocument("678dd2fb001b17f8e112", "bets", match + "-" + user.$id);
-        if (bet === null) {
+        const bet = allUserBets.find(bet => bet.matchId === match);
+        console.log(bet);
+        if (bet === undefined) {
             console.log("No bet found for " + match);
             unbetMatches.push(match);
             continue;
@@ -216,7 +220,17 @@ function getMatches() {
         "Q2",
         "Q3",
         "Q4",
-        "Q5"
+        "Q5",
+        "Q6",
+        "Q7",
+        "Q8",
+        "Q9",
+        "Q10",
+        "Q11",
+        "Q12",
+        "Q13",
+        "Q14",
+        "Q15"
     ];
 }
 
