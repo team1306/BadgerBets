@@ -1,4 +1,4 @@
-import { getDocument, getLoggedInUser, updateAppwriteDocument, getAllDocumentsInCollection } from '../AppwriteStuff.js';
+import { executeFunction, getLoggedInUser, updateAppwriteDocument, getAllDocumentsInCollection } from '../AppwriteStuff.js';
 
 let bets = {};
 /*
@@ -9,6 +9,8 @@ let bets = {};
 }
 */
 
+let matchSchedule = {};
+
 let user = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -18,12 +20,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const container = document.getElementById("container");
 
     bets = await fillBets();
-    console.log(bets);
-    console.log(Object.keys(bets));
 
     for (let i = 0; i < Object.keys(bets).length; i++) {
         const bet = bets[Object.keys(bets)[i]];
-        console.log(bet);
         const matchContainer = document.createElement('h2');
         bets[bet.matchID] = [bet, matchContainer];
         
@@ -38,6 +37,7 @@ function betText(bet) {
     let text = bet.matchID + " - ";
     if (bet.amount === 0) text += "No bet placed";
     else text += bet.amount + " on " + bet.alliance;
+    text += bet.expireTime > getCurrentTime() ? " - Open" : " - Closed";
     return text;
 }
 
@@ -46,6 +46,17 @@ function openBetDetails(bet, matchInfo) {
 
     const detailsContainer = document.createElement('div');
     detailsContainer.classList.add('details-box');
+
+    const closeTime = document.createElement('p');
+    //string formatting hell
+    let niceTime = bet.expireTime.substring(5, 16).replace("-", "/").replace("T", " ");
+    let hour = parseInt(niceTime.substring(6, 8));
+    let period = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12; // Convert to 12-hour format, handling midnight as 12
+    niceTime = niceTime.substring(0, 6) + hour + niceTime.substring(8) + " " + period;
+    closeTime.innerHTML = "Bet closes at " + niceTime;
+    closeTime.style = "color: black";
+    detailsContainer.appendChild(closeTime);
 
     const teamsContainer = document.createElement('div');
     teamsContainer.classList.add('teams-container');
@@ -181,68 +192,67 @@ async function fillBets() {
     const allUserBets = allBets.filter(bet => bet.user === user.$id);
 
     let unbetMatches = [];
-    for (const match of getMatches()) {
+    const matchIds = await getMatchIds();
+    for (const match of matchIds) {
         const bet = allUserBets.find(bet => bet.matchId === match);
-        console.log(bet);
         if (bet === undefined) {
-            console.log("No bet found for " + match);
             unbetMatches.push(match);
             continue;
         }
-        bets[match] = new Bet(match, bet.redorblue, bet.amount);
+        bets[match] = new Bet(match, bet.redorblue, bet.amount, matchSchedule[match].startTime);
     }
 
     for(const match of unbetMatches) {
-        bets[match] = new Bet(match, "Blue", 0);
+        bets[match] = new Bet(match, "Blue", 0, matchSchedule[match].startTime);
     }
 
     return Object.fromEntries(
-        Object.entries(bets).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+        Object.entries(bets).sort(([keyA], [keyB]) => 
+            parseInt(keyA.substring(1)) - parseInt(keyB.substring(1))
+        )
     );
 }
 
-function getMatches() {
-    return [
-        "Q1",
-        "Q2",
-        "Q3",
-        "Q4",
-        "Q5",
-        "Q6",
-        "Q7",
-        "Q8",
-        "Q9",
-        "Q10",
-        "Q11",
-        "Q12",
-        "Q13",
-        "Q14",
-        "Q15"
-    ];
+async function getCurrentTime() {
+    return Date.now();
+}
+
+async function getMatchIds() {
+    const result = await executeFunction("getMatches", Appwrite.ExecutionMethod.GET);
+    const matches = JSON.parse(result.responseBody).Schedule;
+
+    let matchIds = [];
+    for (const match of matches) {
+        let matchId = match.description;
+        matchId = match.tournamentLevel[0] + match.matchNumber;
+        matchIds.push(matchId);
+
+        matchSchedule[matchId] = match;
+    }
+
+    console.log(matchSchedule);
+    return matchIds;
 }
 
 function getTeams(matchID) {
-    console.log("GetTeams not implemented");
-    return [
-        1111,
-        2222,
-        3333,
-        4444,
-        5555,
-        6666
-    ]
+    let teamNumbers = [];
+    const teams = matchSchedule[matchID].teams;
+    for (const team in teams) {
+        teamNumbers.push(teams[team].teamNumber);
+    }
+    return teamNumbers;
 }
 
 function getTeamName(teamNumber) {
-    console.log("GetTeamName not implemented");
-    return "Test Team";
+    return "Unknown Team";
 }
 
 class Bet {
-    constructor(matchID, alliance, amount) {
+    constructor(matchID, alliance, amount, expireTime) {
         this.matchID = matchID;
         this.alliance = alliance;
         this.amount = amount;
+        this.expireTime = expireTime;
     }
 }
 

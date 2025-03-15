@@ -4,6 +4,7 @@ const client = new Appwrite.Client()
 
 const account = new Appwrite.Account(client);
 const databases = new Appwrite.Databases(client);
+const functions = new Appwrite.Functions(client);
 
 const logout = document.getElementById('logout');
 if (logout) {
@@ -36,15 +37,27 @@ function showOfflineMessage() {
 }
 
 /**
-<<<<<<< HEAD
- * Gets the current user object from appwrite using the sessionID
- * Redirects user to login if session a problem occurs
- * @returns {Object} the user object or null if there is no internet connection
-=======
+ * 
+ * @param {String} functionId 
+ * @param {Appwrite.ExecutionMethod} executionMethod GET, POST, PUT, PATCH, DELETE, or OPTIONS
+ * @returns {Promise<any>} the result of the function execution
+ */
+export async function executeFunction(functionId, executionMethod) {
+    const result = await functions.createExecution(
+        functionId, // functionId
+        "", // body (optional)
+        false, // async (optional)
+        "/", // path (optional)
+        executionMethod, // method (optional)
+        {} // headers (optional)
+    );
+    return result;
+}
+
+/**
  * Gets the user current user object from appwrite using the sessionID
  * Redircts user to login if session a problem occurs
  * @returns {Promise<Object>} the user object or null if there is no internet connection
->>>>>>> main-vite
  */
 export async function getLoggedInUser(redirectLogin = true) {
 

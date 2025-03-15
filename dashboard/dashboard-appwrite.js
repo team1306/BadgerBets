@@ -1,4 +1,4 @@
-import {getAttribute, getAllDocumentsInCollection, getLoggedInUser, hasConnectionAppwrite} from '../AppwriteStuff.js';
+import {getAttribute, executeFunction, getLoggedInUser, hasConnectionAppwrite} from '../AppwriteStuff.js';
 import {getSavedMatchesByPrefix, getSaveName} from '../match-data.js';
 
 const client = new Appwrite.Client()
