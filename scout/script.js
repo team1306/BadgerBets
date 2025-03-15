@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             case "park": climbScore = 2; break;
             case "shallow": climbScore = 6; break;
             case "deep": climbScore = 12; break;
+            case "none": climbScore = 0; break;
         }
 
         const finalScoreElement = document.getElementById('finalScore');
