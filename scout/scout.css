@@ -102,6 +102,10 @@ h2 {
     background-color: #cccc00;
 }
 
+.tab {
+    margin: 16px 0;
+}
+
 .tab .tablinks {
     width:33%;
     padding:0;
