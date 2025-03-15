@@ -1,4 +1,4 @@
-import { deleteDocument, getDocument, getUser, hasConnectionAppwrite, updateAppwriteDocument, getAllDocumentsInCollection } from '../AppwriteStuff.js';
+import { getDocument, getUser, hasConnectionAppwrite, updateAppwriteDocument, getAllDocumentsInCollection } from '../AppwriteStuff.js';
 
 let bets = {};
 /*
@@ -179,24 +179,18 @@ async function updateBet(bet) {
     bets[bet.matchID][0].amount = bet.amount;
     bets[bet.matchID][1].innerHTML = betText(bet);
 
-    if (bet.amount > 0) try {
+    try {
         await updateAppwriteDocument("678dd2fb001b17f8e112", "bets", bet.matchID + "-" + user.$id, { "user": user.$id, "amount": bet.amount, "matchId": bet.matchID, "redorblue": bet.alliance });
         console.log("Document update success");
     } catch (error) {
         console.error("Error in updating document:", error);
     }
-    else try {
-        await deleteDocument("678dd2fb001b17f8e112", "bets", bet.matchID + "-" + user.$id);
-        console.log("Document delete success");
-    } catch (error) {
-        console.error("Error in deleting document:", error);
-    }
 }
 
 async function fillBets() {
     let bets = {};
+
     let unbetMatches = [];
-    
     for (const match of getMatches()) {
         const bet = await getDocument("678dd2fb001b17f8e112", "bets", match + "-" + user.$id);
         if (bet === null) {
