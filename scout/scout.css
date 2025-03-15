@@ -110,6 +110,9 @@ h2 {
     height:40px;
     border: none;
     float: left;
+    text-size-adjust: 125%;
+    font-weight: bold;
+    
   }
 .tab .tablinks:first-child {
     width:33%;

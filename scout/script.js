@@ -26,7 +26,7 @@ class CoralCounter {
         const currentValue = parseInt(this.inputField.value, 10);
         this.inputField.value = currentValue + 1;
         this.updateScoreCallback();
-        startHaptics(100)
+        startHaptics(50)
     }
 
     decrement() {
@@ -34,7 +34,7 @@ class CoralCounter {
         if (currentValue > 0) { // Prevent negative values if not desired
             this.inputField.value = currentValue - 1;
             this.updateScoreCallback();
-            startHaptics(100)
+            startHaptics(50)
         }
     }
 }
@@ -170,6 +170,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     climb_status = new OptionSelect("climb_status", updateFinalScore);
     driver_ability = document.getElementById('driverRating');
     driver_ability.addEventListener('input', () => {
+        startHaptics(20)
         document.getElementById('displayDriverRating')
         .innerHTML = "Driver Ability: " + driver_ability.value;
     });
@@ -210,7 +211,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     );
 
 
-document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage());
+document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage(), startHaptics(500));
 function dumpScoutingDataToLocalStorage() {
     try {
         const matchType = document.getElementById('match_type').value;
