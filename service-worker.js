@@ -23,7 +23,6 @@
         // and both should be included.
         const cacheName = "offlineCacheV5";
         const cacheAssets = [
-            "/",
             "index.html",
             "AppwriteStuff.js",
             "script.js",
