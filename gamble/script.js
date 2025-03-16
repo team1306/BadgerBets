@@ -1,4 +1,5 @@
 import { executeFunction, getLoggedInUser, updateAppwriteDocument, getAllDocumentsInCollection } from '../AppwriteStuff.js';
+import { calculateOdds } from '../gamble/betHandler.js';
 
 let bets = {};
 /*
@@ -19,7 +20,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const container = document.getElementById("container");
 
+    const loading = document.createElement('h2');
+    loading.innerHTML = "Loading Bets...";
+    container.appendChild(loading);
+
     bets = await fillBets();
+
+    //if (Object.keys(matchSchedule).length === 0) window.location.href = window.location.href;
+
+    loading.remove();
 
     for (let i = 0; i < Object.keys(bets).length; i++) {
         const bet = bets[Object.keys(bets)[i]];
@@ -107,6 +116,10 @@ function openBetDetails(bet, matchInfo) {
     amountInput.classList.add('select');
     amountInput.placeholder = 0;
     amountInput.value = bet.amount;
+
+    const odds = document.createElement('p');
+    odds.innerHTML = calculateOdds(bet.matchID*100 + "% on Blue");
+    detailsContainer.appendChild(odds);
 
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');
