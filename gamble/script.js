@@ -249,8 +249,7 @@ async function getMatchIds() {
 
     let matchIds = [];
     for (const match of matches) {
-        let matchId = match.description;
-        matchId = match.tournamentLevel[0] + match.matchNumber;
+        const matchId = match.tournamentLevel[0] + match.matchNumber;
         matchIds.push(matchId);
 
         matchSchedule[matchId] = match;
