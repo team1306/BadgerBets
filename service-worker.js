@@ -34,6 +34,7 @@
             "dashboard/dashboard-appwrite.js",
             "dashboard/dashboard.css",
             "dashboard/index.html",
+            "gamble/betHandler.js",
             "gamble/index.html",
             "gamble/script.js",
             "gamble/gamble.css",
