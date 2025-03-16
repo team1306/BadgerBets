@@ -3,7 +3,7 @@ import { getAllDocumentsInCollection } from "../AppwriteStuff.js";
 /**
  * Calculates the odds for a given match
  * @param {String} matchId
- * @returns {number} percent of money bet on blue as a decimal. Between 0 and 1.
+ * @returns {number} percent of money bet on blue as a decimal. Between 0 and 1. Returns null if no bets are placed
  */
 export async function calculateOdds(matchId) {
     const allBets = await getAllDocumentsInCollection("678dd2fb001b17f8e112", "bets");
@@ -14,6 +14,8 @@ export async function calculateOdds(matchId) {
     for (const bet in matchBets) {
         pool += matchBets[bet].amount;
     }
+
+    if (pool === 0) return null;
 
     const blueBets = matchBets.filter(match => match.redorblue === "Blue");
     let bluePool = 0;

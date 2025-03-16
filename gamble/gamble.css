@@ -39,6 +39,11 @@
     background-color: #1C741C;
 }
 
+#submit-closed {
+    background-color: gray;
+    color: #fff;
+}
+
 #cancel {
     background-color: #ff0000;
     color: #fff;

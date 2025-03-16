@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         bets[bet.matchID] = [bet, matchContainer];
         
         matchContainer.innerHTML = betText(bet);
-        matchContainer.addEventListener('click', () => openBetDetails(bet, matchContainer));
+        matchContainer.addEventListener('click', async () => openBetDetails(bet, matchContainer));
 
         container.appendChild(matchContainer);
     }
@@ -46,11 +46,11 @@ function betText(bet) {
     let text = bet.matchID + " - ";
     if (bet.amount === 0) text += "No bet placed";
     else text += bet.amount + " on " + bet.alliance;
-    text += bet.expireTime > getCurrentTime() ? " - Open" : " - Closed";
+    text += bet.closeTime > getCurrentTime() ? " - Open" : " - Closed";
     return text;
 }
 
-function openBetDetails(bet, matchInfo) {
+function openBetDetails(bet, container) {
     document.querySelectorAll('.details-box').forEach(e => e.remove());
 
     const detailsContainer = document.createElement('div');
@@ -58,12 +58,12 @@ function openBetDetails(bet, matchInfo) {
 
     const closeTime = document.createElement('p');
     //string formatting hell
-    let niceTime = bet.expireTime.substring(5, 16).replace("-", "/").replace("T", " ");
+    let niceTime = bet.closeTime.substring(5, 16).replace("-", "/").replace("T", " ");
     let hour = parseInt(niceTime.substring(6, 8));
     let period = hour >= 12 ? "PM" : "AM";
     hour = hour % 12 || 12; // Convert to 12-hour format, handling midnight as 12
     niceTime = niceTime.substring(0, 6) + hour + niceTime.substring(8) + " " + period;
-    closeTime.innerHTML = "Bet closes at " + niceTime;
+    closeTime.innerHTML = (niceTime > getCurrentTime ? "Bet closes at " : "Bet closed at ") + niceTime;
     closeTime.style = "color: black";
     detailsContainer.appendChild(closeTime);
 
@@ -76,6 +76,25 @@ function openBetDetails(bet, matchInfo) {
     const redContainer = document.createElement('div');
     redContainer.classList.add('blue-teams');
     teamsContainer.appendChild(redContainer);
+
+    const blueOdds = document.createElement('p');
+    blueOdds.innerHTML = "Calculating odds...";
+    calculateOdds(bet.matchID).then(result => {
+        blueOdds.innerHTML = result === null ? "None on Blue" : ((result).toFixed(2)*100) + "% on Blue";
+    });
+    blueOdds.classList.add("blue-team");
+    blueOdds.style.fontWeight = "bold";
+    blueContainer.appendChild(blueOdds);
+
+    const redOdds = document.createElement('p');
+    redOdds.innerHTML = "Calculating odds...";
+    calculateOdds(bet.matchID).then(result => {
+        redOdds.innerHTML = result === null ? "None on Red" : ((1 - result).toFixed(2)*100) + "% on Red";
+    });
+    redOdds.classList.add("red-team");
+    redOdds.style.fontWeight = "bold";
+    redContainer.appendChild(redOdds);
+
     for (let i = 0; i < getTeams(bet.matchID).length; i++) {
         const team = getTeams(bet.matchID)[i];
         const teamName = getTeamName(team);
@@ -117,16 +136,16 @@ function openBetDetails(bet, matchInfo) {
     amountInput.placeholder = 0;
     amountInput.value = bet.amount;
 
-    const odds = document.createElement('p');
-    odds.innerHTML = calculateOdds(bet.matchID*100 + "% on Blue");
-    detailsContainer.appendChild(odds);
-
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');
 
     const submitButton = document.createElement('button');
     submitButton.id = 'submit';
     submitButton.className = 'btn';
+
+    if (getCurrentTime > bet.closeTime) {
+        submitButton.id = "submit-closed";
+    }
 
     // Create the inner span for the icon and text
     const submitSpanWrapper = document.createElement('span');
@@ -146,10 +165,11 @@ function openBetDetails(bet, matchInfo) {
 
     // Append the span wrapper to the button
     submitButton.appendChild(submitSpanWrapper);
-    submitButton.addEventListener('click', () => {
-        updateBet(new Bet(bet.matchID, teamSelect.value, parseInt(amountInput.value)));
-        detailsContainer.remove();
-    });
+    if (submitButton.id === "submit")
+        submitButton.addEventListener('click', () => {
+            updateBet(new Bet(bet.matchID, teamSelect.value, parseInt(amountInput.value)));
+            detailsContainer.remove();
+        });
 
     const cancelButton = document.createElement('button');
     cancelButton.id = 'cancel';
@@ -177,25 +197,18 @@ function openBetDetails(bet, matchInfo) {
     detailsContainer.appendChild(teamSelect);
     detailsContainer.appendChild(amountInput);
     detailsContainer.appendChild(buttonContainer);
-    insertAfter(detailsContainer, matchInfo);
+    insertAfter(detailsContainer, container);
 }
 
 async function updateBet(bet) {
     if (isNaN(bet.amount)) bet.amount = 0;
-    console.log("ALLIANCE: " + bet.alliance);
-    console.log("AMOUNT: " + bet.amount);
 
-    console.log(bets[bet.matchID]);
     bets[bet.matchID][0].alliance = bet.alliance;
     bets[bet.matchID][0].amount = bet.amount;
     bets[bet.matchID][1].innerHTML = betText(bet);
 
-    try {
-        await updateAppwriteDocument("678dd2fb001b17f8e112", "bets", bet.matchID + "-" + user.$id, { "user": user.$id, "amount": bet.amount, "matchId": bet.matchID, "redorblue": bet.alliance });
-        console.log("Document update success");
-    } catch (error) {
-        console.error("Error in updating document:", error);
-    }
+    await updateAppwriteDocument("678dd2fb001b17f8e112", "bets", bet.matchID + "-" + user.$id, 
+        { "user": user.$id, "amount": bet.amount, "matchId": bet.matchID, "redorblue": bet.alliance });
 }
 
 async function fillBets() {
@@ -264,11 +277,11 @@ function getTeamName(teamNumber) {
 }
 
 class Bet {
-    constructor(matchID, alliance, amount, expireTime) {
+    constructor(matchID, alliance, amount, closeTime) {
         this.matchID = matchID;
         this.alliance = alliance;
         this.amount = amount;
-        this.expireTime = expireTime;
+        this.closeTime = closeTime;
     }
 }
 
