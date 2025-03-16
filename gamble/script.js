@@ -63,7 +63,7 @@ function openBetDetails(bet, container) {
     let period = hour >= 12 ? "PM" : "AM";
     hour = hour % 12 || 12; // Convert to 12-hour format, handling midnight as 12
     niceTime = niceTime.substring(0, 6) + hour + niceTime.substring(8) + " " + period;
-    closeTime.innerHTML = (niceTime > getCurrentTime ? "Bet closes at " : "Bet closed at ") + niceTime;
+    closeTime.innerHTML = (bet.closeTime > getCurrentTime ? "Bet closes at " : "Bet closed at ") + niceTime;
     closeTime.style = "color: black";
     detailsContainer.appendChild(closeTime);
 
