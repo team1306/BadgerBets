@@ -26,7 +26,8 @@ class CoralCounter {
         const currentValue = parseInt(this.inputField.value, 10);
         this.inputField.value = currentValue + 1;
         this.updateScoreCallback();
-        startHaptics(50)
+        startHaptics(50);
+
     }
 
     decrement() {
@@ -34,7 +35,7 @@ class CoralCounter {
         if (currentValue > 0) { // Prevent negative values if not desired
             this.inputField.value = currentValue - 1;
             this.updateScoreCallback();
-            startHaptics(50)
+            startHaptics(50);
         }
     }
 }
@@ -97,14 +98,6 @@ function showSectionById(sectionId) {
 //function for haptics
 function startHaptics(pattern){
     navigator.vibrate(pattern)
-}
-
-/**
- * NOTE FROM ETHAN SANDERS -- DO NOT DO THIS! CODE SHOULD NOT BE REUSED
- * @returns list of archived matches dictionaries 
- */
-export function getArchivedMatches() {
-    
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -208,10 +201,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         teleop_button.style.backgroundColor = '#ffff00';
         end_button.style.backgroundColor = '#cccc00';
     }
-    );
+);
 
 
-document.getElementById('submit').addEventListener('click', () => dumpScoutingDataToLocalStorage(), startHaptics(500));
+document.getElementById('submit').addEventListener('click', () => { dumpScoutingDataToLocalStorage(); startHaptics(500); });
 function dumpScoutingDataToLocalStorage() {
     try {
         const matchType = document.getElementById('match_type').value;
