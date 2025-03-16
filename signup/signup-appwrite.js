@@ -34,22 +34,12 @@ if (signupForm) {
 
     try {
       // Create a new account
-      const response = await account.create(ID.unique(), email, password, name);
+      const response = await account.create(Appwrite.ID.unique(), email, password, name);
       console.log('Account created:', response);
-
-      // Get user details
-      const user = await account.get();
-      
-      const userId = user.$id;
-      //await databases.createDocument('678dd2fb001b17f8e112', 'badgerBucks', userId,{badgerBucks: 100});
-
-      // Redirect to dashboard
+      await login(account, email, password);
     } catch (error) {
-      // Handle errors
       console.error('Account creation failed:', error);
       alert(`Account creation failed: ${error.message || 'Unknown error'}`);
     }
-
-    await login(account, email, password);
   });
 }
