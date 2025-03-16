@@ -167,7 +167,7 @@ function openBetDetails(bet, container) {
     submitButton.appendChild(submitSpanWrapper);
     if (submitButton.id === "submit")
         submitButton.addEventListener('click', () => {
-            updateBet(new Bet(bet.matchID, teamSelect.value, parseInt(amountInput.value)));
+            updateBet(new Bet(bet.matchID, teamSelect.value, parseInt(amountInput.value), bet.closeTime));
             detailsContainer.remove();
         });
 
