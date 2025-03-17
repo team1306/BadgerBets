@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const connected = await hasConnectionAppwrite()
     if (!connected) {
         const noInternet = document.createElement('h2');
-        noInternet.innerHTML("No Internet");
+        noInternet.innerHTML = "No Internet";
         container.appendChild(noInternet);
 
         const retry = document.createElement('a');
