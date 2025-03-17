@@ -1,4 +1,4 @@
-import { executeFunction, getLoggedInUser, updateAppwriteDocument, getAllDocumentsInCollection } from '../AppwriteStuff.js';
+import { executeFunction, getLoggedInUser, updateAppwriteDocument, getAllDocumentsInCollection, hasConnectionAppwrite } from '../AppwriteStuff.js';
 import { calculateOdds } from '../gamble/betHandler.js';
 
 let bets = {};
@@ -15,10 +15,24 @@ let matchSchedule = {};
 let user = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
+    
+    const container = document.getElementById("container");
+
+    const connected = await hasConnectionAppwrite()
+    if (!connected) {
+        const noInternet = document.createElement('h2');
+        noInternet.innerHTML("No Internet");
+        container.appendChild(noInternet);
+
+        const retry = document.createElement('a');
+        retry.href = window.location.href;
+        retry.innerHTML = "Retry";
+        container.appendChild(retry);
+        return;
+    }
+
     // redirects to login if not logged in and online
     user = await getLoggedInUser();
-
-    const container = document.getElementById("container");
 
     const loading = document.createElement('h2');
     loading.innerHTML = "Loading Bets...";
