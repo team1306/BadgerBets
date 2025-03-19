@@ -223,7 +223,7 @@ function openBetDetails(bet, container) {
 async function updateBet(bet) {
     if (isNaN(bet.amount)) bet.amount = 0;
 
-    const previousAmount = bets[bet.matchID].amount;
+    let previousAmount = bets[bet.matchID].amount;
     if (isNaN(previousAmount)) previousAmount = 0;
 
     const spend = bet.amount - previousAmount;
@@ -231,6 +231,7 @@ async function updateBet(bet) {
         alert("You can't decrease your bet");
         return;
     }
+
 
     const currentBucks = await getAttribute("678dd2fb001b17f8e112", "badgerBucks", user.$id, "BadgerBucks");
     if (currentBucks - spend < 0) {
