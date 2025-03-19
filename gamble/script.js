@@ -216,6 +216,7 @@ function openBetDetails(bet, container) {
     detailsContainer.appendChild(teamsContainer);
     detailsContainer.appendChild(teamSelect);
     detailsContainer.appendChild(amountInput);
+    detailsContainer.appendChild(bucksDisplay);
     detailsContainer.appendChild(buttonContainer);
     insertAfter(detailsContainer, container);
 }
