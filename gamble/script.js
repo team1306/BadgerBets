@@ -1,4 +1,4 @@
-import { executeFunction, getLoggedInUser, updateAppwriteDocument, getAllDocumentsInCollection, hasConnectionAppwrite } from '../AppwriteStuff.js';
+import { executeFunction, getLoggedInUser, updateAppwriteDocument, getAllDocumentsInCollection, hasConnectionAppwrite, setAttribute, getAttribute } from '../AppwriteStuff.js';
 import { calculateOdds } from '../gamble/betHandler.js';
 
 let bets = {};
@@ -143,6 +143,12 @@ function openBetDetails(bet, container) {
     if (bet.alliance === "Red") redOption.selected = true;
     else blueOption.selected = true;
 
+    const bucksDisplay = document.createElement('h3');
+    bucksDisplay.innerHTML = "Loading bucks...";
+    getAttribute("678dd2fb001b17f8e112", "badgerBucks", user.$id, "BadgerBucks").then(result => {
+        bucksDisplay.innerHTML = "Your bucks: " + result;
+    });
+
     const amountInput = document.createElement('input');
     amountInput.type = "number";
     amountInput.id = "amount-input";
@@ -217,12 +223,29 @@ function openBetDetails(bet, container) {
 async function updateBet(bet) {
     if (isNaN(bet.amount)) bet.amount = 0;
 
+    const previousAmount = bets[bet.matchID].amount;
+    if (isNaN(previousAmount)) previousAmount = 0;
+
+    const spend = bet.amount - previousAmount;
+    if (spend < 0) {
+        alert("You can't decrease your bet");
+        return;
+    }
+
+    const currentBucks = await getAttribute("678dd2fb001b17f8e112", "badgerBucks", user.$id, "BadgerBucks");
+    if (currentBucks - spend < 0) {
+        alert("You don't have enough bucks");
+        return;
+    }
+
     bets[bet.matchID][0].alliance = bet.alliance;
     bets[bet.matchID][0].amount = bet.amount;
     bets[bet.matchID][1].innerHTML = betText(bet);
 
     await updateAppwriteDocument("678dd2fb001b17f8e112", "bets", bet.matchID + "-" + user.$id, 
         { "user": user.$id, "amount": bet.amount, "matchId": bet.matchID, "redorblue": bet.alliance });
+
+    await setAttribute("678dd2fb001b17f8e112", "badgerBucks", user.$id, "BadgerBucks", currentBucks - spend);
 }
 
 async function fillBets() {
