@@ -224,6 +224,8 @@ async function updateBet(bet) {
     if (isNaN(bet.amount)) bet.amount = 0;
 
     let previousAmount = bets[bet.matchID].amount;
+    console.log(bets[bet.matchID]);
+    console.log(previousAmount);
     if (isNaN(previousAmount)) previousAmount = 0;
 
     console.log("Previous Bet: " + previousAmount);
