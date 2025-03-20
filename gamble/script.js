@@ -163,7 +163,7 @@ function openBetDetails(bet, container) {
     submitButton.id = 'submit';
     submitButton.className = 'btn';
 
-    if (getCurrentTime > bet.closeTime) {
+    if (getCurrentTime > bet.closeTime || bet.amount != 0) {
         //submitButton.id = "submit-closed";
     }
 
