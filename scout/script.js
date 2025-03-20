@@ -1,4 +1,5 @@
 import {getLoggedInUser} from '../AppwriteStuff.js';
+import { getSaveName } from '../match-data.js';
 
 const client = new Appwrite.Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -6,7 +7,6 @@ const client = new Appwrite.Client()
 //const databases = new Appwrite.Databases(client);
 
 let user = {};
-
 let auto_coral_1, auto_coral_2, auto_coral_3, auto_coral_4, auto_algae_processor, auto_algae_net, auto_leave;
 let tele_coral_1, tele_coral_2, tele_coral_3, tele_coral_4, tele_algae_processor, tele_algae_net;
 let climb_status, driver_ability;
@@ -210,7 +210,7 @@ function dumpScoutingDataToLocalStorage() {
         const teamNumber = document.getElementById('team_number').value;
         const allianceRole = document.getElementById('alliance_role').value;
 
-        const saveName = "MATCH_" + matchType + matchNumber + "-" + teamNumber + "-" + name;
+        const saveName = getSaveName(matchType+matchNumber, teamNumber, user.name, false);
 
         const dictionary = {
             "match": matchType + matchNumber,
