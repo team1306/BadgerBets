@@ -69,8 +69,7 @@ async function syncToAppwrite(collectionID) {
                 const saveName = getSaveName(match.match, match.team_number, match.name, false);
                 localStorage.setItem("ARCHIVE_" + saveName, localStorage.getItem(saveName));
                 localStorage.removeItem(saveName);
-                alert("Synced successfully");
-                return;
+                
             }
         } catch (error) {
             console.error("Error Syncing: " + error);
@@ -78,6 +77,7 @@ async function syncToAppwrite(collectionID) {
             return;
         };
     }
+    alert("Synced successfully");
 }
 
 document.getElementById('delete-archive').addEventListener('click', () => {
