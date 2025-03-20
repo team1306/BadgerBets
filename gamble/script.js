@@ -222,7 +222,7 @@ function openBetDetails(bet, container) {
 }
 
 async function updateBet(bet) {
-    if (isNaN(bet.amount)) bet.amount = 0;
+    if (isNaN(bet.amount) || bet.amount < 0) bet.amount = 0;
 
     let previousAmount = bets[bet.matchID][0].amount;
     console.log(bets[bet.matchID][0]);
