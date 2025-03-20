@@ -1,4 +1,4 @@
-import {getAttribute, executeFunction, getLoggedInUser, hasConnectionAppwrite} from '../AppwriteStuff.js';
+import {getAttribute, setAttribute, getLoggedInUser, hasConnectionAppwrite} from '../AppwriteStuff.js';
 import {getSavedMatchesByPrefix, getSaveName} from '../match-data.js';
 
 const client = new Appwrite.Client()
@@ -7,6 +7,8 @@ const client = new Appwrite.Client()
 
 //create appwrite functionalities
 const databases = new Appwrite.Databases(client);
+
+const SCOUT_REWARD = 100;
 
 document.addEventListener("DOMContentLoaded", async () => {
   const user = await getLoggedInUser();
@@ -65,11 +67,13 @@ async function syncToAppwrite(collectionID) {
 
             const document = databases.createDocument(databaseID, collectionID, "" + match.alliance_role + "-" + match.match + "-" + match.team_number + "-" + match.name, documentData)
             if (document) {
+                const currentBucks = await getAttribute("678dd2fb001b17f8e112", "badgerBucks", match.userId, "BadgerBucks");
+                await setAttribute("678dd2fb001b17f8e112", "badgerBucks", match.userId, "BadgerBucks", currentBucks + SCOUT_REWARD);
+
                 console.log("Document Created Successfully");
                 const saveName = getSaveName(match.match, match.team_number, match.name, false);
                 localStorage.setItem("ARCHIVE_" + saveName, localStorage.getItem(saveName));
                 localStorage.removeItem(saveName);
-                
             }
         } catch (error) {
             console.error("Error Syncing: " + error);

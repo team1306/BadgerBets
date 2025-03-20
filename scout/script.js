@@ -5,7 +5,7 @@ const client = new Appwrite.Client()
     .setProject('67609b010021900fc6e6');
 //const databases = new Appwrite.Databases(client);
 
-let name;
+let user = {};
 
 let auto_coral_1, auto_coral_2, auto_coral_3, auto_coral_4, auto_algae_processor, auto_algae_net, auto_leave;
 let tele_coral_1, tele_coral_2, tele_coral_3, tele_coral_4, tele_algae_processor, tele_algae_net;
@@ -103,9 +103,7 @@ function startHaptics(pattern){
 document.addEventListener('DOMContentLoaded', async () => {
 
     // redirects to login if online and not logged in
-    const user = await getLoggedInUser();
-    name = user.name;
-    console.log(name);
+    user = await getLoggedInUser();
 
     //UI
     const updateFinalScore = () => {
@@ -218,7 +216,8 @@ function dumpScoutingDataToLocalStorage() {
             "match": matchType + matchNumber,
             "team_number": teamNumber,
             "alliance_role": allianceRole,
-            "name": name,
+            "name": user.name,
+            "userId": user.$id,
             "auto_L1": parseInt(auto_coral_1.inputField.value),
             "auto_L2": parseInt(auto_coral_2.inputField.value),
             "auto_L3": parseInt(auto_coral_3.inputField.value),
