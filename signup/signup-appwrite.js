@@ -1,4 +1,5 @@
 import {login} from "../login/login-helper.js";
+import { updateAppwriteDocument } from "../AppwriteStuff.js";
 
 const client = new Appwrite.Client()
   .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite server URL
@@ -34,7 +35,9 @@ if (signupForm) {
 
     try {
       // Create a new account
-      const response = await account.create(Appwrite.ID.unique(), email, password, name);
+      const id = Appwrite.ID.unique();
+      const response = await account.create(id, email, password, name);
+      updateAppwriteDocument("678dd2fb001b17f8e112", "badgerBucks", id, {BadgerBucks: 100});
       console.log('Account created:', response);
       await login(account, email, password);
     } catch (error) {
