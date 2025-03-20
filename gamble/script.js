@@ -233,10 +233,6 @@ async function updateBet(bet) {
     console.log("New bet: " + bet.amount);
 
     const spend = bet.amount - previousAmount;
-    if (spend < 0) {
-        alert("You can't decrease your bet");
-        return;
-    }
 
     console.log(spend + " bucks should be subtracted");
 
