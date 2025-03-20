@@ -14,6 +14,8 @@ let matchSchedule = {};
 
 let user = {};
 
+const BET_FLOOR = 50;
+
 document.addEventListener('DOMContentLoaded', async () => {
     
     const container = document.getElementById("container");
@@ -223,6 +225,10 @@ function openBetDetails(bet, container) {
 
 async function updateBet(bet) {
     if (isNaN(bet.amount) || bet.amount < 0) bet.amount = 0;
+    if (bet.amount < BET_FLOOR) {
+        bet.amount = 0;
+        alert("Minimum bet is " + BET_FLOOR);
+    }
 
     let previousAmount = bets[bet.matchID][0].amount;
     console.log(bets[bet.matchID][0]);
