@@ -37,7 +37,7 @@ if (signupForm) {
       // Create a new account
       const id = Appwrite.ID.unique();
       const response = await account.create(id, email, password, name);
-      updateAppwriteDocument("678dd2fb001b17f8e112", "badgerBucks", id, {BadgerBucks: 1000});
+      updateAppwriteDocument("678dd2fb001b17f8e112", "badgerBucks", id, {BadgerBucks: 500});
       console.log('Account created:', response);
       await login(account, email, password);
     } catch (error) {
