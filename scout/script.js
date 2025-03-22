@@ -161,9 +161,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     climb_status = new OptionSelect("climb_status", updateFinalScore);
     driver_ability = document.getElementById('driverRating');
     driver_ability.addEventListener('change', () => {
-        startHaptics(20)
-        document.getElementById('displayDriverRating')
-        .innerHTML = "Driver Ability: " + driver_ability.value;
+        startHaptics(20);
+        document.getElementById('displayDriverRating').innerHTML = "Driver Ability: " + driver_ability.value;
+        console.log(`Driver Ability ${driver_ability.value}`);
     });
 
     //new switch thingynpm 
