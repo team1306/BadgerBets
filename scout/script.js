@@ -96,9 +96,14 @@ function showSectionById(sectionId) {
     }
 }
 //function for haptics
-function startHaptics(pattern){
-    navigator.vibrate(pattern)
+function startHaptics(pattern) {
+    if (navigator && typeof navigator.vibrate === 'function') {
+        navigator.vibrate(pattern);
+    } else {
+        console.warn('Vibration API is not supported on this device.');
+    }
 }
+
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -160,13 +165,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     //end ui
     climb_status = new OptionSelect("climb_status", updateFinalScore);
     driver_ability = document.getElementById('driverRating');
-    driver_ability.addEventListener('change', () => {
-        document.getElementById('displayDriverRating').innerHTML = "Driver Ability: " + driver_ability.value;
-        console.log(`Driver Ability ${driver_ability.value}`);
-        startHaptics(20);
+    driver_ability.addEventListener('input', () => {
+        startHaptics(20)
+        document.getElementById('displayDriverRating')
+        .innerHTML = "Driver Ability: " + driver_ability.value;
     });
 
-    //new switch thingynpm 
+    //new switch thingy
     const auto_button = document.getElementById('autoButton');
     const teleop_button = document.getElementById('teleopButton');
     const end_button = document.getElementById('endButton');
