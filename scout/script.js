@@ -160,13 +160,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     //end ui
     climb_status = new OptionSelect("climb_status", updateFinalScore);
     driver_ability = document.getElementById('driverRating');
-    driver_ability.addEventListener('input', () => {
+    driver_ability.addEventListener('change', () => {
         startHaptics(20)
         document.getElementById('displayDriverRating')
         .innerHTML = "Driver Ability: " + driver_ability.value;
     });
 
-    //new switch thingy
+    //new switch thingynpm 
     const auto_button = document.getElementById('autoButton');
     const teleop_button = document.getElementById('teleopButton');
     const end_button = document.getElementById('endButton');
