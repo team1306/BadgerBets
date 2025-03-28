@@ -166,7 +166,7 @@ function openBetDetails(bet, container) {
     submitButton.className = 'btn';
 
     if (getCurrentTime > bet.closeTime || bet.amount != 0) {
-        submitButton.id = "submit-closed";
+        // submitButton.id = "submit-closed";
     }
 
     // Create the inner span for the icon and text
