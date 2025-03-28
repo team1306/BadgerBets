@@ -37,7 +37,7 @@ const cacheAssets = [
     "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0",
     "https://cdn.jsdelivr.net/npm/appwrite@17.0.0"
 ];
-
+ 
 self.addEventListener('install', e => {
     console.log('Service Worker: Installed');
 
@@ -64,7 +64,7 @@ self.addEventListener('install', e => {
         })(),
     );
 });
-
+ 
 /**
  *  @Lifecycle Activate
  *  New one activated when old isnt being used.
@@ -96,3 +96,4 @@ self.addEventListener("fetch", (e) => {
         })()
     );
 });
+ 

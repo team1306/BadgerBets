@@ -1,7 +1,7 @@
 {
 "name": "BadgerBets",
 "short_name": "BadgerBets",
-"start_url": "https://team1306.github.io/BadgerBets/",
+"start_url": "https://team1306.github.io/BadgerBets/index.html",
 "display": "standalone",
 "description": "Gambling For Kids",
 "lang": "English",
@@ -27,7 +27,7 @@
 "shortcuts": [
     {
         "name":"BadgerBets",
-        "url":"https://team1306.github.io/BadgerBets/",
+        "url":"https://team1306.github.io/BadgerBets/index.html",
         "description":"Open App"
     }
 ]
