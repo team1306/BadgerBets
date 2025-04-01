@@ -120,12 +120,12 @@ function openBetDetails(bet, container) {
         teamElement.innerHTML = team + " - " + teamName + "<br>";
 
         if (i < 3) {
-            teamElement.classList.add('blue-team');
-            blueContainer.appendChild(teamElement);
-        }
-        else {
             teamElement.classList.add('red-team');
             redContainer.appendChild(teamElement);
+        }
+        else {
+            teamElement.classList.add('blue-team');
+            blueContainer.appendChild(teamElement);
         }
     }
 
