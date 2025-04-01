@@ -68,7 +68,7 @@ class OptionSelect {
 
         this.selectedOption = "none";
         // Attach event listener
-        this.optionSelect.addEventListener('click', () => this.update());
+        this.optionSelect.addEventListener('change', () => this.update());
     }
 
     update() {
