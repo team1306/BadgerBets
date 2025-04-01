@@ -96,9 +96,14 @@ function showSectionById(sectionId) {
     }
 }
 //function for haptics
-function startHaptics(pattern){
-    navigator.vibrate(pattern)
+function startHaptics(pattern) {
+    if (navigator && typeof navigator.vibrate === 'function') {
+        navigator.vibrate(pattern);
+    } else {
+        console.warn('Vibration API is not supported on this device.');
+    }
 }
+
 
 document.addEventListener('DOMContentLoaded', async () => {
 
