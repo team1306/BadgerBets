@@ -298,7 +298,7 @@ async function getMatchIds() {
     matches = matches.concat(JSON.parse(result.responseBody)[1].Schedule);
 
     console.log(matches);
-    return
+
     let matchIds = [];
     for (const match of matches) {
         const matchId = match.tournamentLevel[0] != "P" ? match.tournamentLevel[0] + match.matchNumber : match.description;
