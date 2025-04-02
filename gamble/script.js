@@ -293,7 +293,8 @@ async function getCurrentTime() {
 
 async function getMatchIds() {
     const result = await executeFunction("getMatches", Appwrite.ExecutionMethod.GET);
-    const matches = JSON.parse(result.responseBody).Schedule;
+    const matches = JSON.parse(result.responseBody[0]).Schedule;
+    matches.concat(JSON.parse(result.responseBody[1]).Schedule);
 
     let matchIds = [];
     for (const match of matches) {
