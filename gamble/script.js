@@ -281,9 +281,13 @@ async function fillBets() {
     }
 
     return Object.fromEntries(
-        Object.entries(bets).sort(([keyA], [keyB]) => 
-            parseInt(keyA.substring(1)) - parseInt(keyB.substring(1))
-        )
+        Object.entries(bets).sort(([keyA], [keyB]) => {
+            const isQA = keyA.startsWith("Q") ? 0 : 1; 
+            const isQB = keyB.startsWith("Q") ? 0 : 1;
+    
+            // Sort 'Q' entries first, then by numeric part
+            return isQA - isQB || (parseInt(keyA.substring(1)) - parseInt(keyB.substring(1)));
+        })
     );
 }
 
@@ -301,7 +305,7 @@ async function getMatchIds() {
 
     let matchIds = [];
     for (const match of matches) {
-        const matchId = match.tournamentLevel[0] != "P" ? match.tournamentLevel[0] + match.matchNumber : match.description;
+        const matchId = match.tournamentLevel[0] + match.matchNumber;
         matchIds.push(matchId);
 
         matchSchedule[matchId] = match;
