@@ -294,6 +294,7 @@ async function getCurrentTime() {
 async function getMatchIds() {
     const result = await executeFunction("getMatches", Appwrite.ExecutionMethod.GET);
     const matches = JSON.parse(result.responseBody)[0].Schedule;
+    console.log(JSON.parse(result.responseBody)[1]);
     matches.concat(JSON.parse(result.responseBody)[1].Schedule);
 
     console.log(matches);
