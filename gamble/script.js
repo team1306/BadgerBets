@@ -62,7 +62,7 @@ function betText(bet) {
     let text = bet.matchID + " - ";
     if (bet.amount === 0) text += "No bet placed";
     else text += bet.amount + " on " + bet.alliance;
-    text += bet.closeTime > getCurrentTime() ? " - Open" : " - Closed";
+    text += Date.parse(bet.closeTime) > getCurrentTime() ? " - Open" : " - Closed";
     return text;
 }
 
@@ -79,7 +79,7 @@ function openBetDetails(bet, container) {
     let period = hour >= 12 ? "PM" : "AM";
     hour = hour % 12 || 12; // Convert to 12-hour format, handling midnight as 12
     niceTime = niceTime.substring(0, 6) + hour + niceTime.substring(8) + " " + period;
-    closeTime.innerHTML = (bet.closeTime > getCurrentTime ? "Bet closes at " : "Bet closed at ") + niceTime;
+    closeTime.innerHTML = (Date.parse(bet.closeTime) > getCurrentTime() ? "Bet closes at " : "Bet closed at ") + niceTime;
     closeTime.style = "color: black";
     detailsContainer.appendChild(closeTime);
 
@@ -165,7 +165,7 @@ function openBetDetails(bet, container) {
     submitButton.id = 'submit';
     submitButton.className = 'btn';
 
-    if (getCurrentTime > bet.closeTime || bet.amount != 0) {
+    if (getCurrentTime() > Date.parse(bet.closeTime) || bet.amount != 0) {
         submitButton.id = "submit-closed"; //TODO: UNCOMMENT THIS LINE FOR PRODUCTION
     }
 
@@ -291,7 +291,7 @@ async function fillBets() {
     );
 }
 
-async function getCurrentTime() {
+function getCurrentTime() {
     return Date.now();
 }
 
